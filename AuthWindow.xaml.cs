@@ -162,5 +162,17 @@ namespace SoBesedkaApp
         {
             LoginTextBox.Focus();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult res = MessageBox.Show("Вы действительно хотите выйти?",
+                                 "Выход",
+                                 MessageBoxButton.YesNo,
+                                 MessageBoxImage.Question);
+            if (res != MessageBoxResult.Yes)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
