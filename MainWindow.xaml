@@ -7,30 +7,50 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="СоБеседка" Height="476.425" Width="800">
+        Title="СоБеседка" Height="508.425" Width="640">
     <Window.Resources>
         <local:DataSamples x:Key="DataSamples" />
+
     </Window.Resources>
     <Grid>
-        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="237" Margin="15,107,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding Source={StaticResource DataSamples}, Path=Events}" SelectedIndex="0" />
-        <ListBox HorizontalAlignment="Left" Height="320" Margin="592,96,0,0" VerticalAlignment="Top" Width="190" DataContext="{Binding SelectedItem, ElementName=ListBox1}" ItemsSource="{Binding Path=Members}" />
-        <Label DataContext="{Binding SelectedItem, ElementName=ListBox1}" Content="Участники" HorizontalAlignment="Left" Height="25" Margin="649,59,0,0" VerticalAlignment="Top" Width="82"/>
-        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="15,53,0,0" VerticalAlignment="Top" Width="200" SelectedDate="{x:Static system:DateTime.Now}"/>
-        <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,82,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click_1"/>
-        <Button Content="&gt;" HorizontalAlignment="Left" Margin="120,82,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click"/>
-        <Button Content="Добавить" HorizontalAlignment="Left" Margin="15,349,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_2"/>
-        <Button Content="Редактировать" HorizontalAlignment="Left" Margin="15,373,0,0" VerticalAlignment="Top" Width="200" IsEnabled="false" />
-        <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="792">
+        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="300" Margin="15,29,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding Source={StaticResource DataSamples}, Path=rooms}" SelectedIndex="0" />
+        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="315,29,0,0" VerticalAlignment="Top" Width="212" BorderThickness="0" Background="#FFDDDDDD" SelectedDate="{x:Static system:DateTime.Now}" Height="24">
+            <DatePicker.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+                    <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                    <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                    <GradientStop Color="#FF718597" Offset="0.375"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="1"/>
+                </LinearGradientBrush>
+            </DatePicker.BorderBrush>
+        </DatePicker>
+        <Button Content="&lt;" HorizontalAlignment="Left" Margin="220,29,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click_1" Height="24" BorderThickness="0"/>
+        <Button Content="&gt;" HorizontalAlignment="Left" Margin="527,29,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click" Height="24" BorderThickness="0"/>
+        <Button Content="Добавить" HorizontalAlignment="Left" Margin="15,334,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click_2" Height="41"/>
+        <Button Content="Редактировать" HorizontalAlignment="Left" Margin="15,380,0,0" VerticalAlignment="Top" Width="200" IsEnabled="false" Height="41" />
+        <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="792" Margin="0,0,-160,0">
             <MenuItem Height="24" Header="Мероприятия" />
             <MenuItem Height="24" Header="Участники" />
             <MenuItem Height="24" Header="О программе" />
         </Menu>
-        <Grid HorizontalAlignment="Left" Height="363" Margin="220,53,0,0" VerticalAlignment="Top" Width="367">
-            <Label DataContext="{Binding SelectedItem, ElementName=ListBox1}" Content="{Binding Title}" HorizontalAlignment="Center" Height="42" Margin="111,0,101,321" VerticalAlignment="Bottom" Width="155" FontSize="16" FontWeight="Bold"/>
-            <Label Padding="0px" DataContext="{Binding SelectedItem, ElementName=ListBox1}" Content="{Binding Topic}" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top" Width="347" Height="31"/>
-            <TextBlock HorizontalAlignment="Left" Height="103" Margin="10,93,0,0" TextWrapping="Wrap" DataContext="{Binding SelectedItem, ElementName=ListBox1}" Text="{Binding Desc}" VerticalAlignment="Top" Width="347"/>
-        </Grid>
-        <Button Content="Удалить" HorizontalAlignment="Left" Margin="15,397,0,0" VerticalAlignment="Top" Width="200" IsEnabled="false"/>
+        <Button Content="Удалить" HorizontalAlignment="Left" Margin="15,426,0,0" VerticalAlignment="Top" Width="200" IsEnabled="false" Height="41"/>
 
+        <ItemsControl x:Name="tStack" Grid.Column="0" ItemsSource="{Binding ElementName=ListBox1, Path=SelectedItem.Events}" Margin="220,58,0,0" HorizontalAlignment="Left" Width="402">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding }" Margin="0,5,0,5" Height="75" Padding="5,25,5,25" Background="LightSteelBlue" BorderThickness="0"/>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=Title}" Value="">
+                            <Setter TargetName="btn" Property="Background" Value="White" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>

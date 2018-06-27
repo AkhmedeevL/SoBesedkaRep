@@ -9,8 +9,8 @@ namespace SoBesedkaApp
 {
     public class DataSamples
     {
-        public List<Event> Events { get; set; }
-
+        
+        public List<Room> rooms { get; set; }
         public DataSamples()
         {
 
@@ -21,8 +21,12 @@ namespace SoBesedkaApp
                 new Member("Сидр Сидоров"),
                 new Member("Вася Васильев")
             };
-            Events = new List<Event>();
-
+            rooms = new List<Room>
+            {
+                new Room("Переговорка 1"),
+                new Room("Переговорка 2"),
+            };
+            
             var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.MaxValue);
             event1.AddMember(members[0]);
             event1.AddMember(members[1]);
@@ -34,10 +38,27 @@ namespace SoBesedkaApp
             event3.AddMember(members[3]);
             event3.AddMember(members[2]);
             event3.AddMember(members[0]);
-            Events.Add(event1);
-            Events.Add(event2);
-            Events.Add(event3);
+            rooms[0].Events.Add(event1);
+            rooms[0].Events.Add(new Event("", "", "", DateTime.Now, DateTime.Now));
+            rooms[0].Events.Add(event2);
+            rooms[0].Events.Add(new Event("", "", "", DateTime.Now, DateTime.Now));
+            rooms[1].Events.Add(event3);
 
+        }
+    }
+
+    public class Room
+    {
+        public List<Event> Events { get; set; }
+        public string Name { get; private set; }
+        public Room(string name)
+        {
+            Name = name;
+            Events = new List<Event>();
+        }
+        public override string ToString()
+        {
+            return Name;
         }
     }
 
@@ -73,7 +94,7 @@ namespace SoBesedkaApp
 
         public override string ToString()
         {
-            return Title;
+            return $"{Title}      {TimeStart.ToShortTimeString()}-{TimeEnd.ToShortTimeString()}";
         }
     }
 
