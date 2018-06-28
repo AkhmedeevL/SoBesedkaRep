@@ -7,10 +7,9 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="СоБеседка" Height="519.425" Width="640">
+        Title="СоБеседка" Height="519.425" Width="640" Closing="Window_Closing">
     <Window.Resources>
         <local:DataSamples x:Key="DataSamples" />
-
     </Window.Resources>
     <Grid>
         <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="311" Margin="15,29,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding Source={StaticResource DataSamples}, Path=rooms}" SelectedIndex="0" />
