@@ -14,20 +14,17 @@ namespace SoBesedkaApp
 {
     public class DataSamples
     {
-        public IUserService user;
-        public List<Room> rooms { get; set; }
-        public List<UserViewModel> members { get; set; }
+        public IUserService Uservice;
+        public IRoomService Rservice;
+        public List<RoomViewModel> rooms { get; set; }
+        public List<UserViewModel> users { get; set; }
         public DataSamples()
         {
-            user = new UserService(new SoBesedkaDBContext());
-            members = new List<UserViewModel>(user.GetList());
+            Uservice = new UserService(new SoBesedkaDBContext());
+            Rservice = new RoomService(new SoBesedkaDBContext());
+            users = new List<UserViewModel>(Uservice.GetList());
+            rooms = new List<RoomViewModel>(Rservice.GetList());
             
-
-            rooms = new List<Room>
-            {
-                new Room("Переговорка 1"),
-                new Room("Переговорка 2"),
-            };
             
             //var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.Now + TimeSpan.FromHours(1));
             //event1.AddMember(members[0]);
@@ -49,20 +46,20 @@ namespace SoBesedkaApp
         }
     }
 
-    public class Room
-    {
-        public List<Event> Events { get; set; }
-        public string Name { get; private set; }
-        public Room(string name)
-        {
-            Name = name;
-            Events = new List<Event>();
-        }
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
+    //public class Room
+    //{
+    //    public List<Event> Events { get; set; }
+    //    public string Name { get; private set; }
+    //    public Room(string name)
+    //    {
+    //        Name = name;
+    //        Events = new List<Event>();
+    //    }
+    //    public override string ToString()
+    //    {
+    //        return Name;
+    //    }
+    //}
 
     public class Event
     {

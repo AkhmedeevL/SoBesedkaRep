@@ -62,5 +62,11 @@ namespace SoBesedkaApp
             var wnd = new UsersWindow();
             wnd.Show();
         }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            var wnd = new RoomsWindow();
+            wnd.Show();
+        }
     }
 }
