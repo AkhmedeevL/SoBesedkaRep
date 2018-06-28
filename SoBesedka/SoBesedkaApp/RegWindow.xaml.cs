@@ -1,8 +1,4 @@
-﻿using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
-using SoBesedkaDB.Interfaces;
-using SoBesedkaModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Sql;
 using System.Linq;
@@ -20,44 +16,27 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-
 namespace SoBesedkaApp
 {
     /// <summary>
     /// Логика взаимодействия для RegWindow.xaml
     /// </summary>
-    /// 
     public partial class RegWindow : Window
     {
-
-        public IUserService Uservice;
-
         public RegWindow()
         {
-            Uservice = new UserService(new SoBesedkaDBContext());
             InitializeComponent();
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PasswordTextBox.Password == SecondPasswordTextBox.Password)
-                Uservice.AddElement(new User
-                {
-                    UserFIO = FIOTextBox.Text,
-                    UserMail = EmailTextBox.Text,
-                    UserLogin = LoginTextBox.Text,
-                    UserPassword = PasswordTextBox.Password,
-                    isAdmin = false
-                });
-            Close();
-            var aut = new AuthWindow();
-            aut.Show();
+
         }
 
         private void FIOTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            var sndr = (TextBox)sender;
-
+            var sndr = (TextBox) sender;
+            
             Label label = new Label
             {
                 Content = sndr.Text,
@@ -83,7 +62,7 @@ namespace SoBesedkaApp
 
         private void FIOTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            var sndr = (TextBox)sender;
+            var sndr = (TextBox) sender;
             var label = (Label)sndr.Tag;
 
             var a = new ThicknessAnimation

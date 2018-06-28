@@ -1,7 +1,4 @@
-﻿using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
-using SoBesedkaDB.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,11 +21,8 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class AuthWindow : Window
     {
-        public IUserService Uservice;
-
         public AuthWindow()
         {
-            Uservice = new UserService(new SoBesedkaDBContext());
             InitializeComponent();
             LoginLabel_MouseDown(LoginLabel, null);
         }
@@ -36,16 +30,10 @@ namespace SoBesedkaApp
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
             //открываем главное окно по кнопке входа
-            if (Uservice.SignIn(LoginTextBox.Text, PasswordTextBox.Password))
-            {
-                MainWindow mainwindow = new MainWindow();
-                mainwindow.Show();
-                Closing -= Window_Closing;
-                Close();
-            }
-            else {
-                MessageBox.Show("Неверный логин или пароль");
-            }
+            MainWindow mainwindow = new MainWindow();
+            mainwindow.Show();
+            Closing -= Window_Closing;
+            Close();
         }
 
         private void RegLabel_Click(object sender, MouseButtonEventArgs e)

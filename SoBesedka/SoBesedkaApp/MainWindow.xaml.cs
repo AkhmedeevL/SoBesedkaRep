@@ -21,20 +21,32 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        DataSamples Data;
+        
         public MainWindow()
         {
+            
             InitializeComponent();
+            Data = new DataSamples();
+            DataContext = Data;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DatePicker.SelectedDate += TimeSpan.FromDays(1);
+            for(int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] += TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            DatePicker.SelectedDate -= TimeSpan.FromDays(1);
+            for (int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] -= TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -59,8 +71,7 @@ namespace SoBesedkaApp
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var wnd = new UsersWindow();
-            wnd.Show();
+
         }
     }
 }

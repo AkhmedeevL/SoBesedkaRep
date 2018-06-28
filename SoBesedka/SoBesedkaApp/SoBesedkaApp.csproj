@@ -55,11 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DateConverter.cs" />
     <Compile Include="RegWindow.xaml.cs">
       <DependentUpon>RegWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UsersWindow.xaml.cs">
-      <DependentUpon>UsersWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AuthWindow.xaml">
       <SubType>Designer</SubType>
@@ -89,10 +87,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="RegWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UsersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,16 +121,6 @@
     <Resource Include="Resources\authlogo220x50.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SoBesedkaDB\SoBesedkaDB.csproj">
-      <Project>{523C8B1C-87DC-4EB2-A73C-9E0A8BDA6D71}</Project>
-      <Name>SoBesedkaDB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SoBesedkaModels\SoBesedkaModels.csproj">
-      <Project>{112E6467-F5D5-48EB-BD59-24D6F5A8FDAE}</Project>
-      <Name>SoBesedkaModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
