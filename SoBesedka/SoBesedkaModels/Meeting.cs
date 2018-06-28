@@ -29,7 +29,6 @@ namespace SoBesedkaModels
         [Required]
         public string RoomId { get; set; }
 
-        public virtual Room Room { get; set; }
         [ForeignKey("MeetingId")]
         public virtual List<UserMeeting> UserMeetings { get; set; }
     }
