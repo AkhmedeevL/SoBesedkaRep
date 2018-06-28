@@ -29,10 +29,10 @@ namespace SoBesedkaApp
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-            
             //открываем главное окно по кнопке входа
             MainWindow mainwindow = new MainWindow();
             mainwindow.Show();
+            Closing -= Window_Closing;
             Close();
         }
 
