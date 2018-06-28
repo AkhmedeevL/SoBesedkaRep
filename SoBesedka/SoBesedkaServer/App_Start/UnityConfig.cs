@@ -4,6 +4,7 @@ using System.Data.Entity;
 using Unity.Lifetime;
 using SoBesedkaDB;
 using SoBesedkaDB.Interfaces;
+using SoBesedkaDB.Implementations;
 
 namespace SoBesedkaRestAPI
 {
@@ -47,9 +48,9 @@ namespace SoBesedkaRestAPI
             // container.RegisterType<IProductRepository, ProductRepository>();
 
             container.RegisterType<DbContext, SoBesedkaDBContext>(new HierarchicalLifetimeManager());
-            //container.RegisterType<IUserService, UserServiceBD>(new HierarchicalLifetimeManager());
-            //container.RegisterType<IRoomService, RoomServiceBD>(new HierarchicalLifetimeManager());
-            //container.RegisterType<IMeetingService, MeetingServiceBD>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserService, UserService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRoomService, RoomService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IMeetingService, MeetingService>(new HierarchicalLifetimeManager());
         }
     }
 }

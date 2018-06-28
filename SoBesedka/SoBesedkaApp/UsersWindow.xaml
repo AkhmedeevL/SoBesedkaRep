@@ -1,0 +1,25 @@
+﻿<Window x:Class="SoBesedkaApp.UsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoBesedkaApp"
+        mc:Ignorable="d"
+        Title="UsersWindow" Height="514" Width="424">
+    <Window.Resources>
+        <local:DataSamples x:Key="DataSamples" />
+    </Window.Resources>
+    <Grid Margin="0,0,3,0">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="-0.524"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Height="464" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" ItemsSource="{Binding members, Source={StaticResource DataSamples}}"/>
+        <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="65" Margin="238,14,0,0" VerticalAlignment="Top" Width="165" Click="AdminButton_Click"/>
+
+    </Grid>
+</Window>

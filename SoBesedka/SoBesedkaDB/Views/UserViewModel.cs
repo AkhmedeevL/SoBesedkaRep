@@ -16,8 +16,14 @@ namespace SoBesedkaDB.Views
         public string UserMail { get; set; }
 
         public string UserLogin { get; set; }
+
         public string UserPassword { get; set; }
 
         public bool isAdmin { get; set; }
+
+        public override string ToString()
+        {
+            return UserFIO;
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SoBesedkaDB.Implementations
 {
-    public class RoomService
+    public class RoomService : IRoomService
     {
         private SoBesedkaDBContext context;
 
@@ -17,18 +17,18 @@ namespace SoBesedkaDB.Implementations
         {
             this.context = context;
         }
-        List<RoomViewModel> GetList()
+        public List<RoomViewModel> GetList()
         {
             List<RoomViewModel> result = context.Rooms.Select(rec => new RoomViewModel
             {
                 Id = rec.Id,
                 RoomName = rec.RoomName
             })
-    .ToList();
+            .ToList();
             return result;
         }
 
-        RoomViewModel GetElement(int id)
+        public RoomViewModel GetElement(int id)
         {
             Room element = context.Rooms.FirstOrDefault(rec => rec.Id == id);
             if (element != null)
@@ -43,7 +43,7 @@ namespace SoBesedkaDB.Implementations
             throw new Exception("Помещение не найдено");
         }
 
-        void AddElement(Room model)
+        public void AddElement(Room model)
         {
             Room element = context.Rooms.FirstOrDefault(rec => rec.RoomName == model.RoomName);
             if (element != null)
@@ -59,7 +59,7 @@ namespace SoBesedkaDB.Implementations
             context.SaveChanges();
         }
 
-        void UpdElement(Room model)
+        public void UpdElement(Room model)
         {
             Room element = context.Rooms.FirstOrDefault(rec =>
                         rec.RoomName == model.RoomName && rec.Id != model.Id);
@@ -77,7 +77,7 @@ namespace SoBesedkaDB.Implementations
             context.SaveChanges();
         }
 
-        void DelElement(int id)
+        public void DelElement(int id)
         {
             Room element = context.Rooms.FirstOrDefault(rec => rec.Id == id);
             if (element != null)
