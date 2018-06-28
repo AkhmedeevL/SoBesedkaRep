@@ -9,7 +9,7 @@ namespace SoBesedkaDB
 {
     public class SoBesedkaDBContext : DbContext
     {
-        public SoBesedkaDBContext() : base("SoBesedkaDBTable")
+        public SoBesedkaDBContext() : base("name=SoBesedkaDBContext")
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;

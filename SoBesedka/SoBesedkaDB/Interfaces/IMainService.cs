@@ -6,7 +6,7 @@ namespace SoBesedkaDB.Interfaces
 {
     public interface IMainService
     {
-
+        
     }
 }
 

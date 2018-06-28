@@ -29,7 +29,7 @@
         <Button Content="Редактировать" HorizontalAlignment="Left" Margin="15,391,0,0" VerticalAlignment="Top" Width="200" IsEnabled="false" Height="41" />
         <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="632">
             <MenuItem Height="24" Header="Мероприятия" />
-            <MenuItem Height="24" Header="Участники" />
+            <MenuItem Height="24" Header="Участники" Click="MenuItem_Click" />
             <MenuItem Height="24" Header="О программе" />
         </Menu>
         <Button Content="Удалить" HorizontalAlignment="Left" Margin="15,437,0,0" VerticalAlignment="Top" Width="200" IsEnabled="false" Height="41"/>
