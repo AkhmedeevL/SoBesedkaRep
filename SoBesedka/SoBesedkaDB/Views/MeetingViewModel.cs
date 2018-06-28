@@ -20,7 +20,7 @@ namespace SoBesedkaDB.Views
         public string MeetingTheme { get; set; }
 
         
-        public string CreatorId { get; set; }
+        public int CreatorId { get; set; }
 
         
         public string StartTime { get; set; }
@@ -29,6 +29,6 @@ namespace SoBesedkaDB.Views
         public string EndTime { get; set; }
 
         
-        public string RoomId { get; set; }
+        public int RoomId { get; set; }
     }
 }

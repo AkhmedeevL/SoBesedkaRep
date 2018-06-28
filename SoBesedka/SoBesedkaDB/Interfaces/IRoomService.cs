@@ -1,5 +1,6 @@
 ﻿
 using SoBesedkaDB;
+using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace SoBesedkaDB.Interfaces
 {
     public interface IRoomService
     {
-        List<Room> GetList();
+        List<RoomViewModel> GetList();
 
         RoomViewModel GetElement(int id);
 

@@ -18,7 +18,7 @@ namespace SoBesedkaModels
         public string MeetingTheme { get; set; }
 
         [Required]
-        public string CreatorId { get; set; }
+        public int CreatorId { get; set; }
 
         [Required]
         public string StartTime { get; set; }
@@ -27,7 +27,7 @@ namespace SoBesedkaModels
         public string EndTime { get; set; }
 
         [Required]
-        public string RoomId { get; set; }
+        public int RoomId { get; set; }
 
         [ForeignKey("MeetingId")]
         public virtual List<UserMeeting> UserMeetings { get; set; }

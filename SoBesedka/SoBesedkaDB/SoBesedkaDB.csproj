@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\MeetingService.cs" />
+    <Compile Include="Implementations\RoomService.cs" />
+    <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
     <Compile Include="Interfaces\IMeetingService.cs" />
     <Compile Include="Interfaces\IRoomService.cs" />
@@ -68,8 +71,6 @@
       <Name>SoBesedkaModels</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implementations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
