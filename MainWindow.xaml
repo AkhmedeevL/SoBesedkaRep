@@ -13,9 +13,9 @@
         <local:DateConverter x:Key="weekConverter"/>
     </Window.Resources>
     <Grid>
-        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="282" Margin="15,58,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Source={StaticResource DataSamples}, Path=Rooms}" SelectedIndex="0" />
-        <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,29,0,0" VerticalAlignment="Top" Width="26" Click="Button_Click_1" Height="26" BorderThickness="1"/>
-        <Button Content="&gt;" HorizontalAlignment="Left" Margin="125,29,0,0" VerticalAlignment="Top" Width="24" Click="Button_Click" Height="24" BorderThickness="1"/>
+        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="311" Margin="15,29,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Source={StaticResource DataSamples}, Path=Rooms}" SelectedIndex="0" />
+        <Button Content="&lt;" HorizontalAlignment="Left" Margin="154,28,0,0" VerticalAlignment="Top" Width="26" Click="Button_Click_1" Height="26" BorderThickness="1"/>
+        <Button Content="&gt;" HorizontalAlignment="Left" Margin="795,30,0,0" VerticalAlignment="Top" Width="24" Click="Button_Click" Height="24" BorderThickness="1"/>
         <Button Content="Добавить" HorizontalAlignment="Left" Margin="15,345,0,0" VerticalAlignment="Top" Width="134" Click="Button_Click_2" Height="41"/>
         <Button Content="Редактировать" HorizontalAlignment="Left" Margin="15,391,0,0" VerticalAlignment="Top" Width="134" IsEnabled="false" Height="41" />
         <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="829">
@@ -42,7 +42,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Label Name="monday" Content="{Binding Path=CurrentWeek, Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="154,29,0,0" VerticalAlignment="Top" Width="95" Height="24"/>
+
         <ItemsControl x:Name="tuesdayEvents" Grid.Column="0" ItemsSource="{Binding SelectedItem.Week[1], ElementName=ListBox1}" Margin="249,58,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -145,11 +145,12 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Label x:Name="tuesday" Content="{Binding CurrentWeek, Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="249,29,0,0" VerticalAlignment="Top" Width="95" Height="24"/>
-        <Label x:Name="wednesday" Content="{Binding CurrentWeek, Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="344,29,0,0" VerticalAlignment="Top" Width="95" Height="24"/>
-        <Label x:Name="thursday" Content="{Binding CurrentWeek, Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="439,29,0,0" VerticalAlignment="Top" Width="95" Height="24"/>
-        <Label x:Name="friday" Content="{Binding CurrentWeek, Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="534,29,0,0" VerticalAlignment="Top" Width="95" Height="24"/>
-        <Label x:Name="saturday" Content="{Binding CurrentWeek, Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="629,29,0,0" VerticalAlignment="Top" Width="95" Height="24"/>
-        <Label x:Name="sunday" Content="{Binding CurrentWeek, Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="724,29,0,0" VerticalAlignment="Top" Width="95" Height="24"/>
+        <Label Name="monday" Content="{Binding Path=CurrentWeek[0], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="181,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
+        <Label x:Name="tuesday" Content="{Binding CurrentWeek[1], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="276,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
+        <Label x:Name="wednesday" Content="{Binding CurrentWeek[2], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="371,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
+        <Label x:Name="thursday" Content="{Binding CurrentWeek[3], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="467,29,0,0" VerticalAlignment="Top" Width="67" Height="24"/>
+        <Label x:Name="friday" Content="{Binding CurrentWeek[4], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="561,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
+        <Label x:Name="saturday" Content="{Binding CurrentWeek[5], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="654,30,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
+        <Label x:Name="sunday" Content="{Binding CurrentWeek[6], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="727,30,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
     </Grid>
 </Window>

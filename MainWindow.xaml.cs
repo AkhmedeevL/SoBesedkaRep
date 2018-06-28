@@ -33,12 +33,20 @@ namespace SoBesedkaApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Data.CurrentWeek += TimeSpan.FromDays(7);
+            for(int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] += TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Data.CurrentWeek -= TimeSpan.FromDays(7);
+            for (int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] -= TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

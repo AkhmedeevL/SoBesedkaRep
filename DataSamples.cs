@@ -10,8 +10,8 @@ namespace SoBesedkaApp
 {
     public class DataSamples : INotifyPropertyChanged
     {
-        private DateTime currentWeek;
-        public DateTime CurrentWeek
+        private DateTime[] currentWeek;
+        public DateTime[] CurrentWeek
         {
             get { return currentWeek; }
             set
@@ -29,7 +29,11 @@ namespace SoBesedkaApp
         }
         public DataSamples()
         {
-            CurrentWeek = DateTime.Now;
+            CurrentWeek = new DateTime[7];
+            for (int i = 0; i < 7; i++)
+            {
+                CurrentWeek[i] = DateTime.Now + TimeSpan.FromDays(i);
+            }
 
             var members = new List<Member>()
             {
