@@ -8,7 +8,7 @@ namespace SoBesedkaDB.Interfaces
 {
     public interface IRoomService
     {
-        List<Room> GetList();
+        List<RoomViewModel> GetList();
 
         RoomViewModel GetElement(int id);
 

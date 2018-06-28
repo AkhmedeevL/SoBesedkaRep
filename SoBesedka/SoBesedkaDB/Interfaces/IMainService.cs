@@ -1,4 +1,4 @@
-﻿using SoBesedkaDB;
+﻿using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System.Collections.Generic;
 

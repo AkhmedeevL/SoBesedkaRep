@@ -1,5 +1,4 @@
 ﻿
-using SoBesedkaDB;
 using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace SoBesedkaDB.Interfaces
 {
     public interface IUserService
     {
-        List<User> GetList();
+        List<UserViewModel> GetList();
 
         UserViewModel GetElement(int id);
 
