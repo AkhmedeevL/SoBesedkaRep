@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoBesedkaModels", "SoBesedk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoBesedkaDB", "SoBesedkaDB\SoBesedkaDB.csproj", "{523C8B1C-87DC-4EB2-A73C-9E0A8BDA6D71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoBesedkaRestAPI", "SoBesedkaServer\SoBesedkaRestAPI.csproj", "{EA886592-B54C-4ABE-8CE4-15DF8FE12E3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{523C8B1C-87DC-4EB2-A73C-9E0A8BDA6D71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{523C8B1C-87DC-4EB2-A73C-9E0A8BDA6D71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{523C8B1C-87DC-4EB2-A73C-9E0A8BDA6D71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA886592-B54C-4ABE-8CE4-15DF8FE12E3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA886592-B54C-4ABE-8CE4-15DF8FE12E3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA886592-B54C-4ABE-8CE4-15DF8FE12E3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA886592-B54C-4ABE-8CE4-15DF8FE12E3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

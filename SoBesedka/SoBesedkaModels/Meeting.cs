@@ -31,5 +31,7 @@ namespace SoBesedkaModels
 
         [ForeignKey("MeetingId")]
         public virtual List<UserMeeting> UserMeetings { get; set; }
+
+        public virtual List<DayOfWeek> RepeatingDays { get; set; }
     }
 }
