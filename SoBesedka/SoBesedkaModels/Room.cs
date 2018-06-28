@@ -15,6 +15,11 @@ namespace SoBesedkaModels
         [Required]
         public string RoomName { get; set; }
 
+        [Required]
+        public string RoomAdress { get; set; }
+
+        public string Description { get; set; }
+
         [ForeignKey("RoomId")]
         public virtual List<Meeting> Meetings { get; set; }
     }
