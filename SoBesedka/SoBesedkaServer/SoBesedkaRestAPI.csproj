@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CarFactoryApiRest</RootNamespace>
-    <AssemblyName>CarFactoryApiRest</AssemblyName>
+    <RootNamespace>SoBesedkaRestAPI</RootNamespace>
+    <AssemblyName>SoBesedkaRestAPI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -31,7 +31,7 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -144,9 +144,17 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CarFactoryService\CarFactoryService.csproj">
-      <Project>{2BC53217-7680-45D4-970E-944996E6AB2E}</Project>
-      <Name>CarFactoryServise</Name>
+    <ProjectReference Include="..\SoBesedkaApp\SoBesedkaApp.csproj">
+      <Project>{b238f772-e0b8-41cd-bd5e-03d4caafc57f}</Project>
+      <Name>SoBesedkaApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SoBesedkaDB\SoBesedkaDB.csproj">
+      <Project>{523C8B1C-87DC-4EB2-A73C-9E0A8BDA6D71}</Project>
+      <Name>SoBesedkaDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SoBesedkaModels\SoBesedkaModels.csproj">
+      <Project>{112e6467-f5d5-48eb-bd59-24d6f5a8fdae}</Project>
+      <Name>SoBesedkaModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
