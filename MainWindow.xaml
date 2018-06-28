@@ -13,7 +13,7 @@
         <local:DateConverter x:Key="weekConverter"/>
     </Window.Resources>
     <Grid>
-        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="282" Margin="15,58,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Source={StaticResource DataSamples}, Path=rooms}" SelectedIndex="0" />
+        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="282" Margin="15,58,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Source={StaticResource DataSamples}, Path=Rooms}" SelectedIndex="0" />
         <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,29,0,0" VerticalAlignment="Top" Width="26" Click="Button_Click_1" Height="26" BorderThickness="1"/>
         <Button Content="&gt;" HorizontalAlignment="Left" Margin="125,29,0,0" VerticalAlignment="Top" Width="24" Click="Button_Click" Height="24" BorderThickness="1"/>
         <Button Content="Добавить" HorizontalAlignment="Left" Margin="15,345,0,0" VerticalAlignment="Top" Width="134" Click="Button_Click_2" Height="41"/>

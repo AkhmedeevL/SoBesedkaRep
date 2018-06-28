@@ -20,7 +20,13 @@ namespace SoBesedkaApp
                 RaisePropertyChanged("CurrentWeek");
             }
         }
-        public List<Room> rooms { get; set; }
+        public List<Room> rooms;
+        public List<Room> Rooms { get => rooms; set
+            {
+                rooms = value;
+                RaisePropertyChanged("Rooms");
+            }
+        }
         public DataSamples()
         {
             CurrentWeek = DateTime.Now;
