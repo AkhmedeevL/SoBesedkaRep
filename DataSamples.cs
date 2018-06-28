@@ -27,21 +27,21 @@ namespace SoBesedkaApp
                 new Room("Переговорка 2"),
             };
             
-            var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.MaxValue);
+            var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.Now + TimeSpan.FromHours(1));
             event1.AddMember(members[0]);
             event1.AddMember(members[1]);
-            var event2 = new Event("Собрание", "Тема собрания", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.MaxValue);
+            var event2 = new Event("Собрание", "Тема собрания", "Описание описание описание описание описание описание описание описание", DateTime.Now + TimeSpan.FromHours(1.25), DateTime.Now + TimeSpan.FromHours(3));
             event2.AddMember(members[0]);
             event2.AddMember(members[1]);
             event2.AddMember(members[2]);
-            var event3 = new Event("Митинг", "Тема митинга", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.MaxValue);
+            var event3 = new Event("Митинг", "Тема митинга", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.Now + TimeSpan.FromHours(8));
             event3.AddMember(members[3]);
             event3.AddMember(members[2]);
             event3.AddMember(members[0]);
             rooms[0].Events.Add(event1);
-            rooms[0].Events.Add(new Event("", "", "", DateTime.Now, DateTime.Now));
+            rooms[0].Events.Add(new Event("", "", "", DateTime.Now + TimeSpan.FromHours(1), DateTime.Now + TimeSpan.FromHours(1.25)));
             rooms[0].Events.Add(event2);
-            rooms[0].Events.Add(new Event("", "", "", DateTime.Now, DateTime.Now));
+            rooms[0].Events.Add(new Event("", "", "", DateTime.Now + TimeSpan.FromHours(3), DateTime.Now + TimeSpan.FromHours(6)));
             rooms[1].Events.Add(event3);
 
         }
@@ -64,28 +64,25 @@ namespace SoBesedkaApp
 
     public class Event
     {
-        private string _title;
-        private string _topic;
-        private string _desc;
-        private DateTime _timeStart;
-        private DateTime _timeEnd;
         public List<Member> Members { get; }
 
         public Event(string title, string topic, string desc, DateTime timeStart, DateTime timeEnd)
         {
-            _title = title;
-            _topic = topic;
-            _desc = desc;
-            _timeStart = timeStart;
-            _timeEnd = timeEnd;
+            Title = title;
+            Topic = topic;
+            Desc = desc;
+            TimeStart = timeStart;
+            TimeEnd = timeEnd;
+            Height = (int)Math.Sqrt((timeEnd - timeStart).TotalMinutes * 80);
             Members = new List<Member>();
         }
 
-        public string Desc { get => _desc; set => _desc = value; }
-        public string Topic { get => _topic; set => _topic = value; }
-        public string Title { get => _title; set => _title = value; }
-        public DateTime TimeStart { get => _timeStart; set => _timeStart = value; }
-        public DateTime TimeEnd { get => _timeEnd; set => _timeEnd = value; }
+        public string Desc { get; set; }
+        public string Topic { get; set; }
+        public string Title { get; set; }
+        public DateTime TimeStart { get; set; }
+        public DateTime TimeEnd { get; set; }
+        public int Height { get; set; }
 
         public void AddMember(Member member)
         {
