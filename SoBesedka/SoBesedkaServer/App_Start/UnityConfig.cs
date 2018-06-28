@@ -1,12 +1,10 @@
 using System;
-using CarFactoryService;
-using CarFactoryService.Interfaces;
-using CarFactoryService.WorkDB;
 using Unity;
 using System.Data.Entity;
 using Unity.Lifetime;
+using SoBesedkaDB;
 
-namespace CarFactoryApiRest
+namespace SoBesedkaRestAPI
 {
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -47,14 +45,7 @@ namespace CarFactoryApiRest
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<DbContext, CarFactoryDbContext>(new HierarchicalLifetimeManager());
-            container.RegisterType<IConsumer, ConsumerServiceDB>(new HierarchicalLifetimeManager());
-            container.RegisterType<IIngridient, IngridientServiceDB>(new HierarchicalLifetimeManager());
-            container.RegisterType<IWorker, WorkerServiceDB>(new HierarchicalLifetimeManager());
-            container.RegisterType<ICommodity, CommodityServiceDB>(new HierarchicalLifetimeManager());
-            container.RegisterType<IStorage, StorageServiceDB>(new HierarchicalLifetimeManager());
-            container.RegisterType<IMain, MainServiceDB>(new HierarchicalLifetimeManager());
-            container.RegisterType<IReportService, ReportServiceDB>(new HierarchicalLifetimeManager());
+            container.RegisterType<DbContext, SoBesedkaDBContext>(new HierarchicalLifetimeManager());
         }
     }
 }

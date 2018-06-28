@@ -2,10 +2,10 @@ using System.Web.Http;
 
 using Unity.AspNet.WebApi;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(CarFactoryApiRest.UnityWebApiActivator), nameof(CarFactoryApiRest.UnityWebApiActivator.Start))]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(CarFactoryApiRest.UnityWebApiActivator), nameof(CarFactoryApiRest.UnityWebApiActivator.Shutdown))]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SoBesedkaRestAPI.UnityWebApiActivator), nameof(SoBesedkaRestAPI.UnityWebApiActivator.Start))]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(SoBesedkaRestAPI.UnityWebApiActivator), nameof(SoBesedkaRestAPI.UnityWebApiActivator.Shutdown))]
 
-namespace CarFactoryApiRest
+namespace SoBesedkaRestAPI
 {
     /// <summary>
     /// Provides the bootstrapping for integrating Unity with WebApi when it is hosted in ASP.NET.
