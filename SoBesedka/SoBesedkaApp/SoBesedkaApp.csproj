@@ -67,6 +67,7 @@
       <DependentUpon>CreateRoomWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DateConverter.cs" />
+    <Compile Include="HeightConverter.cs" />
     <Compile Include="RegWindow.xaml.cs">
       <DependentUpon>RegWindow.xaml</DependentUpon>
     </Compile>

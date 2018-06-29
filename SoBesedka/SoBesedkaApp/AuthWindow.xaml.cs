@@ -1,6 +1,7 @@
 ﻿using SoBesedkaDB;
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
+using SoBesedkaDB.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,20 +26,23 @@ namespace SoBesedkaApp
     public partial class AuthWindow : Window
     {
         public IUserService Uservice;
-
+        DataSamples Data;
         public AuthWindow()
         {
             Uservice = new UserService(new SoBesedkaDBContext());
             InitializeComponent();
             LoginLabel_MouseDown(LoginLabel, null);
+            Data = new DataSamples();
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            var user = new UserViewModel();
             //открываем главное окно по кнопке входа
-            if (Uservice.SignIn(LoginTextBox.Text, PasswordTextBox.Password))
+            if (Uservice.SignIn(LoginTextBox.Text, PasswordTextBox.Password, out user))
             {
-                MainWindow mainwindow = new MainWindow();
+                Data.CurrentUser = user;
+                MainWindow mainwindow = new MainWindow(Data);
                 mainwindow.Show();
                 Closing -= Window_Closing;
                 Close();

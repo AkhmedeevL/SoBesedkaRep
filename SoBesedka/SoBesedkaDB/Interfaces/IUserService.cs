@@ -19,6 +19,6 @@ namespace SoBesedkaDB.Interfaces
 
         User ConvertViewToUser(UserViewModel view);
 
-        bool SignIn(string login, string password);
+        bool SignIn(string login, string password, out UserViewModel user);
     }
 }

@@ -121,14 +121,16 @@ namespace SoBesedkaDB.Implementations
             };
         }
 
-        public bool SignIn(string login, string password)
+        public bool SignIn(string login, string password, out UserViewModel outUser)
         {
             List<UserViewModel> list = GetList();
             foreach (var user in list) {
                 if (user.UserLogin == login && user.UserPassword == password) {
+                    outUser = user;
                     return true;
                 }
             }
+            outUser = null;
             return false;
         }
     }

@@ -11,8 +11,6 @@ namespace SoBesedkaDB.Interfaces
     {
         List<RoomViewModel> GetList();
 
-        List<RoomViewModel> GetListOfDay(DateTime dateTime);
-
         RoomViewModel GetElement(int id);
 
         void AddElement(Room model);
