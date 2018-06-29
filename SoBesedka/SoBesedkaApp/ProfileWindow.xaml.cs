@@ -78,17 +78,6 @@ namespace SoBesedkaApp
         
         }
 
-        private void UserMeetingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserCreatedMeetings(Data.CurrentUser.Id));
-            MeetingsListBoxCreated.ItemsSource = Data.UserMeetings;
-        }
 
-        private void InvitesButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
-            MeetingsListBoxInvited.ItemsSource = Data.UserMeetings;
-        }
     }
 }
