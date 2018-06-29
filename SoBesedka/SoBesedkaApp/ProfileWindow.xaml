@@ -19,14 +19,16 @@
         <!--<ListBox x:Name="MeetingsListBox" HorizontalAlignment="Left" Height="369" Margin="259,19,0,0" VerticalAlignment="Top" Width="289"/>-->
         <TabControl HorizontalAlignment="Left" Height="369" Margin="277,19,0,0" VerticalAlignment="Top" Width="341">
             <TabItem Header="Приглашён">
-                <ListBox x:Name="MeetingsListBoxInvited">
-                <Grid Background="#FFE5E5E5"/>
-                </ListBox>
+                
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="MeetingsListBoxInvited"></ListBox>
+                </Grid>
             </TabItem>
             <TabItem Header="Созданные">
-                <ListBox x:Name="MeetingsListBoxCreated">
-                    <Grid Background="#FFE5E5E5"/>
-                </ListBox>
+
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="MeetingsListBoxCreated"/>
+                </Grid>
             </TabItem>
         </TabControl>
 
