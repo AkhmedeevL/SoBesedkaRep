@@ -31,7 +31,7 @@ namespace SoBesedkaDB.Implementations
                 StartTime = model.StartTime,
                 EndTime = model.EndTime,
                 RoomId = model.RoomId,
-                UserMeetings = null
+                UserMeetings = model.UserMeetings
             });
             context.SaveChanges();
         }
@@ -177,6 +177,39 @@ namespace SoBesedkaDB.Implementations
                     }
                 };
             }
+            return result;
+        }
+
+        public List<MeetingViewModel> GetListUserInvites(int id)
+        {
+            List<UserMeetingViewModel> almostresult = context.UserMeetings
+                .Where(rec => rec.UserId == id)
+                .Select(rec => new UserMeetingViewModel {
+                    MeetingId = rec.MeetingId
+                }).ToList();
+            List<MeetingViewModel> result = new List<MeetingViewModel>();
+            for (int i = 0; i < almostresult.Count; i++) {
+                result.Add(GetElement(almostresult[i].MeetingId));
+            }
+            return result;
+        }
+
+        public List<MeetingViewModel> GetListUserCreatedMeetings(int id)
+        {
+            List<MeetingViewModel> result = context.Meetings
+                .Where(rec => rec.CreatorId == id)
+                .Select(rec => new MeetingViewModel
+            {
+                Id = rec.Id,
+                MeetingName = rec.MeetingName,
+                MeetingDescription = rec.MeetingDescription,
+                MeetingTheme = rec.MeetingTheme,
+                CreatorId = rec.CreatorId,
+                StartTime = rec.StartTime,
+                EndTime = rec.EndTime,
+                RoomId = rec.RoomId
+            })
+                .ToList();
             return result;
         }
     }

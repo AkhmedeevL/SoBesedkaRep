@@ -17,14 +17,14 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <!--<Border Margin="5" BorderThickness="1" BorderBrush="SteelBlue">-->
-                        <Grid Margin="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <TextBlock FontWeight="Bold" Text="{Binding Path=RoomName}"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Path=RoomAdress}"/>
-                        </Grid>
+                    <Grid Margin="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=RoomName}"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Path=RoomAdress}"/>
+                    </Grid>
                     <!--</Border>-->
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -34,10 +34,10 @@
         <Button Content="Добавить" HorizontalAlignment="Left" Margin="15,345,0,0" VerticalAlignment="Top" Width="134" Click="Button_Click_2" Height="41"/>
         <Button Content="Редактировать" HorizontalAlignment="Left" Margin="15,391,0,0" VerticalAlignment="Top" Width="134" IsEnabled="false" Height="41" />
         <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="829">
-            <MenuItem Height="24" Header="Мероприятия" />
-            <MenuItem Height="24" Header="Участники" Click="MenuItem_Click" />
-            <MenuItem Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
-            <MenuItem Height="24" Header="О программе" />
+            <MenuItem x:Name="ProfileMenuItem" Height="24" Header="Профиль" Click="ProfileMenuItem_Click" />
+            <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" />
+            <MenuItem x:Name="UsersMenuItem" Height="24" Header="Участники" Click="MenuItem_Click" />
+            <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
         </Menu>
         <Button Content="Удалить" HorizontalAlignment="Left" Margin="15,437,0,0" VerticalAlignment="Top" Width="134" IsEnabled="false" Height="41"/>
         <ItemsControl x:Name="mondayEvents" Grid.Column="0" ItemsSource="{Binding CurrentWeekMeetings[0]}" Margin="154,58,0,5" HorizontalAlignment="Left" Width="95">
