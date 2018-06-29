@@ -37,6 +37,16 @@ namespace SoBesedkaApp
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(LoginTextBox.Text))
+            {
+                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(PasswordTextBox.Password))
+            {
+                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             var user = new UserViewModel();
             //открываем главное окно по кнопке входа
             if (Uservice.SignIn(LoginTextBox.Text, PasswordTextBox.Password, out user))
@@ -58,7 +68,12 @@ namespace SoBesedkaApp
             RegWindow regwindow = new RegWindow();
             regwindow.Show();
         }
-
+        private void ForgotPasswordLabel_Click(object sender, MouseButtonEventArgs e)
+        {
+            //открываем окно восстановления пароля
+            ForgotPasswordWindow fpwindow = new ForgotPasswordWindow();
+            fpwindow.Show();
+        }
         private void Label_MouseEnter(object sender, MouseEventArgs e)
         {
             ((Label) sender).BorderBrush = new SolidColorBrush(Colors.Black);
