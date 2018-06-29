@@ -51,7 +51,7 @@ namespace SoBesedkaApp
         public DataSamples()
         {
             context = new SoBesedkaDBContext();
-
+            
             Uservice = new UserService(context);
             Rservice = new RoomService(context);
             Mservice = new MeetingService(context);
