@@ -110,7 +110,28 @@ namespace SoBesedkaDB.Implementations
             context.SaveChanges();
         }
 
+        public User ConvertViewToUser(UserViewModel view) {
+            return new User {
+                Id = view.Id,
+                UserFIO = view.UserFIO,
+                UserMail = view.UserMail,
+                UserLogin = view.UserLogin,
+                UserPassword = view.UserPassword,
+                isAdmin = view.isAdmin
+            };
+        }
 
-        
+        public bool SignIn(string login, string password, out UserViewModel outUser)
+        {
+            List<UserViewModel> list = GetList();
+            foreach (var user in list) {
+                if (user.UserLogin == login && user.UserPassword == password) {
+                    outUser = user;
+                    return true;
+                }
+            }
+            outUser = null;
+            return false;
+        }
     }
 }

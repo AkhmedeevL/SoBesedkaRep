@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SoBesedkaDB.Implementations
 {
-    public class RoomService
+    public class RoomService : IRoomService
     {
         private SoBesedkaDBContext context;
 
@@ -17,18 +17,30 @@ namespace SoBesedkaDB.Implementations
         {
             this.context = context;
         }
-        List<RoomViewModel> GetList()
+        public List<RoomViewModel> GetList()
         {
             List<RoomViewModel> result = context.Rooms.Select(rec => new RoomViewModel
             {
                 Id = rec.Id,
-                RoomName = rec.RoomName
+                RoomName = rec.RoomName,
+                RoomAdress = rec.RoomAdress,
+                Description = rec.Description,
+                Meetings = context.Meetings.Select(m => new MeetingViewModel {
+                    Id = m.Id,
+                    MeetingName = m.MeetingName,
+                    MeetingTheme = m.MeetingTheme,
+                    StartTime = m.StartTime,
+                    EndTime = m.EndTime,
+                    CreatorId = m.CreatorId,
+                    MeetingDescription = m.MeetingDescription,
+                    RoomId = m.RoomId
+                }).ToList()
             })
-    .ToList();
+            .ToList();
             return result;
         }
 
-        RoomViewModel GetElement(int id)
+        public RoomViewModel GetElement(int id)
         {
             Room element = context.Rooms.FirstOrDefault(rec => rec.Id == id);
             if (element != null)
@@ -36,14 +48,26 @@ namespace SoBesedkaDB.Implementations
                 return new RoomViewModel
                 {
                     Id = element.Id,
-
-                    RoomName = element.RoomName
+                    RoomAdress = element.RoomAdress,
+                    Description = element.Description,
+                    RoomName = element.RoomName,
+                    Meetings = context.Meetings.Select(m => new MeetingViewModel
+                    {
+                        Id = m.Id,
+                        MeetingName = m.MeetingName,
+                        MeetingTheme = m.MeetingTheme,
+                        StartTime = m.StartTime,
+                        EndTime = m.EndTime,
+                        CreatorId = m.CreatorId,
+                        MeetingDescription = m.MeetingDescription,
+                        RoomId = m.RoomId
+                    }).ToList()
                 };
             }
             throw new Exception("Помещение не найдено");
         }
 
-        void AddElement(Room model)
+        public void AddElement(Room model)
         {
             Room element = context.Rooms.FirstOrDefault(rec => rec.RoomName == model.RoomName);
             if (element != null)
@@ -54,12 +78,14 @@ namespace SoBesedkaDB.Implementations
             {
                 Id = model.Id,
                 RoomName = model.RoomName,
+                RoomAdress = model.RoomAdress,
+                Description = model.Description,
                 Meetings = null,
             });
             context.SaveChanges();
         }
 
-        void UpdElement(Room model)
+        public void UpdElement(Room model)
         {
             Room element = context.Rooms.FirstOrDefault(rec =>
                         rec.RoomName == model.RoomName && rec.Id != model.Id);
@@ -74,10 +100,13 @@ namespace SoBesedkaDB.Implementations
             }
             element.Id = model.Id;
             element.RoomName = model.RoomName;
+            element.RoomAdress = model.RoomAdress;
+            element.Description = model.Description;
+            element.Meetings = model.Meetings;
             context.SaveChanges();
         }
 
-        void DelElement(int id)
+        public void DelElement(int id)
         {
             Room element = context.Rooms.FirstOrDefault(rec => rec.Id == id);
             if (element != null)
@@ -90,5 +119,6 @@ namespace SoBesedkaDB.Implementations
                 throw new Exception("Помещение не найдено");
             }
         }
+
     }
 }

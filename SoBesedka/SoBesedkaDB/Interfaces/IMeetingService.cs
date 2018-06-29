@@ -8,7 +8,7 @@ namespace SoBesedkaDB.Interfaces
 {
     public interface IMeetingService
     {
-        List<Meeting> GetList();
+        List<MeetingViewModel> GetList();
 
         MeetingViewModel GetElement(int id);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoBesedkaDB.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,25 +22,41 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public MainWindow()
+        DataSamples Data;
+        
+        public MainWindow(DataSamples data)
         {
             InitializeComponent();
+            Data = data;
+            DataContext = Data;
+            Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
+            //Data.UpdateMeetings();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DatePicker.SelectedDate += TimeSpan.FromDays(1);
+            for(int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] += TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
+            Data.UpdateMeetings();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            DatePicker.SelectedDate -= TimeSpan.FromDays(1);
+            for (int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] -= TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
+            Data.UpdateMeetings();
         }
+
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            MeetingWindow meetingwindow = new MeetingWindow();
+            MeetingWindow meetingwindow = new MeetingWindow(Data);
             meetingwindow.Show();
 
         }
@@ -55,6 +72,24 @@ namespace SoBesedkaApp
                     e.Cancel = true;
             }
 
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var wnd = new UsersWindow();
+            wnd.Show();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            var wnd = new RoomsWindow();
+            wnd.Show();
+        }
+
+        private void ListBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
+            Data.UpdateMeetings();
         }
     }
 }

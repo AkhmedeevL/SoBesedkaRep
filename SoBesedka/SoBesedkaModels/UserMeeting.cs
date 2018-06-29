@@ -8,9 +8,10 @@ namespace SoBesedkaModels
 {
     public class UserMeeting
     {
+        public int Id { get; set; }
+
         public int UserId { get; set; }
+
         public int MeetingId { get; set; }
-        public virtual User User { get; set; }
-        public virtual Meeting Meeting { get; set; }
     }
 }

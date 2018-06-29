@@ -16,5 +16,9 @@ namespace SoBesedkaDB.Interfaces
         void UpdElement(User model);
 
         void DelElement(int id);
+
+        User ConvertViewToUser(UserViewModel view);
+
+        bool SignIn(string login, string password, out UserViewModel user);
     }
 }
