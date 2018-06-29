@@ -119,5 +119,31 @@ namespace SoBesedkaDB.Implementations
                 throw new Exception("Помещение не найдено");
             }
         }
+
+        public List<RoomViewModel> GetListOfDay(DateTime dateTime)
+        {
+            List<RoomViewModel> result = context.Rooms.Select(rec => new RoomViewModel
+            {
+                Id = rec.Id,
+                RoomName = rec.RoomName,
+                RoomAdress = rec.RoomAdress,
+                Description = rec.Description,
+                Meetings = context.Meetings.Select(m => new MeetingViewModel
+                {
+                    Id = m.Id,
+                    MeetingName = m.MeetingName,
+                    MeetingTheme = m.MeetingTheme,
+                    StartTime = m.StartTime,
+                    EndTime = m.EndTime,
+                    CreatorId = m.CreatorId,
+                    MeetingDescription = m.MeetingDescription,
+                    RoomId = m.RoomId
+                })
+                .Where(m => m.StartTime >= dateTime.Date && m.EndTime < dateTime.Date + TimeSpan.FromDays(1))
+                .ToList()
+            })
+            .ToList();
+            return result;
+        }
     }
 }

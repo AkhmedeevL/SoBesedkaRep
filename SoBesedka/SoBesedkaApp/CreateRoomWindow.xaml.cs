@@ -24,11 +24,13 @@ namespace SoBesedkaApp
     public partial class CreateRoomWindow : Window
     {
         public IRoomService Rservice;
-
+        DataSamples Data;
         public CreateRoomWindow()
         {
             Rservice = new RoomService(new SoBesedkaDBContext());
             InitializeComponent();
+            Data = new DataSamples();
+            DataContext = Data;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
