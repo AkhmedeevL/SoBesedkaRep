@@ -7,10 +7,11 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="СоБеседка" Height="519.425" Width="837" Closing="Window_Closing">
+        Title="СоБеседка" Height="647.425" Width="837" Closing="Window_Closing">
     <Window.Resources>
         <local:DataSamples x:Key="DataSamples" />
         <local:DateConverter x:Key="weekConverter"/>
+        <local:HeightConverter x:Key="HeightConverter"/>
     </Window.Resources>
     <Grid>
         <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="311" Margin="15,28,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Path=Rooms}" SelectedIndex="0" SelectionChanged="ListBox1_SelectionChanged" />
@@ -34,10 +35,11 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Name="btn" Cursor="Hand" Content="{Binding MeetingName}" Margin="0" Height="{Binding Path=Height}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Path=Title}" Value="">
+                        <DataTrigger Binding="{Binding Path=Id}" Value="0">
                             <Setter TargetName="btn" Property="Background" Value="White" />
+                            <!--<Setter TargetName="btn" Property="Content" Value="MeetingName"/>-->
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
@@ -52,9 +54,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button x:Name="btn" Cursor="Hand" Content="{Binding MeetingName}" Margin="0" Height="{Binding Height}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="">
+                        <DataTrigger Binding="{Binding Path=Id}" Value="0">
                             <Setter TargetName="btn" Property="Background" Value="White" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
@@ -69,9 +71,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button x:Name="btn" Cursor="Hand" Content="{Binding MeetingName}" Margin="0" Height="{Binding Height}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="">
+                        <DataTrigger Binding="{Binding Path=Id}" Value="0">
                             <Setter TargetName="btn" Property="Background" Value="White" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
@@ -86,9 +88,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button x:Name="btn" Cursor="Hand" Content="{Binding MeetingName}" Margin="0" Height="{Binding Height}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="">
+                        <DataTrigger Binding="{Binding Path=Id}" Value="0">
                             <Setter TargetName="btn" Property="Background" Value="White" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
@@ -103,9 +105,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button x:Name="btn" Cursor="Hand" Content="{Binding MeetingName}" Margin="0" Height="{Binding Height}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="">
+                        <DataTrigger Binding="{Binding Path=Id}" Value="0">
                             <Setter TargetName="btn" Property="Background" Value="White" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
@@ -120,9 +122,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button x:Name="btn" Cursor="Hand" Content="{Binding MeetingName}" Margin="0" Height="{Binding Height}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="">
+                        <DataTrigger Binding="{Binding Path=Id}" Value="0">
                             <Setter TargetName="btn" Property="Background" Value="White" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
@@ -137,9 +139,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button x:Name="btn" Cursor="Hand" Content="{Binding MeetingName}" Margin="0" Height="{Binding Height}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
+                    <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Background="LightSteelBlue" BorderThickness="1"/>
                     <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="">
+                        <DataTrigger Binding="{Binding Path=Id}" Value="0">
                             <Setter TargetName="btn" Property="Background" Value="White" />
                         </DataTrigger>
                     </DataTemplate.Triggers>

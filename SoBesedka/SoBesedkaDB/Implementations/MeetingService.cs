@@ -3,6 +3,7 @@ using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -124,6 +125,58 @@ namespace SoBesedkaDB.Implementations
             })
             .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd)
             .ToList();
+
+            
+
+            
+            int c = result.Count;
+            if (c > 0)
+            {
+                result.Sort(delegate (MeetingViewModel a, MeetingViewModel b)
+                {
+                    return a.StartTime.CompareTo(b.StartTime);
+                });
+                if (result[c - 1].EndTime < day.Date.AddHours(17))
+                    result.Add(new MeetingViewModel
+                    {
+                        StartTime = result[c - 1].EndTime,
+                        EndTime = day.Date.AddHours(17)
+                    });
+
+                for (int i = 1; i < c; i++)
+                {
+                    if (result[i].StartTime > result[i - 1].EndTime)
+                    {
+                        result.Add(new MeetingViewModel
+                        {
+                            StartTime = result[i - 1].EndTime,
+                            EndTime = result[i].StartTime,
+                            MeetingName = String.Empty
+                        });
+                    }
+                }
+                if (result[0].StartTime > day.Date.AddHours(8))
+                    result.Add(new MeetingViewModel
+                    {
+                        StartTime = day.Date.AddHours(8),
+                        EndTime = result[0].StartTime
+                    });
+                
+                result.Sort(delegate (MeetingViewModel a, MeetingViewModel b)
+                {
+                    return a.StartTime.CompareTo(b.StartTime);
+                });
+            }
+            else
+            {
+                result = new List<MeetingViewModel> {
+                    new MeetingViewModel
+                    {
+                        StartTime = day.Date.AddHours(8),
+                        EndTime = day.Date.AddHours(17)
+                    }
+                };
+            }
             return result;
         }
     }

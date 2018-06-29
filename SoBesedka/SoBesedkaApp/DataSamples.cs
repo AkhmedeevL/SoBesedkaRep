@@ -35,9 +35,10 @@ namespace SoBesedkaApp
             }
         }
 
+        public UserViewModel CurrentUser { get; set; }
         public RoomViewModel CurrentRoom { get; set; }
-
         public List<List<MeetingViewModel>> CurrentWeekMeetings { get; set; }
+        public List<List<int>> PanelElementHeight { get; set; }
 
         public IUserService Uservice;
         public IRoomService Rservice;
@@ -63,6 +64,7 @@ namespace SoBesedkaApp
             for (int i = 0; i < 7; i++)
             {
                 CurrentWeek[i] = DateTime.Now + TimeSpan.FromDays(i);
+                //PanelElementHeight.Add(new List<int>());
             }
 
             //var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.Now + TimeSpan.FromHours(1));
@@ -90,8 +92,14 @@ namespace SoBesedkaApp
             for (int i = 0; i < 7; i++)
             {
                 CurrentWeekMeetings.Add(Mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i]));
+                //foreach(var meeting in CurrentWeekMeetings[i])
+                //{
+                //    PanelElementHeight[i].Add((int)(meeting.EndTime - meeting.StartTime).TotalMinutes);
+                //}
+                
             }
             RaisePropertyChanged("CurrentWeekMeetings");
+            RaisePropertyChanged("PanelElementHeight");
         }
     }
 

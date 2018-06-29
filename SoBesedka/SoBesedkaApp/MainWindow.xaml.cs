@@ -24,11 +24,10 @@ namespace SoBesedkaApp
     {
         DataSamples Data;
         
-        public MainWindow()
+        public MainWindow(DataSamples data)
         {
-            
             InitializeComponent();
-            Data = new DataSamples();
+            Data = data;
             DataContext = Data;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
             //Data.UpdateMeetings();
@@ -41,6 +40,7 @@ namespace SoBesedkaApp
                 Data.CurrentWeek[i] += TimeSpan.FromDays(7);
             }
             Data.RaisePropertyChanged("CurrentWeek");
+            Data.UpdateMeetings();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -50,12 +50,13 @@ namespace SoBesedkaApp
                 Data.CurrentWeek[i] -= TimeSpan.FromDays(7);
             }
             Data.RaisePropertyChanged("CurrentWeek");
+            Data.UpdateMeetings();
         }
 
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            MeetingWindow meetingwindow = new MeetingWindow();
+            MeetingWindow meetingwindow = new MeetingWindow(Data);
             meetingwindow.Show();
 
         }
