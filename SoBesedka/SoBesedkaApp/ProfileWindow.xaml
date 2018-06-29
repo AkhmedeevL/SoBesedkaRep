@@ -1,0 +1,22 @@
+﻿<Window x:Class="SoBesedkaApp.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoBesedkaApp"
+        mc:Ignorable="d"
+        Title="Профиль пользователя" Height="434.232" Width="578.032">
+    <Grid Margin="0,0,2,0">
+        <TextBox x:Name="FIOTextBox" HorizontalAlignment="Left" Height="30" Margin="27,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+        <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="30" Margin="27,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+        <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="30" Margin="27,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+        <Label Content="ФИО" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="27,81,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Адрес электронной почты" HorizontalAlignment="Left" Margin="27,145,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.486,2.618"/>
+        <Button x:Name="ChangeProfileButton" Content="Редактировать" HorizontalAlignment="Left" Height="49" Margin="27,231,0,0" VerticalAlignment="Top" Width="207" FontSize="16" Click="ChangeProfileButton_Click"/>
+        <Button x:Name="UserMeetingsButton" Content="Созданные мероприятия" HorizontalAlignment="Left" Height="49" Margin="27,285,0,0" VerticalAlignment="Top" Width="207" FontSize="16" Click="UserMeetingsButton_Click"/>
+        <Button x:Name="InvitesButton" Content="Приглашения" HorizontalAlignment="Left" Height="49" Margin="27,339,0,0" VerticalAlignment="Top" Width="207" FontSize="16" Click="InvitesButton_Click"/>
+        <ListBox x:Name="MeetingsListBox" HorizontalAlignment="Left" Height="369" Margin="259,19,0,0" VerticalAlignment="Top" Width="289"/>
+
+    </Grid>
+</Window>
