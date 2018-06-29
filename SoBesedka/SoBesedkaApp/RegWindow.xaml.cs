@@ -29,7 +29,7 @@ namespace SoBesedkaApp
         {
             if (string.IsNullOrEmpty(FIOTextBox.Text))
             {
-                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите ФИО", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (string.IsNullOrEmpty(LoginTextBox.Text))
@@ -37,16 +37,17 @@ namespace SoBesedkaApp
                 MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(PasswordTextBox.Password))
-            {
-                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
             if (string.IsNullOrEmpty(EmailTextBox.Text))
             {
                 MessageBox.Show("Введите E-mail", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (string.IsNullOrEmpty(PasswordTextBox.Password))
+            {
+                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (PasswordTextBox.Password != SecondPasswordTextBox.Password)
             {
                 MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
