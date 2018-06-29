@@ -60,7 +60,13 @@ namespace SoBesedkaApp
             meetingwindow.Show();
 
         }
-      
+
+        private void Event_Click(object sender, RoutedEventArgs e)
+        {
+            var meetingInfo = new MeetingInfo((MeetingViewModel)((Button)sender).Tag);
+            meetingInfo.Show();
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите выйти?",
