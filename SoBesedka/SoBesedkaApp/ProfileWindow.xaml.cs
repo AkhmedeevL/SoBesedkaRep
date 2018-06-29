@@ -35,10 +35,13 @@ namespace SoBesedkaApp
             Data = data;
             FIOTextBox.Text = Data.CurrentUser.UserFIO;
             FIOTextBox.Focusable = false;
+            FIOTextBox.IsEnabled = false;
             LoginTextBox.Text = Data.CurrentUser.UserLogin;
             LoginTextBox.Focusable = false;
+            LoginTextBox.IsEnabled = false;
             EmailTextBox.Text = Data.CurrentUser.UserMail;
             EmailTextBox.Focusable = false;
+            EmailTextBox.IsEnabled = false;
         }
 
         private void ChangeProfileButton_Click(object sender, RoutedEventArgs e)
@@ -46,9 +49,13 @@ namespace SoBesedkaApp
             if (ChangeProfileButton.Content.ToString() == "Редактировать")
             {
                 FIOTextBox.Focusable = true;
+                FIOTextBox.IsEnabled = true;
                 LoginTextBox.Focusable = true;
+                LoginTextBox.IsEnabled = true;
                 EmailTextBox.Focusable = true;
+                EmailTextBox.IsEnabled = true;
                 ChangeProfileButton.Content = "Сохранить изменения";
+
             }
             else {
                 var user = Data.CurrentUser;
