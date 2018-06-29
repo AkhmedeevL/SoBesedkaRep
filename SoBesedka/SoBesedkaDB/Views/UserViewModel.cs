@@ -12,7 +12,6 @@ namespace SoBesedkaDB.Views
 
         public string UserFIO { get; set; }
 
-
         public string UserMail { get; set; }
 
         public string UserLogin { get; set; }

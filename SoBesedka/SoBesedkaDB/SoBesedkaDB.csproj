@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201806282107511_addedFields.Designer.cs">
       <DependentUpon>201806282107511_addedFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806282310042_dateTime.cs" />
+    <Compile Include="Migrations\201806282310042_dateTime.Designer.cs">
+      <DependentUpon>201806282310042_dateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoBesedkaDBContext.cs" />
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806282107511_addedFields.resx">
       <DependentUpon>201806282107511_addedFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806282310042_dateTime.resx">
+      <DependentUpon>201806282310042_dateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

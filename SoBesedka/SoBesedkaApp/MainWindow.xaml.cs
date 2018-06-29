@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoBesedkaDB.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,21 +22,36 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        DataSamples Data;
+        
         public MainWindow()
         {
+            
             InitializeComponent();
+            Data = new DataSamples();
+            DataContext = Data;
+            Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
+            //Data.UpdateMeetings();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DatePicker.SelectedDate += TimeSpan.FromDays(1);
+            for(int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] += TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            DatePicker.SelectedDate -= TimeSpan.FromDays(1);
+            for (int i = 0; i < 7; i++)
+            {
+                Data.CurrentWeek[i] -= TimeSpan.FromDays(7);
+            }
+            Data.RaisePropertyChanged("CurrentWeek");
         }
+
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -67,6 +83,12 @@ namespace SoBesedkaApp
         {
             var wnd = new RoomsWindow();
             wnd.Show();
+        }
+
+        private void ListBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
+            Data.UpdateMeetings();
         }
     }
 }

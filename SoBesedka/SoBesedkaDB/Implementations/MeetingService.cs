@@ -108,6 +108,23 @@ namespace SoBesedkaDB.Implementations
             context.SaveChanges();
         }
 
-
+        public List<MeetingViewModel> GetListOfDay(int roomId, DateTime day)
+        {
+            var dayEnd = day.Date + TimeSpan.FromDays(1);
+            List<MeetingViewModel> result = context.Meetings.Select(rec => new MeetingViewModel
+            {
+                Id = rec.Id,
+                MeetingName = rec.MeetingName,
+                MeetingDescription = rec.MeetingDescription,
+                MeetingTheme = rec.MeetingTheme,
+                CreatorId = rec.CreatorId,
+                StartTime = rec.StartTime,
+                EndTime = rec.EndTime,
+                RoomId = rec.RoomId
+            })
+            .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd)
+            .ToList();
+            return result;
+        }
     }
 }

@@ -6,26 +6,65 @@ using SoBesedkaDB.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SoBesedkaApp
 {
-    public class DataSamples
+    public class DataSamples : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Для удобства обернем событие в метод с единственным параметром - имя изменяемого свойства
+        public void RaisePropertyChanged(string propertyName)
+        {
+            // Если кто-то на него подписан, то вызывем его
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private DateTime[] currentWeek;
+        public DateTime[] CurrentWeek
+        {
+            get { return currentWeek; }
+            set
+            {
+                currentWeek = value;
+                RaisePropertyChanged("CurrentWeek");
+            }
+        }
+
+        public RoomViewModel CurrentRoom { get; set; }
+
+        public List<List<MeetingViewModel>> CurrentWeekMeetings { get; set; }
+
         public IUserService Uservice;
         public IRoomService Rservice;
-        public List<RoomViewModel> rooms { get; set; }
-        public List<UserViewModel> users { get; set; }
+        public MeetingService Mservice;
+
+        SoBesedkaDBContext context;
+
+        public List<RoomViewModel> Rooms { get; set; }
+        public List<UserViewModel> Users { get; set; }
         public DataSamples()
         {
-            Uservice = new UserService(new SoBesedkaDBContext());
-            Rservice = new RoomService(new SoBesedkaDBContext());
-            users = new List<UserViewModel>(Uservice.GetList());
-            rooms = new List<RoomViewModel>(Rservice.GetList());
-            
-            
+            context = new SoBesedkaDBContext();
+
+            Uservice = new UserService(context);
+            Rservice = new RoomService(context);
+            Mservice = new MeetingService(context);
+
+            Users = new List<UserViewModel>(Uservice.GetList());
+
+            Rooms = new List<RoomViewModel>(Rservice.GetList());
+
+            CurrentWeek = new DateTime[7];
+            for (int i = 0; i < 7; i++)
+            {
+                CurrentWeek[i] = DateTime.Now + TimeSpan.FromDays(i);
+            }
+
             //var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.Now + TimeSpan.FromHours(1));
             //event1.AddMember(members[0]);
             //event1.AddMember(members[1]);
@@ -43,6 +82,16 @@ namespace SoBesedkaApp
             //rooms[0].Events.Add(new Event("", "", "", DateTime.Now + TimeSpan.FromHours(3), DateTime.Now + TimeSpan.FromHours(6)));
             //rooms[1].Events.Add(event3);
 
+        }
+
+        public void UpdateMeetings()
+        {
+            CurrentWeekMeetings = new List<List<MeetingViewModel>>();
+            for (int i = 0; i < 7; i++)
+            {
+                CurrentWeekMeetings.Add(Mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i]));
+            }
+            RaisePropertyChanged("CurrentWeekMeetings");
         }
     }
 

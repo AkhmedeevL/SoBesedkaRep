@@ -2,6 +2,7 @@
 using SoBesedkaDB;
 using SoBesedkaDB.Views;
 using SoBesedkaModels;
+using System;
 using System.Collections.Generic;
 
 namespace SoBesedkaDB.Interfaces
@@ -9,6 +10,8 @@ namespace SoBesedkaDB.Interfaces
     public interface IRoomService
     {
         List<RoomViewModel> GetList();
+
+        List<RoomViewModel> GetListOfDay(DateTime dateTime);
 
         RoomViewModel GetElement(int id);
 
