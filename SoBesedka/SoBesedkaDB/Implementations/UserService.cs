@@ -25,6 +25,12 @@ namespace SoBesedkaDB.Implementations
             {
                 throw new Exception("Этот логин уже занят!");
             }
+            User elementEmail = context.Users.FirstOrDefault(rec =>
+            rec.UserMail == model.UserMail && rec.Id != model.Id);
+            if (elementEmail != null)
+            {
+                throw new Exception("Этот E-mail уже занят!");
+            }
             context.Users.Add(new User
             {
                 Id = model.Id,
@@ -92,6 +98,12 @@ namespace SoBesedkaDB.Implementations
             if (element != null)
             {
                 throw new Exception("Этот логин уже занят!");
+            }
+            User elementEmail = context.Users.FirstOrDefault(rec =>
+                        rec.UserMail == model.UserMail && rec.Id != model.Id);
+            if (elementEmail != null)
+            {
+                throw new Exception("Этот E-mail уже занят!");
             }
             element = context.Users.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
