@@ -27,6 +27,31 @@ namespace SoBesedkaApp
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(FIOTextBox.Text))
+            {
+                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(LoginTextBox.Text))
+            {
+                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(PasswordTextBox.Password))
+            {
+                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(EmailTextBox.Text))
+            {
+                MessageBox.Show("Введите E-mail", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (PasswordTextBox.Password != SecondPasswordTextBox.Password)
+            {
+                MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (PasswordTextBox.Password == SecondPasswordTextBox.Password)
                 Uservice.AddElement(new User
                 {
