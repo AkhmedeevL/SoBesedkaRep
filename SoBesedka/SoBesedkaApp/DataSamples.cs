@@ -67,23 +67,6 @@ namespace SoBesedkaApp
                 //PanelElementHeight.Add(new List<int>());
             }
 
-            //var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.Now + TimeSpan.FromHours(1));
-            //event1.AddMember(members[0]);
-            //event1.AddMember(members[1]);
-            //var event2 = new Event("Собрание", "Тема собрания", "Описание описание описание описание описание описание описание описание", DateTime.Now + TimeSpan.FromHours(1.25), DateTime.Now + TimeSpan.FromHours(3));
-            //event2.AddMember(members[0]);
-            //event2.AddMember(members[1]);
-            //event2.AddMember(members[2]);
-            //var event3 = new Event("Митинг", "Тема митинга", "Описание описание описание описание описание описание описание описание", DateTime.Now, DateTime.Now + TimeSpan.FromHours(8));
-            //event3.AddMember(members[3]);
-            //event3.AddMember(members[2]);
-            //event3.AddMember(members[0]);
-            //rooms[0].Events.Add(event1);
-            //rooms[0].Events.Add(new Event("", "", "", DateTime.Now + TimeSpan.FromHours(1), DateTime.Now + TimeSpan.FromHours(1.25)));
-            //rooms[0].Events.Add(event2);
-            //rooms[0].Events.Add(new Event("", "", "", DateTime.Now + TimeSpan.FromHours(3), DateTime.Now + TimeSpan.FromHours(6)));
-            //rooms[1].Events.Add(event3);
-
         }
 
         public void UpdateMeetings()
@@ -92,31 +75,12 @@ namespace SoBesedkaApp
             for (int i = 0; i < 7; i++)
             {
                 CurrentWeekMeetings.Add(Mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i]));
-                //foreach(var meeting in CurrentWeekMeetings[i])
-                //{
-                //    PanelElementHeight[i].Add((int)(meeting.EndTime - meeting.StartTime).TotalMinutes);
-                //}
                 
             }
             RaisePropertyChanged("CurrentWeekMeetings");
             RaisePropertyChanged("PanelElementHeight");
         }
     }
-
-    //public class Room
-    //{
-    //    public List<Event> Events { get; set; }
-    //    public string Name { get; private set; }
-    //    public Room(string name)
-    //    {
-    //        Name = name;
-    //        Events = new List<Event>();
-    //    }
-    //    public override string ToString()
-    //    {
-    //        return Name;
-    //    }
-    //}
 
     public class Event
     {

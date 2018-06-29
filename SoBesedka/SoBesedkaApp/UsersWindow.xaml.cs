@@ -24,10 +24,12 @@ namespace SoBesedkaApp
     public partial class UsersWindow : Window
     {
         public IUserService Uservice;
-
-        public UsersWindow()
+        DataSamples Data;
+        public UsersWindow(DataSamples data)
         {
             Uservice = new UserService(new SoBesedkaDBContext());
+            Data = data;
+            DataContext = Data;
             InitializeComponent();
         }
 

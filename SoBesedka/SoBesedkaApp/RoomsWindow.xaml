@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         x:Class="SoBesedkaApp.RoomsWindow"
         mc:Ignorable="d"
-        Title="RoomsWindow" Height="450" Width="505.854">
+        Title="RoomsWindow" Height="450" Width="505.854" Closing="Window_Closing">
     <Grid>
         <ListBox x:Name="RoomsListBox" HorizontalAlignment="Left" Height="400" Margin="10,10,0,0" VerticalAlignment="Top" Width="281" ItemsSource="{Binding Rooms}"/>
         <Button x:Name="AddButton" Content="Добавить комнату" HorizontalAlignment="Left" Height="42" Margin="296,10,0,0" VerticalAlignment="Top" Width="194" Click="AddButton_Click"/>
