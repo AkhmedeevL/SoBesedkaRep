@@ -42,7 +42,12 @@ namespace SoBesedkaApp
             RegWindow regwindow = new RegWindow();
             regwindow.Show();
         }
-
+        private void ForgotPasswordLabel_Click(object sender, MouseButtonEventArgs e)
+        {
+            //открываем окно восстановления пароля
+            ForgotPasswordWindow fpwindow = new ForgotPasswordWindow();
+            fpwindow.Show();
+        }
         private void Label_MouseEnter(object sender, MouseEventArgs e)
         {
             ((Label) sender).BorderBrush = new SolidColorBrush(Colors.Black);

@@ -13,7 +13,7 @@
         <Button x:Name="EnterButton"  IsDefault="True" Content="Вход" HorizontalAlignment="Left" Height="40" Margin="72,275,0,0" VerticalAlignment="Top" Width="250" Click="EnterButton_Click"/>
         <Label Name="LoginLabel" Content="Логин" HorizontalAlignment="Left" Height="33" Margin="72,126,0,0" VerticalAlignment="Top" Width="244" FontSize="16" MouseDown="LoginLabel_MouseDown" Cursor="IBeam" />
         <Label Name="PassLabel" Content="Пароль" HorizontalAlignment="Left" Height="33" Margin="72,209,0,0" VerticalAlignment="Top" Width="244" FontSize="16" MouseDown="PassLabel_MouseDown" Cursor="IBeam" />
-        <Label x:Name="ForgotPassLabel" Content="Забыли пароль?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="72,349,0,0" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" />
+        <Label x:Name="ForgotPassLabel" Content="Забыли пароль?" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="72,349,0,0" MouseDown="ForgotPasswordLabel_Click" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave" />
         <Label x:Name="RegLabel" Content="Регистрация" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,349,0,0" Width="82" MouseDown="RegLabel_Click" MouseEnter="Label_MouseEnter" MouseLeave="Label_MouseLeave"/>
 
     </Grid>
