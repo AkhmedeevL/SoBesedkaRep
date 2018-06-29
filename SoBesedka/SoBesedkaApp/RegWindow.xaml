@@ -8,16 +8,16 @@
         Title="Регистрация" Height="554.4" Width="400">
     <Grid x:Name="RegGrid">
         <Image Margin="72,30,74.6,0" Source="Resources/authlogo220x50.png" Height="29" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="PasswordTextBox" Margin="72,325,0,0" PasswordChar="*" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
-        <TextBox x:Name="FIOTextBox" Text="ФИО" Margin="72,73,0,0" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" GotFocus="FIOTextBox_GotFocus" BorderThickness="0,0,0,1" LostFocus="FIOTextBox_LostFocus" />
+        <PasswordBox x:Name="PasswordTextBox" MaxLength="254" Margin="72,325,0,0" PasswordChar="*" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
+        <TextBox x:Name="FIOTextBox" MaxLength="254" Text="ФИО" Margin="72,73,0,0" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" GotFocus="FIOTextBox_GotFocus" BorderThickness="0,0,0,1" LostFocus="FIOTextBox_LostFocus" />
         <Button x:Name="RegButton" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="40" Margin="72,468,0,0" VerticalAlignment="Top" Width="250" Click="EnterButton_Click"/>
         <!--<Label Content="ФИО:" HorizontalAlignment="Left" Height="33" Margin="72,91,0,0" VerticalAlignment="Top" Width="244" FontSize="16"/>-->
         <Label Content="Пароль:" HorizontalAlignment="Left" Height="33" Margin="72,287,0,0" VerticalAlignment="Top" Width="244" FontSize="16"/>
-        <TextBox x:Name="LoginTextBox" Margin="72,159,0,0" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
+        <TextBox x:Name="LoginTextBox" MaxLength="254" Margin="72,159,0,0" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
         <Label Content="Логин:" HorizontalAlignment="Left" Height="33" Margin="72,121,0,0" VerticalAlignment="Top" Width="244" FontSize="16"/>
-        <TextBox x:Name="EmailTextBox" Margin="72,242,0,0" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
+        <TextBox x:Name="EmailTextBox" MaxLength="254" Margin="72,242,0,0" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
         <Label Content="E-mail адрес:" HorizontalAlignment="Left" Height="33" Margin="72,204,0,0" VerticalAlignment="Top" Width="244" FontSize="16"/>
-        <PasswordBox x:Name="SecondPasswordTextBox" Margin="72,408,0,0" PasswordChar="*" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
+        <PasswordBox x:Name="SecondPasswordTextBox" MaxLength="254" Margin="72,408,0,0" PasswordChar="*" FontSize="16" HorizontalAlignment="Left" Width="250" Height="40" VerticalAlignment="Top" />
         <Label Content="Подтвердите пароль:" HorizontalAlignment="Left" Height="33" Margin="72,370,0,0" VerticalAlignment="Top" Width="244" FontSize="16"/>
 
     </Grid>
