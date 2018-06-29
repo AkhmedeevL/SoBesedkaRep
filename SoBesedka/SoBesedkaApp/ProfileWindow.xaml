@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="Профиль пользователя" Height="434.232" Width="578.032">
+        Title="Профиль пользователя" Height="524.933" Width="980.519">
     <Grid Margin="0,0,2,0">
         <TextBox x:Name="FIOTextBox" HorizontalAlignment="Left" Height="30" Margin="27,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
         <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="30" Margin="27,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
@@ -16,7 +16,19 @@
         <Button x:Name="ChangeProfileButton" Content="Редактировать" HorizontalAlignment="Left" Height="49" Margin="27,231,0,0" VerticalAlignment="Top" Width="207" FontSize="16" Click="ChangeProfileButton_Click"/>
         <Button x:Name="UserMeetingsButton" Content="Созданные мероприятия" HorizontalAlignment="Left" Height="49" Margin="27,285,0,0" VerticalAlignment="Top" Width="207" FontSize="16" Click="UserMeetingsButton_Click"/>
         <Button x:Name="InvitesButton" Content="Приглашения" HorizontalAlignment="Left" Height="49" Margin="27,339,0,0" VerticalAlignment="Top" Width="207" FontSize="16" Click="InvitesButton_Click"/>
-        <ListBox x:Name="MeetingsListBox" HorizontalAlignment="Left" Height="369" Margin="259,19,0,0" VerticalAlignment="Top" Width="289"/>
+        <!--<ListBox x:Name="MeetingsListBox" HorizontalAlignment="Left" Height="369" Margin="259,19,0,0" VerticalAlignment="Top" Width="289"/>-->
+        <TabControl HorizontalAlignment="Left" Height="369" Margin="277,19,0,0" VerticalAlignment="Top" Width="341">
+            <TabItem Header="Приглашён">
+                <ListBox x:Name="MeetingsListBoxInvited">
+                <Grid Background="#FFE5E5E5"/>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Созданные">
+                <ListBox x:Name="MeetingsListBoxCreated">
+                    <Grid Background="#FFE5E5E5"/>
+                </ListBox>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

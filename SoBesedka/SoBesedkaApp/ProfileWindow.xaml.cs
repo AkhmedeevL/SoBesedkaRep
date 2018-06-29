@@ -42,6 +42,13 @@ namespace SoBesedkaApp
             EmailTextBox.Text = Data.CurrentUser.UserMail;
             EmailTextBox.Focusable = false;
             EmailTextBox.IsEnabled = false;
+
+            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserCreatedMeetings(Data.CurrentUser.Id));
+            MeetingsListBoxCreated.ItemsSource = Data.UserMeetings;
+
+
+            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
+            MeetingsListBoxInvited.ItemsSource = Data.UserMeetings;
         }
 
         private void ChangeProfileButton_Click(object sender, RoutedEventArgs e)
@@ -74,13 +81,14 @@ namespace SoBesedkaApp
         private void UserMeetingsButton_Click(object sender, RoutedEventArgs e)
         {
             Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserCreatedMeetings(Data.CurrentUser.Id));
-            MeetingsListBox.ItemsSource = Data.UserMeetings;
+            MeetingsListBoxCreated.ItemsSource = Data.UserMeetings;
         }
 
         private void InvitesButton_Click(object sender, RoutedEventArgs e)
         {
+
             Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
-            MeetingsListBox.ItemsSource = Data.UserMeetings;
+            MeetingsListBoxInvited.ItemsSource = Data.UserMeetings;
         }
     }
 }
