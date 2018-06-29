@@ -29,6 +29,16 @@ namespace SoBesedkaApp
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(LoginTextBox.Text))
+            {
+                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(PasswordTextBox.Password))
+            {
+                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             //открываем главное окно по кнопке входа
             MainWindow mainwindow = new MainWindow();
             mainwindow.Show();
