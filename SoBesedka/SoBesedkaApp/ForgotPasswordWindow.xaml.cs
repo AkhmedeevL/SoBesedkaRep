@@ -16,98 +16,6 @@ namespace SoBesedkaApp
         public ForgotPasswordWindow()
         {
             InitializeComponent();
-            EmailLabel_MouseDown(EmailLabel, null);
-        }
-        private void Label_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ((Label)sender).BorderBrush = new SolidColorBrush(Colors.Black);
-            ((Label)sender).BorderThickness = new Thickness(0, 0, 0, 1.0);
-            Cursor = Cursors.Hand;
-        }
-
-        private void Label_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ((Label)sender).BorderThickness = new Thickness(0);
-            Cursor = Cursors.Arrow;
-        }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            dynamic sndr;
-            dynamic label;
-            //if (sender is TextBox)
-            //{
-                sndr = (TextBox)sender;
-                if (((TextBox)sndr).Text != String.Empty)
-                    return;
-                label = EmailLabel;
-                var labelAnim = new ThicknessAnimation()
-                {
-                    From = label.Margin,
-                    To = new Thickness(label.Margin.Left, label.Margin.Top - 25, label.Margin.Right, label.Margin.Bottom),
-                    Duration = TimeSpan.FromSeconds(0.2)
-                };
-                label.BeginAnimation(MarginProperty, labelAnim);
-            //}
-
-
-            sndr.Padding = new Thickness(1, 10, 1, 0);
-            var anim = new DoubleAnimation()
-            {
-                From = sndr.Height,
-                To = 40.0,
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(HeightProperty, anim);
-            var anim2 = new ThicknessAnimation()
-            {
-                From = sndr.Margin,
-                To = new Thickness(sndr.Margin.Left, sndr.Margin.Top - 5, sndr.Margin.Right, sndr.Margin.Bottom),
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(MarginProperty, anim2);
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            dynamic sndr;
-           // if (sender is TextBox)
-            //{
-                sndr = (TextBox)sender;
-                if (((TextBox)sndr).Text != String.Empty)
-                    return;
-                var a = new ThicknessAnimation()
-                {
-                    From = EmailLabel.Margin,
-                    To = new Thickness(EmailLabel.Margin.Left, EmailLabel.Margin.Top + 25, EmailLabel.Margin.Right, EmailLabel.Margin.Bottom),
-                    Duration = TimeSpan.FromSeconds(0.2)
-                };
-                EmailLabel.BeginAnimation(MarginProperty, a);
-           // }
-
-
-            sndr.Padding = new Thickness(1, 5, 1, 0);
-            var anim = new DoubleAnimation()
-            {
-                From = sndr.Height,
-                To = 30.0,
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(HeightProperty, anim);
-            var anim2 = new ThicknessAnimation()
-            {
-                From = sndr.Margin,
-                To = new Thickness(sndr.Margin.Left, sndr.Margin.Top + 5, sndr.Margin.Right, sndr.Margin.Bottom),
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(MarginProperty, anim2);
-        }
-
-
-
-        private void EmailLabel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            EmailTextBox.Focus();
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
@@ -138,6 +46,11 @@ namespace SoBesedkaApp
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 MessageBox.Show(ex.InnerException.Message);
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            EmailTextBox.Focus();
         }
     }
 }
