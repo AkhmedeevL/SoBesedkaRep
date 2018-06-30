@@ -52,7 +52,7 @@ namespace SoBesedkaApp
         private void RegLabel_Click(object sender, MouseButtonEventArgs e)
         {
             //открываем окно регистрации
-            RegWindow regwindow = new RegWindow();
+            RegWindow regwindow = new RegWindow(Data);
             regwindow.Show();
         }
         private void ForgotPasswordLabel_Click(object sender, MouseButtonEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoBesedkaModels;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,8 +12,11 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class RegWindow : Window
     {
-        public RegWindow()
+        DataSamples Data;
+        public RegWindow(DataSamples data)
         {
+            Data = data;
+            DataContext = Data;
             InitializeComponent();
         }
 
@@ -55,7 +59,7 @@ namespace SoBesedkaApp
                 }
             }
             if (PasswordTextBox.Password == SecondPasswordTextBox.Password)
-                Uservice.AddElement(new User
+                Data.Uservice.AddElement(new User
                 {
                     UserFIO = FIOTextBox.Text,
                     UserMail = EmailTextBox.Text,
