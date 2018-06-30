@@ -21,8 +21,7 @@ namespace SoBesedkaDB
         public virtual DbSet<Meeting> Meetings { get; set; }
 
         public virtual DbSet<Room> Rooms { get; set; }
-
-
+        
         public virtual DbSet<UserMeeting> UserMeetings { get; set; }
 
     }

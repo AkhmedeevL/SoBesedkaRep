@@ -18,6 +18,11 @@ namespace SoBesedkaApp
             Data = data;
             DataContext = Data;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
+            //Data.UpdateMeetings();
+            if (!Data.CurrentUser.isAdmin) {
+                UsersMenuItem.Visibility = Visibility.Hidden;
+                RoomsMenuItem.Visibility = Visibility.Hidden;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -82,6 +87,12 @@ namespace SoBesedkaApp
         {
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
             Data.UpdateMeetings();
+        }
+
+        private void ProfileMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var wnd = new ProfileWindow(Data);
+            wnd.Show();
         }
     }
 }

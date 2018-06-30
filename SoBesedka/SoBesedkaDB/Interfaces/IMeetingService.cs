@@ -17,5 +17,10 @@ namespace SoBesedkaDB.Interfaces
         void UpdElement(Meeting model);
 
         void DelElement(int id);
+
+        List<MeetingViewModel> GetListUserInvites(int id);
+
+        List<MeetingViewModel> GetListUserCreatedMeetings(int id);
+
     }
 }

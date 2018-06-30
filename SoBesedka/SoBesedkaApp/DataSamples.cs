@@ -47,6 +47,8 @@ namespace SoBesedkaApp
 
         public List<RoomViewModel> Rooms { get; set; }
         public List<UserViewModel> Users { get; set; }
+        public List<MeetingViewModel> UserMeetings { get; set; }
+
         public DataSamples()
         {
             context = new SoBesedkaDBContext();
@@ -58,6 +60,8 @@ namespace SoBesedkaApp
             Users = new List<UserViewModel>(Uservice.GetList());
 
             Rooms = new List<RoomViewModel>(Rservice.GetList());
+
+            UserMeetings = new List<MeetingViewModel>();
 
             CurrentWeek = new DateTime[7];
             for (int i = 0; i < 7; i++)
@@ -81,51 +85,7 @@ namespace SoBesedkaApp
         }
     }
 
-    public class Event
-    {
-        public List<Member> Members { get; }
+    
 
-        public Event(string title, string topic, string desc, DateTime timeStart, DateTime timeEnd)
-        {
-            Title = title;
-            Topic = topic;
-            Desc = desc;
-            TimeStart = timeStart;
-            TimeEnd = timeEnd;
-            Height = (int)Math.Sqrt((timeEnd - timeStart).TotalMinutes * 80);
-            Members = new List<Member>();
-        }
-
-        public string Desc { get; set; }
-        public string Topic { get; set; }
-        public string Title { get; set; }
-        public DateTime TimeStart { get; set; }
-        public DateTime TimeEnd { get; set; }
-        public int Height { get; set; }
-
-        public void AddMember(Member member)
-        {
-            Members.Add(member);
-        }
-
-        public override string ToString()
-        {
-            return $"{Title}\n{TimeStart.ToShortTimeString()}-{TimeEnd.ToShortTimeString()}";
-        }
-    }
-
-    public class Member
-    {
-        public Member(string name)
-        {
-            Name = name;
-        }
-
-        public string Name { get; private set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
+    
 }
