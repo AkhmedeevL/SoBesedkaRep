@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="Профиль пользователя" Height="456.907" Width="565.561">
     <Grid Margin="0,0,2,0">
-        <TextBox x:Name="FIOTextBox" HorizontalAlignment="Left" Height="30" Margin="27,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
-        <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="30" Margin="27,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
-        <TextBox x:Name="EmailTextBox" HorizontalAlignment="Left" Height="30" Margin="27,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+        <TextBox x:Name="FIOTextBox" MaxLength="254" HorizontalAlignment="Left" Height="30" Margin="27,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+        <TextBox x:Name="LoginTextBox" MaxLength="254" HorizontalAlignment="Left" Height="30" Margin="27,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
+        <TextBox x:Name="EmailTextBox" MaxLength="254" HorizontalAlignment="Left" Height="30" Margin="27,176,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
         <Label Content="ФИО" HorizontalAlignment="Left" Margin="27,19,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Логин" HorizontalAlignment="Left" Margin="27,81,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="E-mail адрес" HorizontalAlignment="Left" Margin="27,145,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.486,2.618"/>
@@ -30,9 +30,9 @@
             </TabItem>
         </TabControl>
         <Label Content="Мероприятия:" HorizontalAlignment="Left" Margin="277,19,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <PasswordBox x:Name="PasswordTextBox" BorderBrush="#B22222"  HorizontalAlignment="Left" Height="30" Margin="27,242,0,0"  VerticalAlignment="Top" Width="207"/>
+        <PasswordBox x:Name="PasswordTextBox" MaxLength="254" PasswordChar="*" BorderBrush="#B22222"  HorizontalAlignment="Left" Height="30" Margin="27,242,0,0"  VerticalAlignment="Top" Width="207"/>
         <Label Content="Изменить пароль" HorizontalAlignment="Left" Margin="27,211,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.486,2.618"/>
-        <PasswordBox x:Name="PasswordConfirmTextBox" BorderBrush="#B22222"  HorizontalAlignment="Left" Height="30" Margin="27,308,0,0"  VerticalAlignment="Top" Width="207"/>
+        <PasswordBox x:Name="PasswordConfirmTextBox" MaxLength="254" PasswordChar="*" BorderBrush="#B22222"  HorizontalAlignment="Left" Height="30" Margin="27,308,0,0"  VerticalAlignment="Top" Width="207"/>
         <Label Content="Подтверждение пароля" HorizontalAlignment="Left" Margin="27,277,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.486,2.618"/>
 
     </Grid>
