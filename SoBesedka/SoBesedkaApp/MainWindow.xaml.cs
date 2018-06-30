@@ -23,7 +23,24 @@ namespace SoBesedkaApp
                 UsersMenuItem.Visibility = Visibility.Hidden;
                 RoomsMenuItem.Visibility = Visibility.Hidden;
             }
+
+            // Raise the routed event "selected"
+            RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
+
+        // Register the routed event
+        public static readonly RoutedEvent SelectedEvent =
+            EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler), typeof(Button));
+
+        // .NET wrapper
+        public event RoutedEventHandler Selected
+        {
+            add { AddHandler(SelectedEvent, value); }
+            remove { RemoveHandler(SelectedEvent, value); }
+        }
+
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -47,7 +64,7 @@ namespace SoBesedkaApp
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            MeetingWindow meetingwindow = new MeetingWindow(Data);
+            MeetingWindow meetingwindow = new MeetingWindow(Data, (MeetingViewModel)((Button)sender).Tag);
             meetingwindow.Show();
 
         }
