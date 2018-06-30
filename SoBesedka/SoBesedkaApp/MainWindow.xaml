@@ -16,16 +16,14 @@
         <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="311" Margin="15,28,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Path=Rooms}" SelectedIndex="0" SelectionChanged="ListBox1_SelectionChanged" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <!--<Border Margin="5" BorderThickness="1" BorderBrush="SteelBlue">-->
-                        <Grid Margin="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <TextBlock FontWeight="Bold" Text="{Binding Path=RoomName}"/>
-                            <TextBlock Grid.Row="1" Text="{Binding Path=RoomAdress}"/>
-                        </Grid>
-                    <!--</Border>-->
+                    <Grid Margin="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock FontWeight="Bold" Text="{Binding Path=RoomName}"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Path=RoomAdress}"/>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
