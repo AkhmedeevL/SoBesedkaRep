@@ -10,6 +10,15 @@ namespace SoBesedkaApp
 {
     public class DataSamples : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Для удобства обернем событие в метод с единственным параметром - имя изменяемого свойства
+        public void RaisePropertyChanged(string propertyName)
+        {
+            // Если кто-то на него подписан, то вызывем его
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         private DateTime[] currentWeek;
         public DateTime[] CurrentWeek
         {
@@ -20,76 +29,51 @@ namespace SoBesedkaApp
                 RaisePropertyChanged("CurrentWeek");
             }
         }
-        public List<Room> rooms;
-        public List<Room> Rooms { get => rooms; set
-            {
-                rooms = value;
-                RaisePropertyChanged("Rooms");
-            }
-        }
+
+        public UserViewModel CurrentUser { get; set; }
+        public RoomViewModel CurrentRoom { get; set; }
+        public List<List<MeetingViewModel>> CurrentWeekMeetings { get; set; }
+        public List<List<int>> PanelElementHeight { get; set; }
+
+        public IUserService Uservice;
+        public IRoomService Rservice;
+        public MeetingService Mservice;
+
+        SoBesedkaDBContext context;
+
+        public List<RoomViewModel> Rooms { get; set; }
+        public List<UserViewModel> Users { get; set; }
         public DataSamples()
         {
+            context = new SoBesedkaDBContext();
+            
+            Uservice = new UserService(context);
+            Rservice = new RoomService(context);
+            Mservice = new MeetingService(context);
+
+            Users = new List<UserViewModel>(Uservice.GetList());
+
+            Rooms = new List<RoomViewModel>(Rservice.GetList());
+
             CurrentWeek = new DateTime[7];
             for (int i = 0; i < 7; i++)
             {
                 CurrentWeek[i] = DateTime.Now + TimeSpan.FromDays(i);
+                //PanelElementHeight.Add(new List<int>());
             }
 
-            var members = new List<Member>()
-            {
-                new Member("Пётр Петров"),
-                new Member("Иван Иванов"),
-                new Member("Сидр Сидоров"),
-                new Member("Вася Васильев")
-            };
-            rooms = new List<Room>
-            {
-                new Room("Переговорка 1"),
-                new Room("Переговорка 2"),
-            };
-
-            var event1 = new Event("Мероприятие", "Тема мероприятия", "Описание описание описание описание описание описание описание описание", DateTime.Now.Date + TimeSpan.FromHours(8), DateTime.Now.Date + TimeSpan.FromHours(9));
-            event1.AddMember(members[0]);
-            event1.AddMember(members[1]);
-            var event2 = new Event("Собрание", "Тема собрания", "Описание описание описание описание описание описание описание описание", DateTime.Now.Date + TimeSpan.FromHours(10), DateTime.Now.Date + TimeSpan.FromHours(12));
-            event2.AddMember(members[0]);
-            event2.AddMember(members[1]);
-            event2.AddMember(members[2]);
-            var event3 = new Event("Митинг", "Тема митинга", "Описание описание описание описание описание описание описание описание", DateTime.Now.Date + TimeSpan.FromHours(11), DateTime.Now.Date + TimeSpan.FromHours(14));
-            event3.AddMember(members[3]);
-            event3.AddMember(members[2]);
-            event3.AddMember(members[0]);
-            rooms[0].Week[0].Add(event1);
-            rooms[0].Week[0].Add(new Event("", "", "", DateTime.Now.Date + TimeSpan.FromHours(9), DateTime.Now.Date + TimeSpan.FromHours(10)));
-            rooms[0].Week[0].Add(event2);
-            rooms[0].Week[1].Add(new Event("", "", "", DateTime.Now.Date + TimeSpan.FromHours(8), DateTime.Now.Date + TimeSpan.FromHours(11)));
-            rooms[0].Week[1].Add(event3);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        // Для удобства обернем событие в метод с единственным параметром - имя изменяемого свойства
-        public void RaisePropertyChanged(string propertyName)
+        public void UpdateMeetings()
         {
-            // Если кто-то на него подписан, то вызывем его
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-
-    public class Room
-    {
-        public List<List<Event>> Week { get; set; }
-        public string Name { get; private set; }
-        public Room(string name)
-        {
-            Name = name;
-            Week = new List<List<Event>>();
+            CurrentWeekMeetings = new List<List<MeetingViewModel>>();
             for (int i = 0; i < 7; i++)
-                Week.Add(new List<Event>());
-        }
-        public override string ToString()
-        {
-            return Name;
+            {
+                CurrentWeekMeetings.Add(Mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i]));
+                
+            }
+            RaisePropertyChanged("CurrentWeekMeetings");
+            RaisePropertyChanged("PanelElementHeight");
         }
     }
 
@@ -104,7 +88,7 @@ namespace SoBesedkaApp
             Desc = desc;
             TimeStart = timeStart;
             TimeEnd = timeEnd;
-            Height = (int)(timeEnd - timeStart).TotalMinutes;
+            Height = (int)Math.Sqrt((timeEnd - timeStart).TotalMinutes * 80);
             Members = new List<Member>();
         }
 

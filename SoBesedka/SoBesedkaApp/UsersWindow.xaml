@@ -6,9 +6,6 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
         Title="UsersWindow" Height="514" Width="424">
-    <Window.Resources>
-        <local:DataSamples x:Key="DataSamples" />
-    </Window.Resources>
     <Grid Margin="0,0,3,0">
         <Grid.RenderTransform>
             <TransformGroup>
@@ -18,7 +15,8 @@
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.RenderTransform>
-        <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Height="464" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" ItemsSource="{Binding members, Source={StaticResource DataSamples}}"/>
+        <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Height="464" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" ItemsSource="{Binding Users}">
+        </ListBox>
         <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="65" Margin="238,14,0,0" VerticalAlignment="Top" Width="165" Click="AdminButton_Click"/>
 
     </Grid>

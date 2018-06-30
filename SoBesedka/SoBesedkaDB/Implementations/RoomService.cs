@@ -22,7 +22,19 @@ namespace SoBesedkaDB.Implementations
             List<RoomViewModel> result = context.Rooms.Select(rec => new RoomViewModel
             {
                 Id = rec.Id,
-                RoomName = rec.RoomName
+                RoomName = rec.RoomName,
+                RoomAdress = rec.RoomAdress,
+                Description = rec.Description,
+                Meetings = context.Meetings.Select(m => new MeetingViewModel {
+                    Id = m.Id,
+                    MeetingName = m.MeetingName,
+                    MeetingTheme = m.MeetingTheme,
+                    StartTime = m.StartTime,
+                    EndTime = m.EndTime,
+                    CreatorId = m.CreatorId,
+                    MeetingDescription = m.MeetingDescription,
+                    RoomId = m.RoomId
+                }).ToList()
             })
             .ToList();
             return result;
@@ -36,8 +48,20 @@ namespace SoBesedkaDB.Implementations
                 return new RoomViewModel
                 {
                     Id = element.Id,
-
-                    RoomName = element.RoomName
+                    RoomAdress = element.RoomAdress,
+                    Description = element.Description,
+                    RoomName = element.RoomName,
+                    Meetings = context.Meetings.Select(m => new MeetingViewModel
+                    {
+                        Id = m.Id,
+                        MeetingName = m.MeetingName,
+                        MeetingTheme = m.MeetingTheme,
+                        StartTime = m.StartTime,
+                        EndTime = m.EndTime,
+                        CreatorId = m.CreatorId,
+                        MeetingDescription = m.MeetingDescription,
+                        RoomId = m.RoomId
+                    }).ToList()
                 };
             }
             throw new Exception("Помещение не найдено");
@@ -54,6 +78,8 @@ namespace SoBesedkaDB.Implementations
             {
                 Id = model.Id,
                 RoomName = model.RoomName,
+                RoomAdress = model.RoomAdress,
+                Description = model.Description,
                 Meetings = null,
             });
             context.SaveChanges();
@@ -74,6 +100,9 @@ namespace SoBesedkaDB.Implementations
             }
             element.Id = model.Id;
             element.RoomName = model.RoomName;
+            element.RoomAdress = model.RoomAdress;
+            element.Description = model.Description;
+            element.Meetings = model.Meetings;
             context.SaveChanges();
         }
 
@@ -90,5 +119,6 @@ namespace SoBesedkaDB.Implementations
                 throw new Exception("Помещение не найдено");
             }
         }
+
     }
 }

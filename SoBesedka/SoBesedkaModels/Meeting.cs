@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,10 +22,10 @@ namespace SoBesedkaModels
         public int CreatorId { get; set; }
 
         [Required]
-        public string StartTime { get; set; }
+        public DateTime StartTime { get; set; }
 
         [Required]
-        public string EndTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         [Required]
         public int RoomId { get; set; }

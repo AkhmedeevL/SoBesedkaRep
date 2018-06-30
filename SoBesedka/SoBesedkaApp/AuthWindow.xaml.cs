@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SoBesedkaDB;
+using SoBesedkaDB.Implementations;
+using SoBesedkaDB.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,19 +24,40 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class AuthWindow : Window
     {
+        public IUserService Uservice;
+        DataSamples Data;
         public AuthWindow()
         {
             InitializeComponent();
             LoginLabel_MouseDown(LoginLabel, null);
+            Data = new DataSamples();
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(LoginTextBox.Text))
+            {
+                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(PasswordTextBox.Password))
+            {
+                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var user = new UserViewModel();
             //открываем главное окно по кнопке входа
-            MainWindow mainwindow = new MainWindow();
-            mainwindow.Show();
-            Closing -= Window_Closing;
-            Close();
+            if (Uservice.SignIn(LoginTextBox.Text, PasswordTextBox.Password, out user))
+            {
+                Data.CurrentUser = user;
+                MainWindow mainwindow = new MainWindow(Data);
+                mainwindow.Show();
+                Closing -= Window_Closing;
+                Close();
+            }
+            else {
+                MessageBox.Show("Неверный логин или пароль");
+            }
         }
 
         private void RegLabel_Click(object sender, MouseButtonEventArgs e)
@@ -42,7 +66,12 @@ namespace SoBesedkaApp
             RegWindow regwindow = new RegWindow();
             regwindow.Show();
         }
-
+        private void ForgotPasswordLabel_Click(object sender, MouseButtonEventArgs e)
+        {
+            //открываем окно восстановления пароля
+            ForgotPasswordWindow fpwindow = new ForgotPasswordWindow();
+            fpwindow.Show();
+        }
         private void Label_MouseEnter(object sender, MouseEventArgs e)
         {
             ((Label) sender).BorderBrush = new SolidColorBrush(Colors.Black);
