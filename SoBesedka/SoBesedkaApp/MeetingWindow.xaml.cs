@@ -37,6 +37,9 @@ namespace SoBesedkaApp
             });
             Close();
             Data.UpdateMeetings();
+            Data.Uservice.SendEmail(Data.CurrentUser.UserMail, "Оповещение о создании мероприятия",
+                String.Format("Мероприятие успешно добавлено. \n Название: {0}. \n Тема: {1}. \n Время: {2}. \n Место: {3}", TitleTextBox.Text, SubjTextBox.Text, TimeStartTextBox.Text, Data.CurrentRoom.RoomName));
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

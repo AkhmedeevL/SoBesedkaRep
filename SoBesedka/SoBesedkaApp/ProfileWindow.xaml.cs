@@ -64,8 +64,11 @@ namespace SoBesedkaApp
                 user.UserMail = EmailTextBox.Text;
                 Uservice.UpdElement(Uservice.ConvertViewToUser(user));
                 FIOTextBox.Focusable = false;
+                FIOTextBox.IsEnabled = false;
                 LoginTextBox.Focusable = false;
+                LoginTextBox.IsEnabled = false;
                 EmailTextBox.Focusable = false;
+                EmailTextBox.IsEnabled = false;
                 ChangeProfileButton.Content = "Редактировать";
             }
         

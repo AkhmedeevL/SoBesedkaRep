@@ -20,5 +20,7 @@ namespace SoBesedkaDB.Interfaces
         User ConvertViewToUser(UserViewModel view);
 
         bool SignIn(string login, string password, out UserViewModel user);
+
+        void SendEmail(string mailAddress, string subject, string text);
     }
 }
