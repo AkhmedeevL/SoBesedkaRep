@@ -2,19 +2,7 @@
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SoBesedkaApp
 {
@@ -23,11 +11,9 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class UsersWindow : Window
     {
-        public IUserService Uservice;
         DataSamples Data;
         public UsersWindow(DataSamples data)
         {
-            Uservice = new UserService(new SoBesedkaDBContext());
             Data = data;
             DataContext = Data;
             InitializeComponent();
@@ -42,7 +28,7 @@ namespace SoBesedkaApp
         {
             UserViewModel user = (UserViewModel)listBoxUsers.SelectedItem;
             user.isAdmin = true;
-            Uservice.UpdElement(Uservice.ConvertViewToUser(user));
+            Data.Uservice.UpdElement(Data.Uservice.ConvertViewToUser(user));
         }
     }
 }
