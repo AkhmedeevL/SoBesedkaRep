@@ -2,6 +2,7 @@
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
+using System;
 using System.Windows;
 
 namespace SoBesedkaApp
@@ -27,8 +28,27 @@ namespace SoBesedkaApp
         private void AdminButton_Click(object sender, RoutedEventArgs e)
         {
             UserViewModel user = (UserViewModel)listBoxUsers.SelectedItem;
+            if (user == null)
+                return;
             user.isAdmin = true;
-            Data.Uservice.UpdElement(Data.Uservice.ConvertViewToUser(user));
+
+            try
+            {
+                var response = APIClient.PostRequest("api/User/UpdElement", user);
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Пользователь {user.UserFIO} - администратор", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Data.UpdateUsers();
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

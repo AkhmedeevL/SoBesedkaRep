@@ -2,6 +2,7 @@
 using SoBesedkaDB;
 using SoBesedkaDB.Views;
 using SoBesedkaModels;
+using System;
 using System.Collections.Generic;
 
 namespace SoBesedkaDB.Interfaces
@@ -17,6 +18,8 @@ namespace SoBesedkaDB.Interfaces
         void UpdElement(Meeting model);
 
         void DelElement(int id);
+
+        List<MeetingViewModel> GetListOfDay(int roomId, DateTime day);
 
         List<MeetingViewModel> GetListUserInvites(int id);
 

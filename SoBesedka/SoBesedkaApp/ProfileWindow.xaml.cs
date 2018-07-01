@@ -2,6 +2,7 @@
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
+using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,6 @@ namespace SoBesedkaApp
         public ProfileWindow(DataSamples data)
         {
             InitializeComponent();
-            Uservice = new UserService(new SoBesedkaDBContext());
-            Mservice = new MeetingService(new SoBesedkaDBContext());
             Data = data;
             FIOTextBox.Text = Data.CurrentUser.UserFIO;
             CurrentFIO = Data.CurrentUser.UserFIO;
