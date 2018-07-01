@@ -154,7 +154,8 @@ namespace SoBesedkaApp
                     var response = APIClient.GetRequest($"api/Meeting/GetListOfDay/?roomId={CurrentRoom.Id}&day={CurrentWeek[i].Date.ToString()}");
                     if (response.Result.IsSuccessStatusCode)
                     {
-                        var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                        //var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                        var list = mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i].Date);
                         CurrentWeekMeetings.Add(list);
                     }
                     else

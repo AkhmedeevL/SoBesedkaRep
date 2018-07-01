@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using DayOfWeek = System.DayOfWeek;
@@ -112,6 +113,32 @@ namespace SoBesedkaDB.Implementations
             context.SaveChanges();
         }
 
+        void Swap<T>(ref T a, ref T b)
+        {
+            var temp = a;
+            a = b;
+            b = temp;
+        }
+
+        bool MeetingIntersect(DateTime a, DateTime b, DateTime c, DateTime d)
+        {
+            if (a > b)  Swap(ref a, ref b);
+            if (c > d)  Swap(ref c, ref d);
+            if (a > c)
+            {
+                if (b < d)
+                {
+                    return a <= b;
+                }
+                return a <= d;
+            }
+            if (b < d)
+            {
+                return c <= b;
+            }
+            return c <= d;
+        }
+
         public List<MeetingViewModel> GetListOfDay(int roomId, DateTime day)
         {
             var dayEnd = day.Date + TimeSpan.FromDays(1);
@@ -130,11 +157,14 @@ namespace SoBesedkaDB.Implementations
             .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd && m.RepeatingDays == "0000000")
             .ToList();
 
+            int c = result.Count;
+
             var rep = context.Meetings.ToList();
             foreach (var meeting in rep)
             {
-                if (meeting.RepeatingDays[(int)day.DayOfWeek] == '1')
-                    result.Add(new MeetingViewModel
+                if (meeting.RepeatingDays[(int) day.DayOfWeek] == '1')
+                {
+                    var meetingToAdd = new MeetingViewModel
                     {
                         Id = meeting.Id,
                         MeetingName = meeting.MeetingName,
@@ -145,10 +175,21 @@ namespace SoBesedkaDB.Implementations
                         EndTime = day.Date + meeting.EndTime.TimeOfDay,
                         RoomId = meeting.RoomId,
                         RepeatingDays = meeting.RepeatingDays
-                    });
+                    };
+                    for (var i = 0; i < c; i++)
+                    {
+                        var added = result[i];
+                        if (!MeetingIntersect(meetingToAdd.StartTime, meetingToAdd.EndTime, added.StartTime,
+                            added.EndTime))
+                            result.Add(meetingToAdd);
+                    }
+                    if (c == 0)
+                        result.Add(meetingToAdd);
+                }
             }
 
-            int c = result.Count;
+            c = result.Count;
+            
             if (c > 0)
             {
                 result.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
