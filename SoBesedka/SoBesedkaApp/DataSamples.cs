@@ -76,13 +76,16 @@ namespace SoBesedkaApp
             }
         }
 
-        private MeetingService mservice;
+        //DEBUG
+        //private MeetingService mservice;
 
         public DataSamples()
         {
             APIClient.Connect();
-            var context = new SoBesedkaDBContext();
-            mservice = new MeetingService(context);
+
+            //DEBUG
+            //var context = new SoBesedkaDBContext();
+            //mservice = new MeetingService(context);
 
             UpdateRooms();
             UpdateUsers();
@@ -154,8 +157,7 @@ namespace SoBesedkaApp
                     var response = APIClient.GetRequest($"api/Meeting/GetListOfDay/?roomId={CurrentRoom.Id}&day={CurrentWeek[i].Date.ToString()}");
                     if (response.Result.IsSuccessStatusCode)
                     {
-                        //var list = APIClient.GetElement<List<MeetingViewModel>>(response);
-                        var list = mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i].Date);
+                        var list = APIClient.GetElement<List<MeetingViewModel>>(response);
                         CurrentWeekMeetings.Add(list);
                     }
                     else
