@@ -128,15 +128,15 @@ namespace SoBesedkaDB.Implementations
             {
                 if (b < d)
                 {
-                    return a <= b;
+                    return a < b;
                 }
-                return a <= d;
+                return a < d;
             }
             if (b < d)
             {
-                return c <= b;
+                return c < b;
             }
-            return c <= d;
+            return c < d;
         }
 
         public List<MeetingViewModel> GetListOfDay(int roomId, DateTime day)
@@ -176,15 +176,18 @@ namespace SoBesedkaDB.Implementations
                         RoomId = meeting.RoomId,
                         RepeatingDays = meeting.RepeatingDays
                     };
+                    var dontAdd = 0;
                     for (var i = 0; i < c; i++)
                     {
                         var added = result[i];
-                        if (!MeetingIntersect(meetingToAdd.StartTime, meetingToAdd.EndTime, added.StartTime,
-                            added.EndTime))
-                            result.Add(meetingToAdd);
+                        if (MeetingIntersect(meetingToAdd.StartTime, meetingToAdd.EndTime, 
+                            added.StartTime, added.EndTime)) dontAdd++;
                     }
-                    if (c == 0)
+                    if (dontAdd == 0)
+                    {
                         result.Add(meetingToAdd);
+                        c++;
+                    }
                 }
             }
 

@@ -108,7 +108,6 @@
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
                                     <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
-                                
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -131,6 +130,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
                 <ItemsControl x:Name="wednesdayEvents" Grid.Column="2" ItemsSource="{Binding Path=CurrentWeekMeetings[2]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -148,6 +148,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
                 <ItemsControl x:Name="thursdayEvents" Grid.Column="3" ItemsSource="{Binding Path=CurrentWeekMeetings[3]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -165,6 +166,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
                 <ItemsControl x:Name="fridayEvents" Grid.Column="4" ItemsSource="{Binding Path=CurrentWeekMeetings[4]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -182,6 +184,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
                 <ItemsControl x:Name="saturdayEvents" Grid.Column="5" ItemsSource="{Binding Path=CurrentWeekMeetings[5]}" Margin="0,0,0,0" HorizontalAlignment="Stretch" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -199,6 +202,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
                 <ItemsControl x:Name="sundayEvents" Grid.Column="6" ItemsSource="{Binding Path=CurrentWeekMeetings[6]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
