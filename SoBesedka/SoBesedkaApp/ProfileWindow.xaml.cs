@@ -29,6 +29,7 @@ namespace SoBesedkaApp
         string CurrentFIO;
         string CurrentLogin;
         string CurrentEmail;
+        string Password;
 
         public ProfileWindow(DataSamples data)
         {
@@ -46,6 +47,7 @@ namespace SoBesedkaApp
             LoginTextBox.IsEnabled = false;
             EmailTextBox.Text = Data.CurrentUser.UserMail;
             CurrentEmail = Data.CurrentUser.UserMail;
+            Password = Data.CurrentUser.UserPassword;
             EmailTextBox.Focusable = false;
             EmailTextBox.IsEnabled = false;
 
@@ -99,7 +101,10 @@ namespace SoBesedkaApp
                             MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
-                    }
+                    } else
+                    {
+                    user.UserPassword = Password;
+                }
                     if (FIOTextBox.Text != CurrentFIO)
                     {
                         user.UserFIO = FIOTextBox.Text;
