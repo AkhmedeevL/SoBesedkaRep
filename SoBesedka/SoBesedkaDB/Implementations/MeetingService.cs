@@ -132,15 +132,12 @@ namespace SoBesedkaDB.Implementations
             int c = result.Count;
             if (c > 0)
             {
-                result.Sort(delegate (MeetingViewModel a, MeetingViewModel b)
-                {
-                    return a.StartTime.CompareTo(b.StartTime);
-                });
-                if (result[c - 1].EndTime < day.Date.AddHours(17))
+                result.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
+                if (result[c - 1].EndTime < day.Date.AddHours(24))
                     result.Add(new MeetingViewModel
                     {
                         StartTime = result[c - 1].EndTime,
-                        EndTime = day.Date.AddHours(17)
+                        EndTime = day.Date.AddHours(24)
                     });
 
                 for (int i = 1; i < c; i++)
@@ -151,29 +148,26 @@ namespace SoBesedkaDB.Implementations
                         {
                             StartTime = result[i - 1].EndTime,
                             EndTime = result[i].StartTime,
-                            MeetingName = String.Empty
+                            MeetingName = string.Empty
                         });
                     }
                 }
-                if (result[0].StartTime > day.Date.AddHours(8))
+                if (result[0].StartTime > day.Date.AddHours(0))
                     result.Add(new MeetingViewModel
                     {
-                        StartTime = day.Date.AddHours(8),
+                        StartTime = day.Date.AddHours(0),
                         EndTime = result[0].StartTime
                     });
                 
-                result.Sort(delegate (MeetingViewModel a, MeetingViewModel b)
-                {
-                    return a.StartTime.CompareTo(b.StartTime);
-                });
+                result.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
             }
             else
             {
                 result = new List<MeetingViewModel> {
                     new MeetingViewModel
                     {
-                        StartTime = day.Date.AddHours(8),
-                        EndTime = day.Date.AddHours(17)
+                        StartTime = day.Date.AddHours(0),
+                        EndTime = day.Date.AddHours(24)
                     }
                 };
             }

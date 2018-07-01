@@ -18,21 +18,10 @@ namespace SoBesedkaApp
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private DateTime[] currentWeek;
-        public DateTime[] CurrentWeek
-        {
-            get { return currentWeek; }
-            set
-            {
-                currentWeek = value;
-                RaisePropertyChanged("CurrentWeek");
-            }
-        }
-
+        public DateTime[] CurrentWeek { get; set; }
         public UserViewModel CurrentUser { get; set; }
         public RoomViewModel CurrentRoom { get; set; }
         public List<List<MeetingViewModel>> CurrentWeekMeetings { get; set; }
-        public List<List<int>> PanelElementHeight { get; set; }
 
         public bool SignIn(string login, string password)
         {

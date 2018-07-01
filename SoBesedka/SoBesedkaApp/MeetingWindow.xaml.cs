@@ -32,25 +32,30 @@ namespace SoBesedkaApp
             {
                 List<UserMeeting> userMeetings = new List<UserMeeting>();
                 //тут должно быть заполнение листа с участниками
-                var response = APIClient.PostRequest("api/Meeting/AddElement", new Meeting
+                if (DatePicker.SelectedDate != null &&
+                    !string.IsNullOrEmpty(TimeStartTextBox.Text) &&
+                    !string.IsNullOrEmpty(DlitTextBox.Text))
                 {
-                    MeetingName = TitleTextBox.Text,
-                    MeetingTheme = SubjTextBox.Text,
-                    MeetingDescription = DescriptionTextBox.Text,
-                    StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay,
-                    EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay + DateTime.Parse(DlitTextBox.Text).TimeOfDay,
-                    UserMeetings = null,
-                    RoomId = Data.CurrentRoom.Id,
-                    CreatorId = Data.CurrentUser.Id
-                });
-                if (response.Result.IsSuccessStatusCode)
-                {
-                    MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Close();
-                }
-                else
-                {
-                    throw new Exception(APIClient.GetError(response));
+                    var response = APIClient.PostRequest("api/Meeting/AddElement", new Meeting
+                    {
+                        MeetingName = TitleTextBox.Text,
+                        MeetingTheme = SubjTextBox.Text,
+                        MeetingDescription = DescriptionTextBox.Text,
+                        StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay,
+                        EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay + DateTime.Parse(DlitTextBox.Text).TimeOfDay,
+                        UserMeetings = null,
+                        RoomId = Data.CurrentRoom.Id,
+                        CreatorId = Data.CurrentUser.Id
+                    });
+                    if (response.Result.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Close();
+                    }
+                    else
+                    {
+                        throw new Exception(APIClient.GetError(response));
+                    }
                 }
             }
             catch (Exception ex)

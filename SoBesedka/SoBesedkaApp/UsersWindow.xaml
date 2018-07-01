@@ -16,6 +16,16 @@
             </TransformGroup>
         </Grid.RenderTransform>
         <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Height="464" Margin="10,10,0,0" VerticalAlignment="Top" Width="219" ItemsSource="{Binding Users}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=isAdmin}" Value="True">
+                            <Setter Property="Content" Value="{Binding Path=UserFIO}"/>
+                            <Setter Property="ContentStringFormat" Value="{}{0} (Администратор)"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
         <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="65" Margin="238,14,0,0" VerticalAlignment="Top" Width="165" Click="AdminButton_Click"/>
 

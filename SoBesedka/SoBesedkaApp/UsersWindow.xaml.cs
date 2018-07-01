@@ -37,7 +37,8 @@ namespace SoBesedkaApp
                 var response = APIClient.PostRequest("api/User/UpdElement", user);
                 if (response.Result.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Пользователь {user.UserFIO} - администратор", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Data.UpdateUsers();
                 }
                 else
                 {
