@@ -34,15 +34,18 @@ namespace SoBesedkaApp
                 List<UserMeeting> userMeetings = new List<UserMeeting>();
                 //тут должно быть заполнение листа с участниками
 
-                var repDays = new List<DayOfWeek>();
-                var repDaySelected = DayOfWeek.Sunday;
+                var repDays = "";
                 foreach (CheckBox cb in CheckBoxContainer.Children)
                 {
-                    if (cb.IsChecked != null && cb.IsChecked.Value)
-                    {
-                        repDays.Add(repDaySelected);
-                        repDaySelected++;
-                    }
+                    if (cb.IsChecked != null)
+                        if (cb.IsChecked.Value)
+                        {
+                            repDays += "1";
+                        }
+                        else
+                        {
+                            repDays += "0";
+                        }
                 }
 
                 if (DatePicker.SelectedDate != null &&
@@ -71,7 +74,7 @@ namespace SoBesedkaApp
             Close();
             Data.UpdateMeetings();
             //Data.SendEmail(Data.CurrentUser.UserMail, "Оповещение о создании мероприятия",
-                //String.Format("Мероприятие успешно добавлено. \n Название: {0}. \n Тема: {1}. \n Время: {2}. \n Место: {3}", TitleTextBox.Text, SubjTextBox.Text, TimeStartTextBox.Text, Data.CurrentRoom.RoomName));
+            //String.Format("Мероприятие успешно добавлено. \n Название: {0}. \n Тема: {1}. \n Время: {2}. \n Место: {3}", TitleTextBox.Text, SubjTextBox.Text, TimeStartTextBox.Text, Data.CurrentRoom.RoomName));
 
         }
 

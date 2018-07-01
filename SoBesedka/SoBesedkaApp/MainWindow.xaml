@@ -106,6 +106,7 @@
                             <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}"  ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
+                                    <EventSetter Event="Button.Click" Handler="CreateEvent_Click"></EventSetter>
                                     <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
                                 

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using SoBesedkaDB;
+using SoBesedkaDB.Implementations;
 
 namespace SoBesedkaApp
 {
@@ -74,9 +76,13 @@ namespace SoBesedkaApp
             }
         }
 
+        private MeetingService mservice;
+
         public DataSamples()
         {
             APIClient.Connect();
+            var context = new SoBesedkaDBContext();
+            mservice = new MeetingService(context);
 
             UpdateRooms();
             UpdateUsers();

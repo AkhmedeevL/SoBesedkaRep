@@ -124,10 +124,29 @@ namespace SoBesedkaDB.Implementations
                 CreatorId = rec.CreatorId,
                 StartTime = rec.StartTime,
                 EndTime = rec.EndTime,
-                RoomId = rec.RoomId
+                RoomId = rec.RoomId,
+                RepeatingDays = rec.RepeatingDays
             })
-            .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd)
+            .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd && m.RepeatingDays == "0000000")
             .ToList();
+
+            var rep = context.Meetings.ToList();
+            foreach (var meeting in rep)
+            {
+                if (meeting.RepeatingDays[(int)day.DayOfWeek] == '1')
+                    result.Add(new MeetingViewModel
+                    {
+                        Id = meeting.Id,
+                        MeetingName = meeting.MeetingName,
+                        MeetingDescription = meeting.MeetingDescription,
+                        MeetingTheme = meeting.MeetingTheme,
+                        CreatorId = meeting.CreatorId,
+                        StartTime = day.Date + meeting.StartTime.TimeOfDay,
+                        EndTime = day.Date + meeting.EndTime.TimeOfDay,
+                        RoomId = meeting.RoomId,
+                        RepeatingDays = meeting.RepeatingDays
+                    });
+            }
 
             int c = result.Count;
             if (c > 0)
@@ -158,7 +177,7 @@ namespace SoBesedkaDB.Implementations
                         StartTime = day.Date.AddHours(0),
                         EndTime = result[0].StartTime
                     });
-                
+
                 result.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
             }
             else
@@ -178,11 +197,13 @@ namespace SoBesedkaDB.Implementations
         {
             List<UserMeetingViewModel> almostresult = context.UserMeetings
                 .Where(rec => rec.UserId == id)
-                .Select(rec => new UserMeetingViewModel {
+                .Select(rec => new UserMeetingViewModel
+                {
                     MeetingId = rec.MeetingId
                 }).ToList();
             List<MeetingViewModel> result = new List<MeetingViewModel>();
-            for (int i = 0; i < almostresult.Count; i++) {
+            for (int i = 0; i < almostresult.Count; i++)
+            {
                 result.Add(GetElement(almostresult[i].MeetingId));
             }
             return result;
@@ -193,16 +214,16 @@ namespace SoBesedkaDB.Implementations
             List<MeetingViewModel> result = context.Meetings
                 .Where(rec => rec.CreatorId == id)
                 .Select(rec => new MeetingViewModel
-            {
-                Id = rec.Id,
-                MeetingName = rec.MeetingName,
-                MeetingDescription = rec.MeetingDescription,
-                MeetingTheme = rec.MeetingTheme,
-                CreatorId = rec.CreatorId,
-                StartTime = rec.StartTime,
-                EndTime = rec.EndTime,
-                RoomId = rec.RoomId
-            })
+                {
+                    Id = rec.Id,
+                    MeetingName = rec.MeetingName,
+                    MeetingDescription = rec.MeetingDescription,
+                    MeetingTheme = rec.MeetingTheme,
+                    CreatorId = rec.CreatorId,
+                    StartTime = rec.StartTime,
+                    EndTime = rec.EndTime,
+                    RoomId = rec.RoomId
+                })
                 .ToList();
             return result;
         }

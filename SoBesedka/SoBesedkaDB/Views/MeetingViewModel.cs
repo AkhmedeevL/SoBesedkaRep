@@ -24,7 +24,7 @@ namespace SoBesedkaDB.Views
         
         public int RoomId { get; set; }
 
-        public List<DayOfWeek> RepeatingDays { get; set; }
+        public string RepeatingDays { get; set; }
 
         public override string ToString()
         {
