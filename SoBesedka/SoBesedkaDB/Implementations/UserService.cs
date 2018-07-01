@@ -5,8 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
+
 using System.Text;
 using System.Threading.Tasks;
 
@@ -136,50 +135,22 @@ namespace SoBesedkaDB.Implementations
             };
         }
 
-        public bool SignIn(string login, string password, out UserViewModel outUser)
+        public UserViewModel GetByLogin(string login)
         {
-            List<UserViewModel> list = GetList();
-            foreach (var user in list) {
-                if (user.UserLogin == login && user.UserPassword == password) {
-                    outUser = user;
-                    return true;
-                }
-            }
-            outUser = null;
-            return false;
-        }
-
-        public void SendEmail(string mailAddress, string subject, string text)
-        {
-            MailMessage objMailMessage = new MailMessage();
-            SmtpClient objSmtpClient = null;
-
-            try
+            User element = context.Users.FirstOrDefault(rec => rec.UserLogin == login);
+            if (element != null)
             {
-                objMailMessage.From = new MailAddress("sobesedkaapp@yandex.ru");
-                objMailMessage.To.Add(new MailAddress(mailAddress));
-                objMailMessage.Subject = subject;
-                objMailMessage.Body = text;
-                objMailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
-                objMailMessage.BodyEncoding = System.Text.Encoding.UTF8;
-
-                objSmtpClient = new SmtpClient("smtp.yandex.ru", 587);
-                objSmtpClient.UseDefaultCredentials = false;
-                objSmtpClient.EnableSsl = true;
-                objSmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                objSmtpClient.Credentials = new NetworkCredential("sobesedkaapp@yandex.ru","teamb123");
-
-                objSmtpClient.Send(objMailMessage);
+                return new UserViewModel
+                {
+                    Id = element.Id,
+                    UserFIO = element.UserFIO,
+                    UserMail = element.UserMail,
+                    UserLogin = element.UserLogin,
+                    UserPassword = element.UserPassword,
+                    isAdmin = element.isAdmin
+                };
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                objMailMessage = null;
-                objSmtpClient = null;
-            }
+            return null;
         }
     }
 }

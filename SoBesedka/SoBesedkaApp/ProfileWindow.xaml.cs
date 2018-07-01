@@ -2,6 +2,7 @@
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
+using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,10 @@ namespace SoBesedkaApp
     public partial class ProfileWindow : Window
     {
         DataSamples Data;
-        IUserService Uservice;
-        IMeetingService Mservice;
 
         public ProfileWindow(DataSamples data)
         {
             InitializeComponent();
-            Uservice = new UserService(new SoBesedkaDBContext());
-            Mservice = new MeetingService(new SoBesedkaDBContext());
             Data = data;
             FIOTextBox.Text = Data.CurrentUser.UserFIO;
             FIOTextBox.Focusable = false;
@@ -62,7 +59,27 @@ namespace SoBesedkaApp
                 user.UserFIO = FIOTextBox.Text;
                 user.UserLogin = LoginTextBox.Text;
                 user.UserMail = EmailTextBox.Text;
-                Uservice.UpdElement(Uservice.ConvertViewToUser(user));
+
+                try
+                {
+                    var response = APIClient.PostRequest("api/User/UpdElement", new User
+                    {
+                        Id = user.Id,
+                        UserFIO = user.UserFIO,
+                        UserLogin = user.UserLogin,
+                        UserMail = user.UserMail
+                    });
+                    
+                    if (!response.Result.IsSuccessStatusCode)
+                    {
+                        throw new Exception(APIClient.GetError(response));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
                 FIOTextBox.Focusable = false;
                 FIOTextBox.IsEnabled = false;
                 LoginTextBox.Focusable = false;
@@ -76,13 +93,54 @@ namespace SoBesedkaApp
 
         private void UserMeetingsButton_Click(object sender, RoutedEventArgs e)
         {
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserCreatedMeetings(Data.CurrentUser.Id));
+            try
+            {
+                var response = APIClient.GetRequest("api/Meeting/GetListUserCreatedMeetings/" + Data.CurrentUser.Id);
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                    if (list != null)
+                    {
+                        Data.UserMeetings = list;
+                    }
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             MeetingsListBox.ItemsSource = Data.UserMeetings;
         }
 
         private void InvitesButton_Click(object sender, RoutedEventArgs e)
         {
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
+            try
+            {
+                var response = APIClient.GetRequest("api/Meeting/GetListUserInvites/" + Data.CurrentUser.Id);
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                    if (list != null)
+                    {
+                        Data.UserMeetings = list;
+                    }
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            //Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
             MeetingsListBox.ItemsSource = Data.UserMeetings;
         }
     }

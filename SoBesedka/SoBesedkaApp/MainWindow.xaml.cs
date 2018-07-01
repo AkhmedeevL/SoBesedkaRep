@@ -96,7 +96,7 @@ namespace SoBesedkaApp
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            var wnd = new RoomsWindow();
+            var wnd = new RoomsWindow(Data);
             wnd.Show();
         }
 

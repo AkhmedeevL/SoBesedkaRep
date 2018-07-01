@@ -2,6 +2,7 @@
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
+using System;
 using System.Windows;
 
 namespace SoBesedkaApp
@@ -11,37 +12,37 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class RoomsWindow : Window
     {
-        public IRoomService Rservice;
         DataSamples Data;
-        public RoomsWindow()
+        public RoomsWindow(DataSamples data)
         {
-            Rservice = new RoomService(new SoBesedkaDBContext());
             InitializeComponent();
-            Data = new DataSamples();
+            Data = data;
             DataContext = Data;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
-            var roomwndow = new CreateRoomWindow();
+            var roomwndow = new CreateRoomWindow(Data);
             roomwndow.Show();
-            
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             RoomViewModel room = (RoomViewModel)RoomsListBox.SelectedItem;
-            Rservice.DelElement(room.Id);
-            var wnd = new RoomsWindow();
-            wnd.Show();
-            Close();
-
+            try
+            {
+                var response = APIClient.PostRequest("api/Room/DelElement", room);
+                if (!response.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            Data.UpdateRooms();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Data.RaisePropertyChanged("Rooms");
-        }
     }
 }

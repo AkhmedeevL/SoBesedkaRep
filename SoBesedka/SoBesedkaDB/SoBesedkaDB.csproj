@@ -59,7 +59,6 @@
     <Compile Include="Implementations\MeetingService.cs" />
     <Compile Include="Implementations\RoomService.cs" />
     <Compile Include="Implementations\UserService.cs" />
-    <Compile Include="Interfaces\IMainService.cs" />
     <Compile Include="Interfaces\IMeetingService.cs" />
     <Compile Include="Interfaces\IRoomService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

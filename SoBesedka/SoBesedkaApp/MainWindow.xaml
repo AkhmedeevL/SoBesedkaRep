@@ -36,8 +36,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="&lt;" HorizontalAlignment="Left" Margin="154,28,0,0" VerticalAlignment="Top" Width="26" Click="Button_Click_1" Height="26" BorderThickness="1"/>
-        <Button Content="&gt;" HorizontalAlignment="Left" Margin="795,30,0,0" VerticalAlignment="Top" Width="24" Click="Button_Click" Height="24" BorderThickness="1"/>
+        <Button Content="&lt;" HorizontalAlignment="Left" Margin="154,28,0,0" VerticalAlignment="Top" Width="12" Click="Button_Click_1" Height="44" BorderThickness="1"/>
+        <Button Content="&gt;" HorizontalAlignment="Left" Margin="807,28,0,0" VerticalAlignment="Top" Width="12" Click="Button_Click" Height="45" BorderThickness="1"/>
         <Button Content="Добавить" HorizontalAlignment="Left" Margin="15,345,0,0" VerticalAlignment="Top" Width="134" Click="Button_Click_2" Height="41"/>
         <Button Content="Редактировать" HorizontalAlignment="Left" Margin="15,391,0,0" VerticalAlignment="Top" Width="134" IsEnabled="false" Height="41" />
         <Menu HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="829">
@@ -47,7 +47,7 @@
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
         </Menu>
         <Button Content="Удалить" HorizontalAlignment="Left" Margin="15,437,0,0" VerticalAlignment="Top" Width="134" IsEnabled="false" Height="41"/>
-        <ItemsControl x:Name="mondayEvents" Grid.Column="0" ItemsSource="{Binding CurrentWeekMeetings[0]}" Margin="154,58,0,5" HorizontalAlignment="Left" Width="95">
+        <ItemsControl x:Name="mondayEvents" Grid.Column="0" ItemsSource="{Binding CurrentWeekMeetings[0]}" Margin="154,80,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="0,0,0,0">
@@ -66,7 +66,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <ItemsControl x:Name="tuesdayEvents" Grid.Column="0" ItemsSource="{Binding CurrentWeekMeetings[1]}" Margin="249,58,0,5" HorizontalAlignment="Left" Width="95">
+        <ItemsControl x:Name="tuesdayEvents" Grid.Column="0" ItemsSource="{Binding CurrentWeekMeetings[1]}" Margin="249,80,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="0,0,0,0"/>
@@ -83,7 +83,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl x:Name="wednesdayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[2]}" Margin="344,58,0,5" HorizontalAlignment="Left" Width="95">
+        <ItemsControl x:Name="wednesdayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[2]}" Margin="344,80,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="0,0,0,0"/>
@@ -100,7 +100,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl x:Name="thursdayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[3]}" Margin="439,58,0,5" HorizontalAlignment="Left" Width="95">
+        <ItemsControl x:Name="thursdayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[3]}" Margin="439,80,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="0,0,0,0"/>
@@ -117,7 +117,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl x:Name="fridayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[4]}" Margin="534,58,0,5" HorizontalAlignment="Left" Width="95">
+        <ItemsControl x:Name="fridayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[4]}" Margin="534,80,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="0,0,0,0"/>
@@ -134,7 +134,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl x:Name="saturdayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[5]}" Margin="629,58,0,5" HorizontalAlignment="Left" Width="95">
+        <ItemsControl x:Name="saturdayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[5]}" Margin="629,80,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="0,0,0,0"/>
@@ -151,7 +151,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <ItemsControl x:Name="sundayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[6]}" Margin="724,58,0,5" HorizontalAlignment="Left" Width="95">
+        <ItemsControl x:Name="sundayEvents" Grid.Column="0" ItemsSource="{Binding Path=CurrentWeekMeetings[6]}" Margin="724,80,0,5" HorizontalAlignment="Left" Width="95">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Margin="0,0,0,0"/>
@@ -168,12 +168,12 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Label x:Name="monday" Content="{Binding CurrentWeek[0], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="181,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
-        <Label x:Name="tuesday" Content="{Binding CurrentWeek[1], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="276,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
-        <Label x:Name="wednesday" Content="{Binding CurrentWeek[2], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="371,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
-        <Label x:Name="thursday" Content="{Binding CurrentWeek[3], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="467,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
-        <Label x:Name="friday" Content="{Binding CurrentWeek[4], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="561,29,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
-        <Label x:Name="saturday" Content="{Binding CurrentWeek[5], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="654,30,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
-        <Label x:Name="sunday" Content="{Binding CurrentWeek[6], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="727,30,0,0" VerticalAlignment="Top" Width="68" Height="24"/>
+        <Label x:Name="monday" Content="{Binding CurrentWeek[0], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="166,30,0,0" VerticalAlignment="Top" Width="83" Height="43"/>
+        <Label x:Name="tuesday" Content="{Binding CurrentWeek[1], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="249,30,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
+        <Label x:Name="wednesday" Content="{Binding CurrentWeek[2], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="344,30,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
+        <Label x:Name="thursday" Content="{Binding CurrentWeek[3], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="439,30,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
+        <Label x:Name="friday" Content="{Binding CurrentWeek[4], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="534,30,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
+        <Label x:Name="saturday" Content="{Binding CurrentWeek[5], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="629,30,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
+        <Label x:Name="sunday" Content="{Binding CurrentWeek[6], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="724,29,0,0" VerticalAlignment="Top" Width="83" Height="43"/>
     </Grid>
 </Window>

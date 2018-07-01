@@ -2,7 +2,9 @@
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
+using SoBesedkaModels;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -26,21 +28,39 @@ namespace SoBesedkaApp
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Data.Mservice.AddElement(new SoBesedkaModels.Meeting
+            try
             {
-                MeetingName = TitleTextBox.Text,
-                MeetingTheme = SubjTextBox.Text,
-                MeetingDescription = DescriptionTextBox.Text,
-                StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay,
-                EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay + DateTime.Parse(DlitTextBox.Text).TimeOfDay,
-                UserMeetings = null,
-                RoomId = Data.CurrentRoom.Id,
-                CreatorId = Data.CurrentUser.Id
-            });
+                List<UserMeeting> userMeetings = new List<UserMeeting>();
+                //тут должно быть заполнение листа с участниками
+                var response = APIClient.PostRequest("api/Meeting/AddElement", new Meeting
+                {
+                    MeetingName = TitleTextBox.Text,
+                    MeetingTheme = SubjTextBox.Text,
+                    MeetingDescription = DescriptionTextBox.Text,
+                    StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay,
+                    EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay + DateTime.Parse(DlitTextBox.Text).TimeOfDay,
+                    UserMeetings = null,
+                    RoomId = Data.CurrentRoom.Id,
+                    CreatorId = Data.CurrentUser.Id
+                });
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OKCancel);
+            }
             Close();
             Data.UpdateMeetings();
-            Data.Uservice.SendEmail(Data.CurrentUser.UserMail, "Оповещение о создании мероприятия",
-                String.Format("Мероприятие успешно добавлено. \n Название: {0}. \n Тема: {1}. \n Время: {2}. \n Место: {3}", TitleTextBox.Text, SubjTextBox.Text, TimeStartTextBox.Text, Data.CurrentRoom.RoomName));
+            //Data.Uservice.SendEmail(Data.CurrentUser.UserMail, "Оповещение о создании мероприятия",
+                //String.Format("Мероприятие успешно добавлено. \n Название: {0}. \n Тема: {1}. \n Время: {2}. \n Место: {3}", TitleTextBox.Text, SubjTextBox.Text, TimeStartTextBox.Text, Data.CurrentRoom.RoomName));
 
         }
 

@@ -36,9 +36,8 @@ namespace SoBesedkaApp
             }
             var user = new UserViewModel();
             //открываем главное окно по кнопке входа
-            if (Data.Uservice.SignIn(LoginTextBox.Text, PasswordTextBox.Password, out user))
+            if (Data.SignIn(LoginTextBox.Text, PasswordTextBox.Password))
             {
-                Data.CurrentUser = user;
                 MainWindow mainwindow = new MainWindow(Data);
                 mainwindow.Show();
                 Closing -= Window_Closing;

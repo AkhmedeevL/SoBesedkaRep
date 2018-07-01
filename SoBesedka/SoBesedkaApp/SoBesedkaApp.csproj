@@ -62,7 +62,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Animations.cs" />
     <Compile Include="Animations\ForgotPasswordWindowAnimations.cs" />
     <Compile Include="Animations\RegWindowAnimations.cs" />
     <Compile Include="APIClient.cs" />

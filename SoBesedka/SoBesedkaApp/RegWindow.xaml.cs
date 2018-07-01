@@ -58,20 +58,25 @@ namespace SoBesedkaApp
                 }
             }
             if (PasswordTextBox.Password == SecondPasswordTextBox.Password)
-                Data.Uservice.AddElement(new User
+                try
                 {
-                    UserFIO = FIOTextBox.Text,
-                    UserMail = EmailTextBox.Text,
-                    UserLogin = LoginTextBox.Text,
-                    UserPassword = PasswordTextBox.Password,
-                    isAdmin = false
-                });
-            MessageBox.Show("Вы успешно зарегистрировались, используйте введённые данные для входа", "Успешно", MessageBoxButton.OK, MessageBoxImage.None);
-            Close();
-            var aut = new AuthWindow();
-            aut.Show();
-        }
+                    Data.AddElement(new User
+                    {
+                        UserFIO = FIOTextBox.Text,
+                        UserMail = EmailTextBox.Text,
+                        UserLogin = LoginTextBox.Text,
+                        UserPassword = PasswordTextBox.Password,
+                        isAdmin = false
+                    });
+                    MessageBox.Show("Вы успешно зарегистрировались, используйте введённые данные для входа", "Успешно", MessageBoxButton.OK, MessageBoxImage.None);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка");
+                }
 
-        
+
+            Close();
+        }
     }
 }
