@@ -4,9 +4,11 @@ using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DayOfWeek = System.DayOfWeek;
 
 namespace SoBesedkaDB.Implementations
 {
@@ -31,7 +33,8 @@ namespace SoBesedkaDB.Implementations
                 StartTime = model.StartTime,
                 EndTime = model.EndTime,
                 RoomId = model.RoomId,
-                UserMeetings = model.UserMeetings
+                UserMeetings = model.UserMeetings,
+                RepeatingDays = model.RepeatingDays
             });
             context.SaveChanges();
         }
@@ -126,9 +129,6 @@ namespace SoBesedkaDB.Implementations
             .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd)
             .ToList();
 
-            
-
-            
             int c = result.Count;
             if (c > 0)
             {

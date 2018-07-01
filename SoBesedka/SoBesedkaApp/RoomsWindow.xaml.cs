@@ -28,19 +28,10 @@ namespace SoBesedkaApp
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            if (RoomsListBox.SelectedItem == null)
+                return;
             RoomViewModel room = (RoomViewModel)RoomsListBox.SelectedItem;
-            try
-            {
-                var response = APIClient.PostRequest("api/Room/DelElement", room);
-                if (!response.Result.IsSuccessStatusCode)
-                {
-                    throw new Exception(APIClient.GetError(response));
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            Data.DelElement(room);
             Data.UpdateRooms();
         }
 

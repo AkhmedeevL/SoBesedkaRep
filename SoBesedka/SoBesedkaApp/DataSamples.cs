@@ -3,12 +3,20 @@ using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Forms;
+using System.Windows;
 
 namespace SoBesedkaApp
 {
     public class DataSamples : INotifyPropertyChanged
     {
+        public DateTime[] CurrentWeek { get; set; }
+        public UserViewModel CurrentUser { get; set; }
+        public RoomViewModel CurrentRoom { get; set; }
+        public List<List<MeetingViewModel>> CurrentWeekMeetings { get; set; }
+        public List<RoomViewModel> Rooms { get; set; }
+        public List<UserViewModel> Users { get; set; }
+        public List<MeetingViewModel> UserMeetings { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Для удобства обернем событие в метод с единственным параметром - имя изменяемого свойства
@@ -18,76 +26,51 @@ namespace SoBesedkaApp
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public DateTime[] CurrentWeek { get; set; }
-        public UserViewModel CurrentUser { get; set; }
-        public RoomViewModel CurrentRoom { get; set; }
-        public List<List<MeetingViewModel>> CurrentWeekMeetings { get; set; }
-
         public bool SignIn(string login, string password)
         {
             try
             {
                 var response = APIClient.GetRequest($"api/User/SignIn/?login={login}&password={password}");
-                if (response.Result.IsSuccessStatusCode)
-                {
-                    var user = APIClient.GetElement<UserViewModel>(response);
-                    if (user == null)
-                        return false;
-                    else
-                        CurrentUser = user;
-                    return true;
-                }
-                else
-                {
-                    throw new Exception(APIClient.GetError(response));
-                }
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        public List<RoomViewModel> Rooms { get; set; }
-        public List<UserViewModel> Users { get; set; }
-        public List<MeetingViewModel> UserMeetings { get; set; }
-
-        internal bool AddElement(User user)
-        {
-            var response = APIClient.PostRequest("api/User/AddElement", user);
-            if (response.Result.IsSuccessStatusCode)
-            {
+                if (!response.Result.IsSuccessStatusCode) throw new Exception(APIClient.GetError(response));
+                var user = APIClient.GetElement<UserViewModel>(response);
+                if (user == null)
+                    return false;
+                CurrentUser = user;
                 return true;
             }
-            else
+            catch (Exception ex)
             {
                 return false;
             }
         }
 
-        public void AddElement(Room room)
+        public bool AddElement(object element)
         {
-
-        }
-
-        public bool AddElement(Meeting meeting)
-        {
+            var controller = element.GetType().Name;
             try
             {
-                var response = APIClient.PostRequest("api/Meeting/AddElement", meeting);
-                if (response.Result.IsSuccessStatusCode)
-                {
-                    MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return true;
-                }
-                else
-                {
-                    throw new Exception(APIClient.GetError(response));
-                }
+                var response = APIClient.PostRequest($"api/{controller}/AddElement", element);
+                if (!response.Result.IsSuccessStatusCode) throw new Exception(APIClient.GetError(response));
+                return true;
             }
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public bool DelElement(object element)
+        {
+            var controller = element.GetType().Name.Replace("ViewModel", "");
+            try
+            {
+                var response = APIClient.PostRequest($"api/{controller}/DelElement", element);
+                if (!response.Result.IsSuccessStatusCode) throw new Exception(APIClient.GetError(response));
+                return true;
+            }
+            catch (Exception ex)
+            {
+               return false;
             }
         }
 
@@ -129,7 +112,7 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             RaisePropertyChanged("Users");
         }
@@ -150,7 +133,7 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             RaisePropertyChanged("Rooms");
         }
@@ -175,7 +158,7 @@ namespace SoBesedkaApp
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             RaisePropertyChanged("CurrentWeekMeetings");

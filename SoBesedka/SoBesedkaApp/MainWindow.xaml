@@ -8,17 +8,29 @@
         xmlns:generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
         xmlns:data="clr-namespace:System.Data;assembly=System.Data"
         mc:Ignorable="d"
-        Title="СоБеседка" Height="647.425" Width="837" Closing="Window_Closing">
+        Title="СоБеседка" Height="647.425" Width="850.5" Closing="Window_Closing">
     <Window.Resources>
-        <local:DateConverter x:Key="weekConverter"/>
+        <local:DateConverter x:Key="WeekConverter"/>
         <local:HeightConverter x:Key="HeightConverter"/>
-        <Style x:Key="emptyEvent" TargetType="Button">
-            <EventSetter Event="Click" Handler="Button_Click_2"></EventSetter>
+        <Style x:Key="EmptyEvent" TargetType="Button">
+            <EventSetter Event="Click" Handler="CreateEvent_Click"></EventSetter>
             <Setter Property="Background" Value="White"></Setter>
         </Style>
-        <Style x:Key="event" TargetType="Button">
+        <local:EventButtonConverter x:Key="EventsButtonConverter" />
+        <Style x:Key="Event" TargetType="Button">
             <EventSetter Event="Click" Handler="Event_Click"></EventSetter>
-            <Setter Property="Background" Value="LightSteelBlue"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource EventsButtonConverter}">
+                        <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
+                        <Binding ElementName="window" Path="DataContext.CurrentUser"></Binding>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="UserEvent" TargetType="Button">
+            <EventSetter Event="Click" Handler="Event_Click"></EventSetter>
+            <Setter Property="Background" Value="LightSkyBlue"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -36,8 +48,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,344,0,0" VerticalAlignment="Top" Width="67" Click="Button_Click_1" Height="44" BorderThickness="1"/>
-        <Button Content="&gt;" HorizontalAlignment="Left" Margin="82,344,0,0" VerticalAlignment="Top" Width="67" Click="Button_Click" Height="44" BorderThickness="1" RenderTransformOrigin="0.716,0.589"/>
+        <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,344,0,0" VerticalAlignment="Top" Width="67" Click="PrevWeek_Click" Height="44" BorderThickness="1"/>
+        <Button Content="&gt;" HorizontalAlignment="Left" Margin="82,344,0,0" VerticalAlignment="Top" Width="67" Click="NextWeek_Click" Height="44" BorderThickness="1" RenderTransformOrigin="0.716,0.589"/>
         <Menu HorizontalAlignment="Stretch" Height="24" VerticalAlignment="Top" >
             <MenuItem x:Name="ProfileMenuItem" Height="24" Header="Профиль" Click="ProfileMenuItem_Click" />
             <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" />
@@ -45,7 +57,7 @@
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
         </Menu>
 
-        <Grid Margin="154,29,10,540">
+        <Grid Margin="154,29,28,546">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -55,16 +67,16 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Label x:Name="monday" Grid.Column="0" Content="{Binding CurrentWeek[0], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
-            <Label x:Name="tuesday" Grid.Column="1" Content="{Binding CurrentWeek[1], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
-            <Label x:Name="wednesday" Grid.Column="2" Content="{Binding CurrentWeek[2], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
-            <Label x:Name="thursday" Grid.Column="3" Content="{Binding CurrentWeek[3], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
-            <Label x:Name="friday" Grid.Column="4" Content="{Binding CurrentWeek[4], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
-            <Label x:Name="saturday" Grid.Column="5" Content="{Binding CurrentWeek[5], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
-            <Label x:Name="sunday" Grid.Column="6" Content="{Binding CurrentWeek[6], Converter={StaticResource weekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43"/>
+            <TextBlock x:Name="Monday" Grid.Column="0" Text="{Binding CurrentWeek[0], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Tuesday" Grid.Column="1" Text="{Binding CurrentWeek[1], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Wednesday" Grid.Column="2" Text="{Binding CurrentWeek[2], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Thursday" Grid.Column="3" Text="{Binding CurrentWeek[3], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Friday" Grid.Column="4" Text="{Binding CurrentWeek[4], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Saturday" Grid.Column="5" Text="{Binding CurrentWeek[5], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Sunday" Grid.Column="6" Text="{Binding CurrentWeek[6], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
         </Grid>
-        
-        <ScrollViewer HorizontalAlignment="Stretch" Margin="154,81,10,10" VerticalAlignment="Stretch">
+
+        <ScrollViewer HorizontalAlignment="Stretch" Margin="154,70,10,10" VerticalAlignment="Stretch">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition>
@@ -82,11 +94,7 @@
                     <ColumnDefinition>
                     </ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <ItemsControl x:Name="mondayEvents" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding CurrentWeekMeetings[0]}" Margin="0,0,0,5" HorizontalAlignment="Stretch" >
+                <ItemsControl x:Name="mondayEvents" Grid.Column="0"  ItemsSource="{Binding CurrentWeekMeetings[0]}" Margin="0,0,0,5" HorizontalAlignment="Stretch" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,0">
@@ -95,17 +103,18 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource event}}"  ToolTip="{Binding}" Tag="{Binding}" />
+                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}"  ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
-                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource emptyEvent}}"/>
+                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
+                                
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <ItemsControl x:Name="tuesdayEvents" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding CurrentWeekMeetings[1]}" Margin="0,0,0,5" HorizontalAlignment="Stretch">
+                <ItemsControl x:Name="tuesdayEvents" Grid.Column="1" ItemsSource="{Binding CurrentWeekMeetings[1]}" Margin="0,0,0,5" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,0"/>
@@ -113,16 +122,16 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource event}}" ToolTip="{Binding}" Tag="{Binding}" />
+                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}" ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
-                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource emptyEvent}}"/>
+                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <ItemsControl x:Name="wednesdayEvents" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Path=CurrentWeekMeetings[2]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                <ItemsControl x:Name="wednesdayEvents" Grid.Column="2" ItemsSource="{Binding Path=CurrentWeekMeetings[2]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,0"/>
@@ -130,16 +139,16 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource event}}" ToolTip="{Binding}" Tag="{Binding}" />
+                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}" ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
-                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource emptyEvent}}"/>
+                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <ItemsControl x:Name="thursdayEvents" Grid.Column="3" Grid.Row="1" ItemsSource="{Binding Path=CurrentWeekMeetings[3]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                <ItemsControl x:Name="thursdayEvents" Grid.Column="3" ItemsSource="{Binding Path=CurrentWeekMeetings[3]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,0"/>
@@ -147,16 +156,16 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource event}}" ToolTip="{Binding}" Tag="{Binding}" />
+                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}" ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
-                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource emptyEvent}}"/>
+                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <ItemsControl x:Name="fridayEvents" Grid.Column="4" Grid.Row="1" ItemsSource="{Binding Path=CurrentWeekMeetings[4]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                <ItemsControl x:Name="fridayEvents" Grid.Column="4" ItemsSource="{Binding Path=CurrentWeekMeetings[4]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,0"/>
@@ -164,16 +173,16 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource event}}" ToolTip="{Binding}" Tag="{Binding}" />
+                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}" ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
-                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource emptyEvent}}"/>
+                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <ItemsControl x:Name="saturdayEvents" Grid.Column="5" Grid.Row="1" ItemsSource="{Binding Path=CurrentWeekMeetings[5]}" Margin="0,0,0,0" HorizontalAlignment="Stretch" >
+                <ItemsControl x:Name="saturdayEvents" Grid.Column="5" ItemsSource="{Binding Path=CurrentWeekMeetings[5]}" Margin="0,0,0,0" HorizontalAlignment="Stretch" >
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,0"/>
@@ -181,16 +190,16 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource event}}" ToolTip="{Binding}" Tag="{Binding}" />
+                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}" ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
-                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource emptyEvent}}"/>
+                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <ItemsControl x:Name="sundayEvents" Grid.Column="6" Grid.Row="1" ItemsSource="{Binding Path=CurrentWeekMeetings[6]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                <ItemsControl x:Name="sundayEvents" Grid.Column="6" ItemsSource="{Binding Path=CurrentWeekMeetings[6]}" Margin="0,0,0,0" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,0,0,0"/>
@@ -198,10 +207,10 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource event}}" ToolTip="{Binding}" Tag="{Binding}" />
+                            <Button Name="btn" Cursor="Hand" Content="{Binding}" Margin="0" Height="{Binding Converter={StaticResource HeightConverter}}" Padding="5,5,5,5" Style="{Binding Source={StaticResource Event}}" ToolTip="{Binding}" Tag="{Binding}" />
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=Id}" Value="0">
-                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource emptyEvent}}"/>
+                                    <Setter TargetName="btn" Property="Style" Value="{Binding Source={StaticResource EmptyEvent}}"/>
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>

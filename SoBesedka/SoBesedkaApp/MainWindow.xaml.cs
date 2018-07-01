@@ -42,7 +42,7 @@ namespace SoBesedkaApp
 
         
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NextWeek_Click(object sender, RoutedEventArgs e)
         {
             for(int i = 0; i < 7; i++)
             {
@@ -52,7 +52,7 @@ namespace SoBesedkaApp
             Data.UpdateMeetings();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void PrevWeek_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < 7; i++)
             {
@@ -62,7 +62,7 @@ namespace SoBesedkaApp
             Data.UpdateMeetings();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void CreateEvent_Click(object sender, RoutedEventArgs e)
         {
             MeetingWindow meetingwindow = new MeetingWindow(Data, (MeetingViewModel)((Button)sender).Tag);
             meetingwindow.Show();
@@ -102,6 +102,8 @@ namespace SoBesedkaApp
 
         private void ListBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ListBox1.SelectedItem == null)
+                return;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
             Data.UpdateMeetings();
         }

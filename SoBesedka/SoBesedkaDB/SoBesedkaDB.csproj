@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201806282310042_dateTime.Designer.cs">
       <DependentUpon>201806282310042_dateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807011527186_repeatingdays_not_virtual.cs" />
+    <Compile Include="Migrations\201807011527186_repeatingdays_not_virtual.Designer.cs">
+      <DependentUpon>201807011527186_repeatingdays_not_virtual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoBesedkaDBContext.cs" />
@@ -101,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806282310042_dateTime.resx">
       <DependentUpon>201806282310042_dateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807011527186_repeatingdays_not_virtual.resx">
+      <DependentUpon>201807011527186_repeatingdays_not_virtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

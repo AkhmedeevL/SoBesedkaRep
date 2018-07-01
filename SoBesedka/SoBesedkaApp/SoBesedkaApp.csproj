@@ -69,8 +69,10 @@
     <Compile Include="CreateRoomWindow.xaml.cs">
       <DependentUpon>CreateRoomWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DateConverter.cs" />
-    <Compile Include="HeightConverter.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\EventButtonConverter.cs" />
+    <Compile Include="Converters\HeightConverter.cs" />
+    <Compile Include="Converters\CreatorConverter.cs" />
     <Compile Include="ForgotPasswordWindow.xaml.cs">
       <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
     </Compile>

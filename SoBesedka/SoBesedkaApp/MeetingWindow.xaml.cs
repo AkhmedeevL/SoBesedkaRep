@@ -21,6 +21,7 @@ namespace SoBesedkaApp
             InitializeComponent();
             Data = data;
             DataContext = data;
+            DatePicker.SelectedDate = meeting.StartTime.Date;
             TimeStartTextBox.Text = meeting.StartTime.ToShortTimeString();
             var t = (meeting.EndTime - meeting.StartTime);
             DlitTextBox.Text = t.ToString("hh\\:mm");
@@ -32,30 +33,35 @@ namespace SoBesedkaApp
             {
                 List<UserMeeting> userMeetings = new List<UserMeeting>();
                 //тут должно быть заполнение листа с участниками
+
+                var repDays = new List<DayOfWeek>();
+                var repDaySelected = DayOfWeek.Sunday;
+                foreach (CheckBox cb in CheckBoxContainer.Children)
+                {
+                    if (cb.IsChecked != null && cb.IsChecked.Value)
+                    {
+                        repDays.Add(repDaySelected);
+                        repDaySelected++;
+                    }
+                }
+
                 if (DatePicker.SelectedDate != null &&
                     !string.IsNullOrEmpty(TimeStartTextBox.Text) &&
                     !string.IsNullOrEmpty(DlitTextBox.Text))
                 {
-                    var response = APIClient.PostRequest("api/Meeting/AddElement", new Meeting
+                    Data.AddElement(new Meeting
                     {
                         MeetingName = TitleTextBox.Text,
                         MeetingTheme = SubjTextBox.Text,
                         MeetingDescription = DescriptionTextBox.Text,
                         StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay,
-                        EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay + DateTime.Parse(DlitTextBox.Text).TimeOfDay,
+                        EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay +
+                                  DateTime.Parse(DlitTextBox.Text).TimeOfDay,
                         UserMeetings = null,
                         RoomId = Data.CurrentRoom.Id,
-                        CreatorId = Data.CurrentUser.Id
+                        CreatorId = Data.CurrentUser.Id,
+                        RepeatingDays = repDays
                     });
-                    if (response.Result.IsSuccessStatusCode)
-                    {
-                        MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Close();
-                    }
-                    else
-                    {
-                        throw new Exception(APIClient.GetError(response));
-                    }
                 }
             }
             catch (Exception ex)
@@ -64,7 +70,7 @@ namespace SoBesedkaApp
             }
             Close();
             Data.UpdateMeetings();
-            //Data.Uservice.SendEmail(Data.CurrentUser.UserMail, "Оповещение о создании мероприятия",
+            //Data.SendEmail(Data.CurrentUser.UserMail, "Оповещение о создании мероприятия",
                 //String.Format("Мероприятие успешно добавлено. \n Название: {0}. \n Тема: {1}. \n Время: {2}. \n Место: {3}", TitleTextBox.Text, SubjTextBox.Text, TimeStartTextBox.Text, Data.CurrentRoom.RoomName));
 
         }
