@@ -5,6 +5,7 @@ using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -65,6 +66,17 @@ namespace SoBesedkaApp
                         CreatorId = Data.CurrentUser.Id,
                         RepeatingDays = repDays
                     });
+
+                    //DateTime when = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay - TimeSpan.FromMinutes(5);
+
+                    //ThreadPool.QueueUserWorkItem(o =>
+                    //{
+                    //    DateTime now = DateTime.Now;
+                        
+                    //if (when > now)
+                    //        Thread.Sleep(when - now);
+                    //    MailService.SendEmail("alyona.krebs@yandex.ru", "Мероприятие", "Начало через 5 минут" );
+                    //});
                 }
             }
             catch (Exception ex)

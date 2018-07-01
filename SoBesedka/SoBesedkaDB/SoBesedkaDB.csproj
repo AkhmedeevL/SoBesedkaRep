@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\MailService.cs" />
     <Compile Include="Implementations\MeetingService.cs" />
     <Compile Include="Implementations\RoomService.cs" />
     <Compile Include="Implementations\UserService.cs" />

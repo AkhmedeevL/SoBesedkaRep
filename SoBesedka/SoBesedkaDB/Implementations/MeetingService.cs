@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using DayOfWeek = System.DayOfWeek;
+using System.Threading;
 
 namespace SoBesedkaDB.Implementations
 {
@@ -38,6 +39,22 @@ namespace SoBesedkaDB.Implementations
                 RepeatingDays = model.RepeatingDays
             });
             context.SaveChanges();
+
+            String email = context.Users.FirstOrDefault(u => u.Id == model.CreatorId).UserMail;
+            DateTime when = model.StartTime - TimeSpan.FromMinutes(15);
+            String meetingName = model.MeetingName;
+            String room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId).RoomName;
+
+            MailService.SendEmail(email, "Уведомление о создании мероприятия", "Мероприятие " + meetingName + " было успешно создано. \n Комната для переговоров: " + room +  "\nВремя начала: " + model.StartTime);
+
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                DateTime now = DateTime.Now;
+                
+                if (when > now)
+                    Thread.Sleep(when - now);
+                MailService.SendEmail(email,"Уведомление о начале мероприятия", "Мероприятие " + meetingName + " начнется через 15 минут. \nКомната для переговоров: " + room);
+            });
         }
 
         public void DelElement(int id)
