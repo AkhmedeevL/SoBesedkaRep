@@ -159,7 +159,9 @@ namespace SoBesedkaDB.Implementations
 
             int c = result.Count;
 
-            var rep = context.Meetings.ToList();
+            var rep = context.Meetings
+            .Where(m => m.RoomId == roomId)
+            .ToList();
             foreach (var meeting in rep)
             {
                 if (meeting.RepeatingDays[(int) day.DayOfWeek] == '1')
