@@ -26,6 +26,10 @@ namespace SoBesedkaApp
         DataSamples Data;
         IUserService Uservice;
         IMeetingService Mservice;
+        string CurrentFIO;
+        string CurrentLogin;
+        string CurrentEmail;
+        string Password;
 
         public ProfileWindow(DataSamples data)
         {
@@ -34,14 +38,31 @@ namespace SoBesedkaApp
             Mservice = new MeetingService(new SoBesedkaDBContext());
             Data = data;
             FIOTextBox.Text = Data.CurrentUser.UserFIO;
+            CurrentFIO = Data.CurrentUser.UserFIO;
             FIOTextBox.Focusable = false;
             FIOTextBox.IsEnabled = false;
             LoginTextBox.Text = Data.CurrentUser.UserLogin;
+            CurrentLogin = Data.CurrentUser.UserLogin;
             LoginTextBox.Focusable = false;
             LoginTextBox.IsEnabled = false;
             EmailTextBox.Text = Data.CurrentUser.UserMail;
+            CurrentEmail = Data.CurrentUser.UserMail;
+            Password = Data.CurrentUser.UserPassword;
             EmailTextBox.Focusable = false;
             EmailTextBox.IsEnabled = false;
+
+            PasswordTextBox.Focusable = false;
+            PasswordTextBox.IsEnabled = false;
+            PasswordConfirmTextBox.IsEnabled = false;
+            PasswordConfirmTextBox.Focusable = false;
+
+
+            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserCreatedMeetings(Data.CurrentUser.Id));
+            MeetingsListBoxCreated.ItemsSource = Data.UserMeetings;
+
+
+            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
+            MeetingsListBoxInvited.ItemsSource = Data.UserMeetings;
         }
 
         private void ChangeProfileButton_Click(object sender, RoutedEventArgs e)
@@ -54,36 +75,66 @@ namespace SoBesedkaApp
                 LoginTextBox.IsEnabled = true;
                 EmailTextBox.Focusable = true;
                 EmailTextBox.IsEnabled = true;
+
+                PasswordTextBox.Focusable = true;
+                PasswordTextBox.IsEnabled = true;
+                PasswordConfirmTextBox.IsEnabled = true;
+                PasswordConfirmTextBox.Focusable = true;
                 ChangeProfileButton.Content = "Сохранить изменения";
 
             }
             else {
+                string changed = ""; //выведем пользователю те поля, которые были изменены. изменяются только те поля, которые он ввёл в соответствующие текстбоксы
                 var user = Data.CurrentUser;
-                user.UserFIO = FIOTextBox.Text;
-                user.UserLogin = LoginTextBox.Text;
-                user.UserMail = EmailTextBox.Text;
-                Uservice.UpdElement(Uservice.ConvertViewToUser(user));
-                FIOTextBox.Focusable = false;
-                FIOTextBox.IsEnabled = false;
-                LoginTextBox.Focusable = false;
-                LoginTextBox.IsEnabled = false;
-                EmailTextBox.Focusable = false;
-                EmailTextBox.IsEnabled = false;
-                ChangeProfileButton.Content = "Редактировать";
+                
+
+
+                    if (PasswordTextBox.Password != null)
+                    {
+                        if (PasswordTextBox.Password == PasswordConfirmTextBox.Password)
+                        {
+                            user.UserPassword = PasswordTextBox.Password;
+                            changed += " Пароль; ";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    } else
+                    {
+                    user.UserPassword = Password;
+                }
+                    if (FIOTextBox.Text != CurrentFIO)
+                    {
+                        user.UserFIO = FIOTextBox.Text;
+                        changed += " ФИО; ";
+                    }
+                    if (LoginTextBox.Text != CurrentLogin)
+                    {
+                        user.UserLogin = LoginTextBox.Text;
+                        changed += " Логин; ";
+                    }
+                    if (EmailTextBox.Text != CurrentEmail)
+                    {
+                        user.UserMail = EmailTextBox.Text;
+                        changed += " E-mail; ";
+                    }
+                    Uservice.UpdElement(Uservice.ConvertViewToUser(user));
+                    MessageBox.Show(changed + " были обновлены", "Успешно изменено", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    ChangeProfileButton.Content = "Редактировать";
+                    FIOTextBox.Focusable = false;
+                    LoginTextBox.Focusable = false;
+                    EmailTextBox.Focusable = false;
+                    PasswordTextBox.Focusable = false;
+                    PasswordConfirmTextBox.Focusable = false;
+
+            
             }
-        
+
         }
 
-        private void UserMeetingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserCreatedMeetings(Data.CurrentUser.Id));
-            MeetingsListBox.ItemsSource = Data.UserMeetings;
-        }
 
-        private void InvitesButton_Click(object sender, RoutedEventArgs e)
-        {
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
-            MeetingsListBox.ItemsSource = Data.UserMeetings;
-        }
     }
 }
