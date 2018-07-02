@@ -15,6 +15,7 @@ namespace SoBesedkaApp
         public MainWindow(DataSamples data)
         {
             InitializeComponent();
+            ((TextBlock) DaysOfWeek.Children[(int) DateTime.Now.DayOfWeek]).FontWeight = FontWeights.Bold;
             Data = data;
             DataContext = Data;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;

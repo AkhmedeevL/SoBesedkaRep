@@ -55,7 +55,7 @@
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
         </Menu>
 
-        <Grid Margin="154,29,28,198">
+        <Grid Name="DaysOfWeek" Margin="154,29,28,198">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
