@@ -50,13 +50,15 @@ namespace SoBesedkaApp
                         cb.IsChecked = true;
                     i++;
                 }
-            foreach(UserMeetingViewModel um in Meeting.UserMeetings)
-            {
-                var response = APIClient.GetRequest("api/User/Get/" + um.UserId);
-                var user = APIClient.GetElement<UserViewModel>(response);
-                if (user != null)
-                    InvitedUsersListBox.Items.Add(user);
-            }
+
+            if (Meeting.UserMeetings != null)
+                foreach (UserMeetingViewModel um in Meeting.UserMeetings)
+                {
+                    var response = APIClient.GetRequest("api/User/Get/" + um.UserId);
+                    var user = APIClient.GetElement<UserViewModel>(response);
+                    if (user != null)
+                        InvitedUsersListBox.Items.Add(user);
+                }
 
             //startTimeMaskedTextBox.Text = meeting.StartTime.ToShortTimeString();
 
