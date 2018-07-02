@@ -37,11 +37,11 @@ namespace SoBesedkaApp
             };
             sndr.BeginAnimation(HeightProperty, anim);
             var label = (Label)sndr.Tag;
-
+            var marginValue = (Thickness) label.GetAnimationBaseValue(MarginProperty);
             var a = new ThicknessAnimation()
             {
-                From = label.Margin,
-                To = new Thickness(label.Margin.Left, label.Margin.Top - 25, label.Margin.Right, label.Margin.Bottom),
+                From = marginValue,
+                To = new Thickness(marginValue.Left, marginValue.Top - 25, marginValue.Right, marginValue.Bottom),
                 Duration = TimeSpan.FromSeconds(0.2)
             };
             label.BeginAnimation(MarginProperty, a);
@@ -71,11 +71,11 @@ namespace SoBesedkaApp
             };
             sndr.BeginAnimation(HeightProperty, anim);
             var label = (Label)sndr.Tag;
-
+            var marginValue = (Thickness) label.GetAnimationBaseValue(MarginProperty);
             var a = new ThicknessAnimation
             {
-                From = label.Margin,
-                To = new Thickness(label.Margin.Left, label.Margin.Top + 25, label.Margin.Right, label.Margin.Bottom),
+                From = new Thickness(marginValue.Left, marginValue.Top - 25, marginValue.Right, marginValue.Bottom),
+                To = marginValue,
                 Duration = TimeSpan.FromSeconds(0.2)
             };
             label.BeginAnimation(MarginProperty, a);

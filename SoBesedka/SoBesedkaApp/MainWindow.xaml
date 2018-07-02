@@ -8,7 +8,7 @@
         xmlns:generic="clr-namespace:System.Collections.Generic;assembly=mscorlib"
         xmlns:data="clr-namespace:System.Data;assembly=System.Data"
         mc:Ignorable="d"
-        Title="СоБеседка" Height="647.425" Width="850.5" Closing="Window_Closing">
+        Title="СоБеседка" Height="647.425" Width="1081.5" Closing="Window_Closing">
     <Window.Resources>
         <local:DateConverter x:Key="WeekConverter"/>
         <local:HeightConverter x:Key="HeightConverter"/>
@@ -46,8 +46,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,76,0,0" VerticalAlignment="Top" Width="67" Click="PrevWeek_Click" Height="44" BorderThickness="1" Grid.Row="1"/>
-        <Button Content="&gt;" HorizontalAlignment="Left" Margin="82,76,0,0" VerticalAlignment="Top" Width="67" Click="NextWeek_Click" Height="44" BorderThickness="1" RenderTransformOrigin="0.716,0.589" Grid.Row="1"/>
+        <Button Content="&lt;" HorizontalAlignment="Left" Margin="154,29,0,0" VerticalAlignment="Top" Width="20" Click="PrevWeek_Click" Height="36" BorderThickness="1"/>
+        <Button Content="&gt;" HorizontalAlignment="Left" Margin="1018,29,0,0" VerticalAlignment="Top" Width="20" Click="NextWeek_Click" Height="36" BorderThickness="1" RenderTransformOrigin="0.716,0.589"/>
         <Menu HorizontalAlignment="Stretch" Height="24" VerticalAlignment="Top" >
             <MenuItem x:Name="ProfileMenuItem" Height="24" Header="Профиль" Click="ProfileMenuItem_Click" />
             <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" />
@@ -55,23 +55,24 @@
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
         </Menu>
 
-        <Grid Name="DaysOfWeek" Margin="154,29,28,198">
+        <Grid Name="DaysOfWeek" Margin="154,29,10,198" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="94*" />
+                <ColumnDefinition Width="94*" />
+                <ColumnDefinition Width="94*" />
+                <ColumnDefinition Width="94*" />
+                <ColumnDefinition Width="94*" />
+                <ColumnDefinition Width="94*" />
+                <ColumnDefinition Width="94*" />
+                <ColumnDefinition Width="18*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="Monday" Grid.Column="0" Text="{Binding CurrentWeek[0], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
-            <TextBlock x:Name="Tuesday" Grid.Column="1" Text="{Binding CurrentWeek[1], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
-            <TextBlock x:Name="Wednesday" Grid.Column="2" Text="{Binding CurrentWeek[2], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
-            <TextBlock x:Name="Thursday" Grid.Column="3" Text="{Binding CurrentWeek[3], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
-            <TextBlock x:Name="Friday" Grid.Column="4" Text="{Binding CurrentWeek[4], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
-            <TextBlock x:Name="Saturday" Grid.Column="5" Text="{Binding CurrentWeek[5], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
-            <TextBlock x:Name="Sunday" Grid.Column="6" Text="{Binding CurrentWeek[6], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Sunday" Grid.Column="6" Text="{Binding CurrentWeek[6], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Monday" Grid.Column="0" Text="{Binding CurrentWeek[0], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center" />
+            <TextBlock x:Name="Tuesday" Grid.Column="1" Text="{Binding CurrentWeek[1], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Wednesday" Grid.Column="2" Text="{Binding CurrentWeek[2], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Thursday" Grid.Column="3" Text="{Binding CurrentWeek[3], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center" />
+            <TextBlock x:Name="Friday" Grid.Column="4" Text="{Binding CurrentWeek[4], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
+            <TextBlock x:Name="Saturday" Grid.Column="5" Text="{Binding CurrentWeek[5], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
         </Grid>
 
         <ScrollViewer HorizontalAlignment="Stretch" Margin="154,70,10,10" VerticalAlignment="Stretch" Grid.RowSpan="2">
