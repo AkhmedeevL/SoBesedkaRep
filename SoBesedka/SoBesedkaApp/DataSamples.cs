@@ -174,6 +174,22 @@ namespace SoBesedkaApp
             RaisePropertyChanged("CurrentWeekMeetings");
         }
 
+        public bool RestoringPassword(string email) {
+            try
+            {
+                var response = APIClient.GetRequest($"api/User/RestoringPassword/?email={email}");
+                if (!response.Result.IsSuccessStatusCode) throw new Exception(APIClient.GetError(response));
+                var user = APIClient.GetElement<UserViewModel>(response);
+                if (user == null)
+                    return false;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         //public void SendEmail(string mailAddress, string subject, string text)
         //{
         //    MailMessage objMailMessage = new MailMessage();

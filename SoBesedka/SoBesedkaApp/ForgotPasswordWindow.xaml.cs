@@ -13,9 +13,12 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class ForgotPasswordWindow : Window
     {
-        public ForgotPasswordWindow()
+        DataSamples Data;
+
+        public ForgotPasswordWindow(DataSamples data)
         {
             InitializeComponent();
+            Data = data;
         }
 
         private void EnterButton_Click(object sender, RoutedEventArgs e)
@@ -37,8 +40,15 @@ namespace SoBesedkaApp
                         return;
                     }
                 }
-                MessageBox.Show("Временный пароль выслан на указанный E-mail адрес", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
+
+                if (Data.RestoringPassword(mail))
+                {
+                    MessageBox.Show("Временный пароль выслан на указанный E-mail адрес", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                else {
+                    MessageBox.Show("Пользовтеля с указанной почтой не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             catch (Exception ex)
             {

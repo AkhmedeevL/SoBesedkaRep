@@ -28,6 +28,10 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="290*"/>
+            <ColumnDefinition Width="553*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="67*"/>
             <RowDefinition Height="87*"/>
@@ -48,14 +52,14 @@
         </ListBox>
         <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,76,0,0" VerticalAlignment="Top" Width="67" Click="PrevWeek_Click" Height="44" BorderThickness="1" Grid.Row="1"/>
         <Button Content="&gt;" HorizontalAlignment="Left" Margin="82,76,0,0" VerticalAlignment="Top" Width="67" Click="NextWeek_Click" Height="44" BorderThickness="1" RenderTransformOrigin="0.716,0.589" Grid.Row="1"/>
-        <Menu HorizontalAlignment="Stretch" Height="24" VerticalAlignment="Top" >
+        <Menu HorizontalAlignment="Stretch" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2" >
             <MenuItem x:Name="ProfileMenuItem" Height="24" Header="Профиль" Click="ProfileMenuItem_Click" />
             <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" />
             <MenuItem x:Name="UsersMenuItem" Height="24" Header="Участники" Click="MenuItem_Click" />
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
         </Menu>
 
-        <Grid Name="DaysOfWeek" Margin="154,29,28,198">
+        <Grid Name="DaysOfWeek" Margin="154,29,28,198" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -74,7 +78,7 @@
             <TextBlock x:Name="Sunday" Grid.Column="6" Text="{Binding CurrentWeek[6], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
         </Grid>
 
-        <ScrollViewer HorizontalAlignment="Stretch" Margin="154,70,10,10" VerticalAlignment="Stretch" Grid.RowSpan="2">
+        <ScrollViewer HorizontalAlignment="Stretch" Margin="154,70,10,10" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition>

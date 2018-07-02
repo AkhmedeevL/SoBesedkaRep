@@ -20,5 +20,7 @@ namespace SoBesedkaDB.Interfaces
         User ConvertViewToUser(UserViewModel view);
 
         UserViewModel GetByLogin(string login);
+
+        User RestoringPassword(string email);
     }
 }

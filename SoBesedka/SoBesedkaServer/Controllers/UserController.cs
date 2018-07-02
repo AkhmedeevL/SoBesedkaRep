@@ -69,5 +69,12 @@ namespace SoBesedkaRestAPI.Controllers
             }
             return Ok(element);
         }
+
+        [HttpGet]
+        public IHttpActionResult RestoringPassword(string email)
+        {
+            var element = _service.RestoringPassword(email);
+            return Ok(element);
+        }
     }
 }

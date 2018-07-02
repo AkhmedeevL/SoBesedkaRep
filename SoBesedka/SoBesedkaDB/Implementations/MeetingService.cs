@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using DayOfWeek = System.DayOfWeek;
+using System.Threading;
 
 namespace SoBesedkaDB.Implementations
 {
@@ -44,6 +45,35 @@ namespace SoBesedkaDB.Implementations
                 });
             }
             context.SaveChanges();
+
+
+            List<string> emails = new List<string>();
+            emails.Add(context.Users.FirstOrDefault(u => u.Id == model.CreatorId).UserMail);
+            for (int i = 0; i < model.UserMeetings.Count; i++) {
+                emails.Add(context.Users.FirstOrDefault(r => r.Id == model.UserMeetings[i].UserId).UserMail);
+            }
+            //emails = new List<string>(emails.Distinct());
+            DateTime when = model.StartTime - TimeSpan.FromMinutes(15);
+            String meetingName = model.MeetingName;
+            String room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId).RoomName;
+            DateTime now = DateTime.Now;
+            for (int i = 0; i < emails.Count; i++)
+            {
+                MailService.SendEmail(emails[i], "Приглашение на мероприятие", "Мероприятие: " + meetingName + "\n Комната для переговоров: " + room + "\nВремя начала: " + model.StartTime);
+                if (when <= now)
+                {
+                    MailService.SendEmail(emails[i], "Уведомление о начале мероприятия", "Мероприятие " + meetingName + " начнется через " + (model.StartTime - now).Minutes + " минут. \nКомната для переговоров: " + room);
+                }
+                else
+                {
+                    ThreadPool.QueueUserWorkItem(o =>
+                    {
+                        if (when > now)
+                            Thread.Sleep(when - now);
+                        MailService.SendEmail(emails[i], "Уведомление о начале мероприятия", "Мероприятие " + meetingName + " начнется через 15 минут. \nКомната для переговоров: " + room);
+                    });
+                }
+            }
         }
 
         public void DelElement(int id)

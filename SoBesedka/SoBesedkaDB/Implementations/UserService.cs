@@ -152,5 +152,23 @@ namespace SoBesedkaDB.Implementations
             }
             return null;
         }
+
+        public User RestoringPassword(string email)
+        {
+            User element = context.Users.FirstOrDefault(rec => rec.UserMail == email);
+            if (element != null)
+            {
+                Random r = new Random();
+                String newPass = "";
+                for (int i = 0; i < 5; i++) {
+                    newPass += (Char)r.Next(97, 122);
+                }
+                element.UserPassword = newPass;
+                UpdElement(element);
+                MailService.SendEmail(email,"Восстановление пароля", "Ваш логин: " + element.UserLogin + "\nВаш новый пароль: " + newPass);
+                return element;
+            }
+            return null;
+        }
     }
 }

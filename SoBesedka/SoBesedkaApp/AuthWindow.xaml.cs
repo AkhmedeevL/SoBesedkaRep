@@ -57,7 +57,7 @@ namespace SoBesedkaApp
         private void ForgotPasswordLabel_Click(object sender, MouseButtonEventArgs e)
         {
             //открываем окно восстановления пароля
-            ForgotPasswordWindow fpwindow = new ForgotPasswordWindow();
+            ForgotPasswordWindow fpwindow = new ForgotPasswordWindow(Data);
             fpwindow.Show();
         }
         private void Label_MouseEnter(object sender, MouseEventArgs e)
