@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoBesedkaDB.Views
 {
-    class UserMeetingViewModel
+    public class UserMeetingViewModel
     {
         public int Id { get; set; }
 

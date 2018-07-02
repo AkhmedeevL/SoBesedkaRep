@@ -68,7 +68,14 @@ namespace SoBesedkaDB.Implementations
                     CreatorId = element.CreatorId,
                     StartTime = element.StartTime,
                     EndTime = element.EndTime,
-                    RoomId = element.RoomId
+                    RoomId = element.RoomId,
+                    RepeatingDays = element.RepeatingDays,
+                    UserMeetings = element.UserMeetings.Select(um => new UserMeetingViewModel
+                    {
+                        Id = um.Id,
+                        UserId = um.Id,
+                        MeetingId = um.MeetingId
+                    }).ToList()
                 };
             }
             throw new Exception("Событие не найдено");
@@ -142,17 +149,23 @@ namespace SoBesedkaDB.Implementations
         public List<MeetingViewModel> GetListOfDay(int roomId, DateTime day)
         {
             var dayEnd = day.Date + TimeSpan.FromDays(1);
-            List<MeetingViewModel> result = context.Meetings.Select(rec => new MeetingViewModel
+            List<MeetingViewModel> result = context.Meetings.Select(element => new MeetingViewModel
             {
-                Id = rec.Id,
-                MeetingName = rec.MeetingName,
-                MeetingDescription = rec.MeetingDescription,
-                MeetingTheme = rec.MeetingTheme,
-                CreatorId = rec.CreatorId,
-                StartTime = rec.StartTime,
-                EndTime = rec.EndTime,
-                RoomId = rec.RoomId,
-                RepeatingDays = rec.RepeatingDays
+                Id = element.Id,
+                MeetingName = element.MeetingName,
+                MeetingDescription = element.MeetingDescription,
+                MeetingTheme = element.MeetingTheme,
+                CreatorId = element.CreatorId,
+                StartTime = element.StartTime,
+                EndTime = element.EndTime,
+                RoomId = element.RoomId,
+                RepeatingDays = element.RepeatingDays,
+                UserMeetings = element.UserMeetings.Select(um => new UserMeetingViewModel
+                {
+                    Id = um.Id,
+                    UserId = um.Id,
+                    MeetingId = um.MeetingId
+                }).ToList()
             })
             .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd && m.RepeatingDays == "0000000")
             .ToList();
@@ -176,7 +189,13 @@ namespace SoBesedkaDB.Implementations
                         StartTime = day.Date + meeting.StartTime.TimeOfDay,
                         EndTime = day.Date + meeting.EndTime.TimeOfDay,
                         RoomId = meeting.RoomId,
-                        RepeatingDays = meeting.RepeatingDays
+                        RepeatingDays = meeting.RepeatingDays,
+                        UserMeetings = meeting.UserMeetings?.Select(um => new UserMeetingViewModel
+                        {
+                            Id = um.Id,
+                            UserId = um.Id,
+                            MeetingId = um.MeetingId
+                        }).ToList()
                     };
                     var dontAdd = 0;
                     for (var i = 0; i < c; i++)

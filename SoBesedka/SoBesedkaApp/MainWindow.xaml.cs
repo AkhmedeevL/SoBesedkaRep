@@ -28,20 +28,6 @@ namespace SoBesedkaApp
             RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
-        // Register the routed event
-        public static readonly RoutedEvent SelectedEvent =
-            EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble,
-            typeof(RoutedEventHandler), typeof(Button));
-
-        // .NET wrapper
-        public event RoutedEventHandler Selected
-        {
-            add { AddHandler(SelectedEvent, value); }
-            remove { RemoveHandler(SelectedEvent, value); }
-        }
-
-        
-
         private void NextWeek_Click(object sender, RoutedEventArgs e)
         {
             for(int i = 0; i < 7; i++)
@@ -71,6 +57,13 @@ namespace SoBesedkaApp
 
         private void Event_Click(object sender, RoutedEventArgs e)
         {
+            var btn = (Button) sender;
+            if (((MeetingViewModel) btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin == true)
+            {
+                var meetingwnd = new MeetingWindow(Data, (MeetingViewModel) btn.Tag);
+                meetingwnd.Show();
+                return;
+            }
             var meetingInfo = new MeetingInfo((MeetingViewModel)((Button)sender).Tag);
             meetingInfo.Show();
         }
@@ -84,6 +77,10 @@ namespace SoBesedkaApp
             if (res != MessageBoxResult.Yes)
             {
                     e.Cancel = true;
+            }
+            else
+            {
+                Environment.Exit(0);
             }
 
         }

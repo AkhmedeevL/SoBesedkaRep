@@ -1,0 +1,24 @@
+﻿<Window Name="UsersWindow" x:Class="SoBesedkaApp.AddUsers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoBesedkaApp"
+        xmlns:views="clr-namespace:SoBesedkaDB.Views;assembly=SoBesedkaDB"
+        mc:Ignorable="d"
+        Title="AddUsers" Height="450" Width="737.539">
+    <Grid>
+        <ListBox Name="AllUsersListBox" HorizontalAlignment="Left" Height="348" Margin="10,48,0,0" VerticalAlignment="Top" Width="240" ItemsSource="{Binding Path=Users}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="views:UserViewModel">
+                    <TextBlock Text="{Binding Path=UserFIO}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Name="SelectedUsersListBox" HorizontalAlignment="Left" Height="348" Margin="471,48,0,0" VerticalAlignment="Top" Width="240" DataContext="{Binding ElementName=UsersWindow}" ItemsSource="{Binding Path=SelectedUsers}"/>
+        <Button Content="Добавить &gt;&gt;" FontSize="14" HorizontalAlignment="Left" Margin="255,48,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Add_Click"/>
+        <Button Content="&lt;&lt; Убрать" FontSize="14" HorizontalAlignment="Left" Margin="255,107,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Remove_Click"/>
+        <Button Content="Закрыть" IsCancel="True" FontSize="14" HorizontalAlignment="Left" Margin="255,342,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Close_Click"/>
+
+    </Grid>
+</Window>

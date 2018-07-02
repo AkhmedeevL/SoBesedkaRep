@@ -31,7 +31,7 @@ namespace SoBesedkaApp
                 return "";
             }
 
-            return user.UserFIO;
+            return user;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="{Binding MeetingName}" Height="276.113" Width="409.345" WindowStyle="ToolWindow" Margin="0" Padding="0">
     <Window.Resources>
-        <local:CreatorConverter x:Key="CreatorConverter" />
+        <local:CreatorConverter x:Key="UserIdToFIO" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,16 +17,16 @@
         <TextBox Text="{Binding MeetingName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="220" Height="24"/>
         <TextBox Text="{Binding StartTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Height="24" Width="65"/>
         <TextBox Text="{Binding EndTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="90,39,0,0" VerticalAlignment="Top" Height="24" Width="62"/>
-        <TextBox Text="{Binding CreatorId, Converter={StaticResource CreatorConverter}}" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="24" Width="220"/>
+        <TextBox Text="{Binding CreatorId, Converter={StaticResource UserIdToFIO}}" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="24" Width="220"/>
         <TextBox Text="{Binding MeetingTheme}" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Height="24" Width="220"/>
         <TextBox HorizontalAlignment="Left" Margin="10,126,0,0" TextWrapping="Wrap" Text="{Binding Path=MeetingDescription}" VerticalAlignment="Top" Height="103" Width="220"/>
 
 
-        <ListBox x:Name="ListBoxMembers" Grid.Column="1" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" VerticalAlignment="Top" Width="141" DataContext="{Binding UserMeetings}" >
+        <ListBox x:Name="ListBoxMembers" Grid.Column="1" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" VerticalAlignment="Top" Width="141" ItemsSource="{Binding UserMeetings}" >
             <ListBox.ItemTemplate>
-                <ItemContainerTemplate>
-                    <TextBlock Text="{Binding UserId, Converter={StaticResource CreatorConverter}}"></TextBlock>
-                </ItemContainerTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=UserId, Converter={StaticResource UserIdToFIO}}"></TextBlock>
+                </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <Label Content="-" HorizontalAlignment="Left" Margin="75,39,0,0" VerticalAlignment="Top" Height="24" Width="15"/>

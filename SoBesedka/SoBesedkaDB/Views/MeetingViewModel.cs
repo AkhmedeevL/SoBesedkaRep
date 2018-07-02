@@ -26,6 +26,8 @@ namespace SoBesedkaDB.Views
 
         public string RepeatingDays { get; set; }
 
+        public List<UserMeetingViewModel> UserMeetings { get; set; }
+
         public override string ToString()
         {
             return $"{MeetingName}\n{StartTime.ToShortTimeString()}-{EndTime.ToShortTimeString()}";
