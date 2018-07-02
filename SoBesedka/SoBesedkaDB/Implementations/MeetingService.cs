@@ -160,12 +160,14 @@ namespace SoBesedkaDB.Implementations
                 EndTime = element.EndTime,
                 RoomId = element.RoomId,
                 RepeatingDays = element.RepeatingDays,
-                UserMeetings = element.UserMeetings.Select(um => new UserMeetingViewModel
+                UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
                 {
                     Id = um.Id,
                     UserId = um.Id,
                     MeetingId = um.MeetingId
-                }).ToList()
+                })
+                .Where(um => um.MeetingId == element.Id)
+                .ToList()
             })
             .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd && m.RepeatingDays == "0000000")
             .ToList();
@@ -190,12 +192,14 @@ namespace SoBesedkaDB.Implementations
                         EndTime = day.Date + meeting.EndTime.TimeOfDay,
                         RoomId = meeting.RoomId,
                         RepeatingDays = meeting.RepeatingDays,
-                        UserMeetings = meeting.UserMeetings?.Select(um => new UserMeetingViewModel
+                        UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
                         {
                             Id = um.Id,
                             UserId = um.Id,
                             MeetingId = um.MeetingId
-                        }).ToList()
+                        })
+                        .Where(um => um.MeetingId == meeting.Id)
+                        .ToList()
                     };
                     var dontAdd = 0;
                     for (var i = 0; i < c; i++)

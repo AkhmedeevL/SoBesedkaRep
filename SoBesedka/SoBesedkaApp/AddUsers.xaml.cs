@@ -34,6 +34,7 @@ namespace SoBesedkaApp
             SelectedUsers = new List<UserViewModel>();
             AllUsersListBox.DataContext = Data;
             SelectedUsersListBox.DataContext = this;
+            SelectedUsersListBox.Items.Refresh();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)

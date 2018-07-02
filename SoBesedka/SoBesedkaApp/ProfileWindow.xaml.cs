@@ -62,14 +62,8 @@ namespace SoBesedkaApp
 
                 try
                 {
-                    var response = APIClient.PostRequest("api/User/UpdElement", new User
-                    {
-                        Id = user.Id,
-                        UserFIO = user.UserFIO,
-                        UserLogin = user.UserLogin,
-                        UserMail = user.UserMail
-                    });
-                    
+                    var response = APIClient.PostRequest("api/User/UpdElement", user);
+
                     if (!response.Result.IsSuccessStatusCode)
                     {
                         throw new Exception(APIClient.GetError(response));
@@ -140,7 +134,6 @@ namespace SoBesedkaApp
                 MessageBox.Show("", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            //Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
             MeetingsListBox.ItemsSource = Data.UserMeetings;
         }
     }

@@ -18,7 +18,6 @@ namespace SoBesedkaApp
             Data = data;
             DataContext = Data;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
-            //Data.UpdateMeetings();
             if (!Data.CurrentUser.isAdmin) {
                 UsersMenuItem.Visibility = Visibility.Hidden;
                 RoomsMenuItem.Visibility = Visibility.Hidden;
@@ -48,17 +47,10 @@ namespace SoBesedkaApp
             Data.UpdateMeetings();
         }
 
-        private void CreateEvent_Click(object sender, RoutedEventArgs e)
-        {
-            MeetingWindow meetingwindow = new MeetingWindow(Data, (MeetingViewModel)((Button)sender).Tag);
-            meetingwindow.Show();
-
-        }
-
         private void Event_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button) sender;
-            if (((MeetingViewModel) btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin == true)
+            if (((MeetingViewModel) btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin == true || ((MeetingViewModel)btn.Tag).Id == 0)
             {
                 var meetingwnd = new MeetingWindow(Data, (MeetingViewModel) btn.Tag);
                 meetingwnd.Show();

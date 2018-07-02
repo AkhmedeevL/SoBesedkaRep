@@ -66,14 +66,14 @@ namespace SoBesedkaApp
             if (PasswordTextBox.Password == SecondPasswordTextBox.Password)
                 try
                 {
-                    Data.AddElement(new User
+                    if (!Data.AddElement(new User
                     {
                         UserFIO = FIOTextBox.Text,
                         UserMail = EmailTextBox.Text,
                         UserLogin = LoginTextBox.Text,
                         UserPassword = PasswordTextBox.Password,
                         isAdmin = false
-                    });
+                    })) throw new Exception("Не удалось зарегистрироваться");
                     Data.UpdateUsers();
                     MessageBox.Show("Вы успешно зарегистрировались, используйте введённые данные для входа", "Успешно", MessageBoxButton.OK, MessageBoxImage.None);
                 }
@@ -81,7 +81,6 @@ namespace SoBesedkaApp
                 {
                     MessageBox.Show(ex.Message, "Ошибка");
                 }
-
 
             Close();
         }

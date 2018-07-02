@@ -26,13 +26,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="UserEvent" TargetType="Button">
-            <EventSetter Event="Click" Handler="Event_Click"></EventSetter>
-            <Setter Property="Background" Value="LightSkyBlue"/>
-        </Style>
     </Window.Resources>
     <Grid>
-        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="311" Margin="15,28,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Path=Rooms}" SelectedIndex="0" SelectionChanged="ListBox1_SelectionChanged" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="67*"/>
+            <RowDefinition Height="87*"/>
+        </Grid.RowDefinitions>
+        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="311" Margin="15,28,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Path=Rooms}" SelectedIndex="0" SelectionChanged="ListBox1_SelectionChanged" Grid.RowSpan="2" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="3">
@@ -46,8 +46,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,344,0,0" VerticalAlignment="Top" Width="67" Click="PrevWeek_Click" Height="44" BorderThickness="1"/>
-        <Button Content="&gt;" HorizontalAlignment="Left" Margin="82,344,0,0" VerticalAlignment="Top" Width="67" Click="NextWeek_Click" Height="44" BorderThickness="1" RenderTransformOrigin="0.716,0.589"/>
+        <Button Content="&lt;" HorizontalAlignment="Left" Margin="15,76,0,0" VerticalAlignment="Top" Width="67" Click="PrevWeek_Click" Height="44" BorderThickness="1" Grid.Row="1"/>
+        <Button Content="&gt;" HorizontalAlignment="Left" Margin="82,76,0,0" VerticalAlignment="Top" Width="67" Click="NextWeek_Click" Height="44" BorderThickness="1" RenderTransformOrigin="0.716,0.589" Grid.Row="1"/>
         <Menu HorizontalAlignment="Stretch" Height="24" VerticalAlignment="Top" >
             <MenuItem x:Name="ProfileMenuItem" Height="24" Header="Профиль" Click="ProfileMenuItem_Click" />
             <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" />
@@ -55,7 +55,7 @@
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
         </Menu>
 
-        <Grid Margin="154,29,28,546">
+        <Grid Margin="154,29,28,198">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -74,7 +74,7 @@
             <TextBlock x:Name="Sunday" Grid.Column="6" Text="{Binding CurrentWeek[6], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
         </Grid>
 
-        <ScrollViewer HorizontalAlignment="Stretch" Margin="154,70,10,10" VerticalAlignment="Stretch">
+        <ScrollViewer HorizontalAlignment="Stretch" Margin="154,70,10,10" VerticalAlignment="Stretch" Grid.RowSpan="2">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition>

@@ -77,15 +77,15 @@ namespace SoBesedkaApp
         }
 
         //DEBUG
-        private MeetingService mservice;
+        //private MeetingService mservice;
 
         public DataSamples()
         {
             APIClient.Connect();
 
             //DEBUG
-            var context = new SoBesedkaDBContext();
-            mservice = new MeetingService(context);
+            //var context = new SoBesedkaDBContext();
+            //mservice = new MeetingService(context);
 
             UpdateRooms();
             UpdateUsers();
@@ -154,17 +154,17 @@ namespace SoBesedkaApp
             {
                 try
                 {
-                    //var response = APIClient.GetRequest($"api/Meeting/GetListOfDay/?roomId={CurrentRoom.Id}&day={CurrentWeek[i].Date.ToString()}");
-                    //if (response.Result.IsSuccessStatusCode)
-                    //{
-                        //var list = APIClient.GetElement<List<MeetingViewModel>>(response);
-                        var list = mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i].Date);
+                    var response = APIClient.GetRequest($"api/Meeting/GetListOfDay/?roomId={CurrentRoom.Id}&day={CurrentWeek[i].Date.ToString()}");
+                    if (response.Result.IsSuccessStatusCode)
+                    {
+                        var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                        //var list = mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i].Date);
                         CurrentWeekMeetings.Add(list);
-                    //}
-                    //else
-                    //{
-                    //    throw new Exception(APIClient.GetError(response));
-                    //}
+                    }
+                    else
+                    {
+                        throw new Exception(APIClient.GetError(response));
+                    }
                 }
                 catch (Exception ex)
                 {
