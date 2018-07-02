@@ -34,6 +34,7 @@ namespace SoBesedkaApp
             //    BorderStyle = BorderStyle.FixedSingle 
             //};
             //host.Child = startTimeMaskedTextBox;
+
             Meeting = meeting;
             id = Meeting.Id;
             Data = data;
@@ -50,19 +51,26 @@ namespace SoBesedkaApp
                         cb.IsChecked = true;
                     i++;
                 }
-            foreach(UserMeetingViewModel um in Meeting.UserMeetings)
-            {
-                var response = APIClient.GetRequest("api/User/Get/" + um.UserId);
-                var user = APIClient.GetElement<UserViewModel>(response);
-                if (user != null)
-                    InvitedUsersListBox.Items.Add(user);
-            }
+            Data.UpdateUsers();
+            if (Meeting.UserMeetings != null)
+                foreach (UserMeetingViewModel um in Meeting.UserMeetings)
+                {
+                    var user = Data.Users.Find(u => u.Id == um.UserId);
+                    if (user != null)
+                        InvitedUsersListBox.Items.Add(user);
+                }
 
             //startTimeMaskedTextBox.Text = meeting.StartTime.ToShortTimeString();
 
             TimeStartTextBox.Text = meeting.StartTime.ToShortTimeString();
             var t = meeting.EndTime - meeting.StartTime;
             DlitTextBox.Text = t.ToString("hh\\:mm");
+            if (Meeting.Id == 0)
+                Title = "Добавление";
+            else
+            {
+                Title = "Изменение";
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -89,12 +97,12 @@ namespace SoBesedkaApp
                         userMeetings.Add(new UserMeeting
                         {
                             UserId = user.Id,
+                            MeetingId = Meeting.Id
                         });
                     else
                         userMeetings.Add(new UserMeeting
                         {
-                            UserId = user.Id,
-                            MeetingId = Meeting.Id
+                            UserId = user.Id
                         });
                 }
                 if (Meeting.Id > 0)
@@ -121,6 +129,7 @@ namespace SoBesedkaApp
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
                         });
+                        MessageBox.Show("Изменено", "Успех", MessageBoxButton.OK);
                     }
                 }
                 else
@@ -147,6 +156,7 @@ namespace SoBesedkaApp
                             RepeatingDays = repDays
                         });
                     }
+                    MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
                 }
             }
             catch (Exception ex)
@@ -154,8 +164,8 @@ namespace SoBesedkaApp
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OKCancel);
                 return;
             }
+            DialogResult = true;
             Close();
-            Data.UpdateMeetings();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

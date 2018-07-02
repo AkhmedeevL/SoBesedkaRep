@@ -15,6 +15,7 @@ namespace SoBesedkaApp
         public MainWindow(DataSamples data)
         {
             InitializeComponent();
+            ((TextBlock) DaysOfWeek.Children[(int) DateTime.Now.DayOfWeek]).FontWeight = FontWeights.Bold;
             Data = data;
             DataContext = Data;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
@@ -53,7 +54,8 @@ namespace SoBesedkaApp
             if (((MeetingViewModel) btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin == true || ((MeetingViewModel)btn.Tag).Id == 0)
             {
                 var meetingwnd = new MeetingWindow(Data, (MeetingViewModel) btn.Tag);
-                meetingwnd.Show();
+                if (meetingwnd.ShowDialog() == true)
+                     Data.UpdateMeetings();
                 return;
             }
             var meetingInfo = new MeetingInfo((MeetingViewModel)((Button)sender).Tag);
