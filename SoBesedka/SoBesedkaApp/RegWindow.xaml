@@ -25,6 +25,6 @@
         <Label x:Name="ConfirmLabel" Content="Подтвердите пароль:" HorizontalAlignment="Left" Height="30" Margin="72,375,0,0" VerticalAlignment="Top" Width="244" FontSize="16" MouseDown="label_MouseDown" Tag="{Binding ElementName=SecondPasswordTextBox}" Cursor="IBeam"/>
 
         <Button x:Name="RegButton" FontSize="16" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="30" Margin="72,468,0,0" VerticalAlignment="Top" Width="250" Click="EnterButton_Click"/>
-        <TextBlock x:Name="ErrorText" FontSize="16" HorizontalAlignment="Left" Margin="72,425,0,0" VerticalAlignment="Top" Width="250" Height="38" Foreground="Red" TextAlignment="Center"/>
+        <TextBlock x:Name="ErrorText" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Left" Margin="72,419,0,0" VerticalAlignment="Top" Width="250" Height="44" Foreground="Red" TextAlignment="Center"/>
     </Grid>
 </Window>
