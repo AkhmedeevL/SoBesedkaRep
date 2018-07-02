@@ -70,12 +70,14 @@ namespace SoBesedkaDB.Implementations
                     EndTime = element.EndTime,
                     RoomId = element.RoomId,
                     RepeatingDays = element.RepeatingDays,
-                    UserMeetings = element.UserMeetings.Select(um => new UserMeetingViewModel
+                    UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
                     {
                         Id = um.Id,
                         UserId = um.Id,
                         MeetingId = um.MeetingId
-                    }).ToList()
+                    })
+                    .Where(um => um.MeetingId == element.Id)
+                    .ToList()
                 };
             }
             throw new Exception("Событие не найдено");
