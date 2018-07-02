@@ -3,6 +3,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SoBesedkaApp
 {
@@ -25,24 +26,28 @@ namespace SoBesedkaApp
             {
                 //MessageBox.Show("Введите ФИО", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите ФИО";
+                FIOTextBox.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(LoginTextBox.Text))
             {
                 //MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите логин";
+                LoginTextBox.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(EmailTextBox.Text))
             {
                 //MessageBox.Show("Введите E-mail", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите E-mail";
+                EmailTextBox.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(PasswordTextBox.Password))
             {
                 //MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите пароль";
+                PasswordTextBox.Focus();
                 return;
             }
 
@@ -50,6 +55,7 @@ namespace SoBesedkaApp
             {
                 //MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введённые пароли не совпадают";
+                SecondPasswordTextBox.Focus();
                 return;
             }
             string mail = EmailTextBox.Text;
