@@ -26,7 +26,6 @@ namespace SoBesedkaDB.Implementations
         {
             context.Meetings.Add(new Meeting
             {
-                Id = model.Id,
                 MeetingName = model.MeetingName,
                 MeetingDescription = model.MeetingDescription,
                 MeetingTheme = model.MeetingTheme,
@@ -34,9 +33,16 @@ namespace SoBesedkaDB.Implementations
                 StartTime = model.StartTime,
                 EndTime = model.EndTime,
                 RoomId = model.RoomId,
-                UserMeetings = model.UserMeetings,
                 RepeatingDays = model.RepeatingDays
             });
+            foreach (var um in model.UserMeetings)
+            {
+                context.UserMeetings.Add(new UserMeeting
+                {
+                    MeetingId = model.Id,
+                    UserId = um.UserId
+                });
+            }
             context.SaveChanges();
         }
 
@@ -73,7 +79,7 @@ namespace SoBesedkaDB.Implementations
                     UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
                     {
                         Id = um.Id,
-                        UserId = um.Id,
+                        UserId = um.UserId,
                         MeetingId = um.MeetingId
                     })
                     .Where(um => um.MeetingId == element.Id)
@@ -94,7 +100,13 @@ namespace SoBesedkaDB.Implementations
                 CreatorId = rec.CreatorId,
                 StartTime = rec.StartTime,
                 EndTime = rec.EndTime,
-                RoomId = rec.RoomId
+                RoomId = rec.RoomId,
+                UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
+                {
+                    Id = um.Id,
+                    UserId = um.UserId,
+                    MeetingId = um.MeetingId
+                }).ToList()
             })
                 .ToList();
             return result;
@@ -118,7 +130,18 @@ namespace SoBesedkaDB.Implementations
             element.StartTime = model.StartTime;
             element.EndTime = model.EndTime;
             element.RoomId = model.RoomId;
-
+            context.UserMeetings.RemoveRange(
+                context.UserMeetings
+                    .Where(um => um.MeetingId == model.Id)
+            );
+            foreach (var um in model.UserMeetings)
+            {
+                context.UserMeetings.Add(new UserMeeting
+                {
+                    UserId = um.UserId,
+                    MeetingId = model.Id
+                });
+            }
             context.SaveChanges();
         }
 
@@ -165,7 +188,7 @@ namespace SoBesedkaDB.Implementations
                 UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
                 {
                     Id = um.Id,
-                    UserId = um.Id,
+                    UserId = um.UserId,
                     MeetingId = um.MeetingId
                 })
                 .Where(um => um.MeetingId == element.Id)
@@ -197,7 +220,7 @@ namespace SoBesedkaDB.Implementations
                         UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
                         {
                             Id = um.Id,
-                            UserId = um.Id,
+                            UserId = um.UserId,
                             MeetingId = um.MeetingId
                         })
                         .Where(um => um.MeetingId == meeting.Id)

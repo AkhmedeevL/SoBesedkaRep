@@ -40,7 +40,9 @@ namespace SoBesedkaApp
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             UserViewModel user = (UserViewModel) AllUsersListBox.SelectedItem;
-            if (user == null || SelectedUsersListBox.Items.Contains(user))
+            if (user == null)
+                return;
+            if (SelectedUsers.Any(u => u.Id == user.Id))
                 return;
             SelectedUsers.Add(user);
             OnPropertyChanged("SelectedUsers");
