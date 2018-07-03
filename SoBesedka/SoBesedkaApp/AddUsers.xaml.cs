@@ -72,5 +72,14 @@ namespace SoBesedkaApp
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var filteredUsers = Data.Users
+                .Where(user => user.UserFIO.ToLower().Contains(FilterTextBox.Text.ToLower()))
+                .ToList();
+            AllUsersListBox.ItemsSource = filteredUsers;
+            AllUsersListBox.Items.Refresh();
+        }
     }
 }
