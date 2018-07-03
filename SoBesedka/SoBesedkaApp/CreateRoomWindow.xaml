@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="CreateRoomWindow" Height="328.5" Width="800">
+        Title="CreateRoomWindow" Height="315.718" Width="800" ResizeMode="CanMinimize">
     <Grid>
-        <Button x:Name="AddButton" Content="Добавить комнату" HorizontalAlignment="Left" Margin="192,218,0,0" VerticalAlignment="Top" Width="363" Height="66" FontSize="16" Click="AddButton_Click"/>
+        <Button x:Name="AddButton" Content="Сохранить" IsDefault="True" HorizontalAlignment="Left" Margin="588,206,0,0" VerticalAlignment="Top" Width="172" Height="55" FontSize="16" Click="AddButton_Click"/>
         <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="37" Margin="34,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"/>
         <TextBox x:Name="AdressTextBox" HorizontalAlignment="Left" Height="37" Margin="34,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"/>
         <TextBox x:Name="DescriptionTextBox" HorizontalAlignment="Left" Height="115" Margin="406,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="354"/>
-        <Label Content="Название" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top" Width="144" FontSize="16"/>
-        <Label Content="Адрес" HorizontalAlignment="Left" Margin="34,103,0,0" VerticalAlignment="Top" Width="144" FontSize="16"/>
-        <Label Content="Описание" HorizontalAlignment="Left" Margin="406,26,0,0" VerticalAlignment="Top" Width="144" FontSize="16" RenderTransformOrigin="2.413,0.742"/>
+        <Label Content="Название" HorizontalAlignment="Left" Margin="34,30,0,0" VerticalAlignment="Top" Width="144" FontSize="16"/>
+        <Label Content="Адрес" HorizontalAlignment="Left" Margin="34,108,0,0" VerticalAlignment="Top" Width="144" FontSize="16"/>
+        <Label Content="Описание" HorizontalAlignment="Left" Margin="406,30,0,0" VerticalAlignment="Top" Width="144" FontSize="16" RenderTransformOrigin="2.413,0.742"/>
+        <Button Content="Отмена" FontSize="16" IsCancel="True" HorizontalAlignment="Left" Margin="406,206,0,0" VerticalAlignment="Top" Width="172" Height="55"/>
 
     </Grid>
 </Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="Регистрация" Height="554.4" Width="400">
+        Title="Регистрация" Height="554.4" Width="400" ResizeMode="CanMinimize">
     <Grid x:Name="RegGrid">
         <Image Margin="72,30,74.6,0" Source="Resources/authlogo220x50.png" Height="29" VerticalAlignment="Top"/>
 

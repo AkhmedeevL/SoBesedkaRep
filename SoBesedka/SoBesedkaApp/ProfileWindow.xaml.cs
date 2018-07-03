@@ -80,21 +80,19 @@ namespace SoBesedkaApp
 
             try
             {
-                //var response = APIClient.GetRequest("api/Meeting/GetListUserInvites/" + Data.CurrentUser.Id);
-                //if (response.Result.IsSuccessStatusCode)
-                //{
-                //    var list = APIClient.GetElement<List<MeetingViewModel>>(response);
-                //    if (list != null)
-                //    {
-                //        Data.UserMeetings = list;
-                //    }
-                //}
-                //else
-                //{
-                //    throw new Exception(APIClient.GetError(response));
-                //}
-                var list = new MeetingService(new SoBesedkaDBContext()).GetListUserInvites(Data.CurrentUser.Id);
-                Data.UserMeetings = list;
+                var response = APIClient.GetRequest("api/Meeting/GetListUserInvites/" + Data.CurrentUser.Id);
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                    if (list != null)
+                    {
+                        Data.UserMeetings = list;
+                    }
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
             }
             catch (Exception ex)
             {

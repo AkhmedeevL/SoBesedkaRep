@@ -64,7 +64,7 @@
                 <ColumnDefinition Width="94*" />
                 <ColumnDefinition Width="94*" />
                 <ColumnDefinition Width="94*" />
-                <ColumnDefinition Width="18*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="Sunday" Grid.Column="6" Text="{Binding CurrentWeek[6], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center"/>
             <TextBlock x:Name="Monday" Grid.Column="0" Text="{Binding CurrentWeek[0], Converter={StaticResource WeekConverter}}" HorizontalAlignment="Center" Margin="0,0,0,-2" VerticalAlignment="Top" Width="95" Height="43" TextAlignment="Center" />
