@@ -120,5 +120,11 @@ namespace SoBesedkaApp
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
+
+        private void ProgramMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var about = new About();
+            about.Show();
+        }
     }
 }
