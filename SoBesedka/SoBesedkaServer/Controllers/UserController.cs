@@ -62,7 +62,7 @@ namespace SoBesedkaRestAPI.Controllers
         [HttpGet]
         public IHttpActionResult SignIn(string login, string password)
         {
-            var element = _service.GetByLogin(login);
+            var element = _service.GetByLoginOrEmail(login);
             if (element != null && element.UserPassword != password)
             {
                 element = null;

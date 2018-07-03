@@ -26,7 +26,7 @@ namespace SoBesedkaApp
         {
             if (string.IsNullOrEmpty(LoginTextBox.Text))
             {
-                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите логин ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (string.IsNullOrEmpty(PasswordTextBox.Password))
@@ -44,7 +44,7 @@ namespace SoBesedkaApp
                 Close();
             }
             else {
-                MessageBox.Show("Неверный логин или пароль");
+                MessageBox.Show("Неверный логин/E-mail или пароль");
             }
         }
 

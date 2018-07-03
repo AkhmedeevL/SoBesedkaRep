@@ -135,9 +135,9 @@ namespace SoBesedkaDB.Implementations
             };
         }
 
-        public UserViewModel GetByLogin(string login)
+        public UserViewModel GetByLoginOrEmail(string login)
         {
-            User element = context.Users.FirstOrDefault(rec => rec.UserLogin == login);
+            User element = context.Users.FirstOrDefault(rec => rec.UserLogin == login || rec.UserMail == login);
             if (element != null)
             {
                 return new UserViewModel
