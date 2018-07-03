@@ -21,13 +21,23 @@ namespace SoBesedkaApp
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            Data.AddElement(new Room {
-                RoomName = NameTextBox.Text,
-                RoomAdress = AdressTextBox.Text,
-                Description = DescriptionTextBox.Text
-            });
-            Data.UpdateRooms();
-            Close();
+            if (!string.IsNullOrEmpty(AdressTextBox.Text) &&
+                !string.IsNullOrEmpty(DescriptionTextBox.Text) &&
+                !string.IsNullOrEmpty(NameTextBox.Text))
+            {
+                Data.AddElement(new Room
+                {
+                    RoomName = NameTextBox.Text,
+                    RoomAdress = AdressTextBox.Text,
+                    Description = DescriptionTextBox.Text
+                });
+                Data.UpdateRooms();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

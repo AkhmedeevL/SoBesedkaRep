@@ -5,16 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="UsersWindow" Height="514" Width="424">
+        Title="Пользователи" Height="514" Width="424">
     <Grid Margin="0,0,3,0">
-        <Grid.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform Angle="-0.524"/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </Grid.RenderTransform>
         <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="219" ItemsSource="{Binding Users}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
