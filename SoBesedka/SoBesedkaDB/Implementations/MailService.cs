@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SoBesedkaDB.Implementations
 {
-    class MailService
+    public class MailService
     {
         public static void SendEmail(string mailAddress, string subject, string text)
         {
