@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -163,7 +163,13 @@ namespace SoBesedkaDB.Implementations
                 for (int i = 0; i < 5; i++) {
                     newPass += (Char)r.Next(97, 122);
                 }
-                element.UserPassword = newPass;
+                byte[] bytes = Encoding.UTF8.GetBytes(newPass);
+                MD5CryptoServiceProvider CSP = new MD5CryptoServiceProvider();
+                byte[] byteHash = CSP.ComputeHash(bytes);
+                string hash = string.Empty;
+                foreach (byte b in byteHash)
+                    hash += string.Format("{0:x2}", b);
+                element.UserPassword = hash;
                 UpdElement(element);
                 MailService.SendEmail(email,"Восстановление пароля", "Ваш логин: " + element.UserLogin + "\nВаш новый пароль: " + newPass);
                 return element;

@@ -58,6 +58,11 @@ namespace SoBesedkaApp
                 UserViewModel user = (UserViewModel)listBoxUsers.SelectedItem;
                 if (user == null)
                     return;
+                if (user.Id == Data.CurrentUser.Id)
+                {
+                    MessageBox.Show("Нельзя удалить текущего пользователя", "Внимание", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
                 Data.DelElement(user);
                 MessageBox.Show($"Пользователь {user.UserFIO} удален", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                 Data.UpdateUsers();
