@@ -195,7 +195,7 @@ namespace SoBesedkaApp
         public string GetHashString(string s)
         {
             //переводим строку в байт-массим  
-            byte[] bytes = Encoding.Unicode.GetBytes(s);
+            byte[] bytes = Encoding.UTF8.GetBytes(s);
 
             //создаем объект для получения средст шифрования  
             MD5CryptoServiceProvider CSP =
