@@ -5,30 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="{Binding MeetingName}" Height="276.113" Width="409.345" WindowStyle="ToolWindow" Margin="0" Padding="0">
+        Title="{Binding MeetingName}" Height="304.311" Width="409.345" WindowStyle="ToolWindow" Margin="0" Padding="0">
     <Window.Resources>
         <local:CreatorConverter x:Key="UserIdToFIO" />
     </Window.Resources>
-    <Grid>
+    <Grid Margin="0,-6,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="97*"/>
+            <RowDefinition Height="154*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="240*"/>
+            <ColumnDefinition Width="193*"/>
+            <ColumnDefinition Width="24*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="14*"/>
             <ColumnDefinition Width="161*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Text="{Binding MeetingName}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="220" Height="24"/>
-        <TextBox Text="{Binding StartTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Height="24" Width="65"/>
-        <TextBox Text="{Binding EndTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="90,39,0,0" VerticalAlignment="Top" Height="24" Width="62"/>
-        <TextBox Text="{Binding CreatorId, Converter={StaticResource UserIdToFIO}}" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="24" Width="220"/>
-        <TextBox Text="{Binding MeetingTheme}" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Height="24" Width="220"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,126,0,0" TextWrapping="Wrap" Text="{Binding Path=MeetingDescription}" VerticalAlignment="Top" Height="103" Width="220"/>
+        <TextBox Text="{Binding MeetingName}" Margin="10,30,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Height="24" Grid.ColumnSpan="4"/>
+        <TextBox Text="{Binding StartTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top" Height="24" Width="65"/>
+        <TextBox Text="{Binding EndTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="166,65,0,0" VerticalAlignment="Top" Height="24" Width="64" Grid.ColumnSpan="4"/>
+        <TextBox Text="{Binding MeetingTheme}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="220" Grid.ColumnSpan="4" Grid.Row="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,59,0,0" TextWrapping="Wrap" Text="{Binding Path=MeetingDescription}" VerticalAlignment="Top" Height="102" Width="220" Grid.ColumnSpan="4" Grid.Row="1"/>
 
 
-        <ListBox x:Name="ListBoxMembers" Grid.Column="1" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" VerticalAlignment="Top" Width="141" ItemsSource="{Binding UserMeetings}" >
+        <ListBox x:Name="ListBoxMembers" Grid.Column="4" HorizontalAlignment="Left" Height="241" Margin="0,30,0,0" VerticalAlignment="Top" Width="151" ItemsSource="{Binding UserMeetings}" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#FFA1C0DE" >
+            <ListBox.Background>
+                <ImageBrush/>
+            </ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=UserId, Converter={StaticResource UserIdToFIO}}"></TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Content="-" HorizontalAlignment="Left" Margin="75,39,0,0" VerticalAlignment="Top" Height="24" Width="15"/>
+        <Label Content="-" HorizontalAlignment="Left" Margin="151,59,0,0" VerticalAlignment="Top" Height="24" Width="15"/>
+        <Label Content="Название" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Время" HorizontalAlignment="Left" Margin="11,65,0,0" VerticalAlignment="Top" Width="135"/>
+        <Label Content="Тема" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="135" Grid.RowSpan="2"/>
+        <Label Content="Описание" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="135" Grid.Row="1"/>
+        <Label Content="Участники" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="135" Grid.ColumnSpan="2" Grid.Column="3"/>
     </Grid>
 </Window>
