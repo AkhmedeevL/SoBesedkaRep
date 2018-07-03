@@ -3,11 +3,14 @@ using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Http;
 using System.Windows;
 using SoBesedkaDB;
 using SoBesedkaDB.Implementations;
 using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SoBesedkaApp
 {
@@ -44,22 +47,28 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                return false;
+                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                throw new Exception(message["ExceptionMessage"].Value<string>());
             }
         }
 
         public bool AddElement(object element)
         {
+            string error;
             var controller = element.GetType().Name;
             try
             {
                 var response = APIClient.PostRequest($"api/{controller}/AddElement", element);
-                if (!response.Result.IsSuccessStatusCode) throw new Exception(APIClient.GetError(response));
+                if (!response.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
                 return true;
             }
             catch (Exception ex)
             {
-                return false;
+                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                throw new Exception(message["ExceptionMessage"].Value<string>());
             }
         }
 
@@ -74,7 +83,8 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-               return false;
+                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                throw new Exception(message["ExceptionMessage"].Value<string>());
             }
         }
 
