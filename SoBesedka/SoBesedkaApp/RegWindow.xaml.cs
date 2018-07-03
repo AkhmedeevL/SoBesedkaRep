@@ -72,7 +72,7 @@ namespace SoBesedkaApp
             if (PasswordTextBox.Password == SecondPasswordTextBox.Password)
                 try
                 {
-                    if (Data.AddElement(new User
+                    if (!Data.AddElement(new User
                     {
                         UserFIO = FIOTextBox.Text,
                         UserMail = EmailTextBox.Text,
