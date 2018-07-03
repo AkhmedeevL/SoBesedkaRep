@@ -104,5 +104,13 @@ namespace SoBesedkaApp
             var wnd = new ProfileWindow(Data);
             wnd.Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Data.CurrentUser = null;
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+
+        }
     }
 }

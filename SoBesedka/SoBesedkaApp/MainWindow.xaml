@@ -221,5 +221,7 @@
                 </ItemsControl>
             </Grid>
         </ScrollViewer>
+        <Border HorizontalAlignment="Left" Height="32" Margin="53,291,0,0" Grid.Row="1" VerticalAlignment="Top" Width="54" />
+        <Button x:Name="ExitButton" HorizontalAlignment="Left" Margin="15,303,0,0" Grid.Row="1" VerticalAlignment="Top" Width="134" Height="36" Click="Button_Click" Content="Выйти из аккаунта"/>
     </Grid>
 </Window>
