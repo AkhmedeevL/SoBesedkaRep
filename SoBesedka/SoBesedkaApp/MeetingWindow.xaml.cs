@@ -107,6 +107,10 @@ namespace SoBesedkaApp
             }
             try
             {
+                if (DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay <= DateTime.Now) {
+                    MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
+                    return;
+                }
                 var repDays = "";
                 foreach (CheckBox cb in CheckBoxContainer.Children)
                 {
@@ -135,20 +139,16 @@ namespace SoBesedkaApp
                             UserId = user.Id
                         });
                 }
-                if (Meeting.Id > 0)
+                if (DatePicker.SelectedDate != null &&
+                    !string.IsNullOrEmpty(startTimeMaskedTextBox.Text) &&
+                    !string.IsNullOrEmpty(durationMaskedTextBox.Text) &&
+                    !string.IsNullOrEmpty(TitleTextBox.Text) &&
+                    !string.IsNullOrEmpty(SubjTextBox.Text) &&
+                    !string.IsNullOrEmpty(DescriptionTextBox.Text))
                 {
-                    //Изменение
-                    if (DatePicker.SelectedDate != null &&
-                        !string.IsNullOrEmpty(startTimeMaskedTextBox.Text) &&
-                        !string.IsNullOrEmpty(durationMaskedTextBox.Text) &&
-                        !string.IsNullOrEmpty(TitleTextBox.Text) &&
-                        !string.IsNullOrEmpty(SubjTextBox.Text) &&
-                        !string.IsNullOrEmpty(DescriptionTextBox.Text))
+                    if (Meeting.Id > 0)
                     {
-                        if (DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay <= DateTime.Now) {
-                            MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
-                            return;
-                        }
+                        //Изменение
                         var response = APIClient.PostRequest("api/Meeting/UpdElement", new Meeting
                         {
                             Id = Meeting.Id,
@@ -167,25 +167,7 @@ namespace SoBesedkaApp
                     }
                     else
                     {
-                        MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
-                }
-                else
-                {
-                    //Добавление
-                    if (DatePicker.SelectedDate != null &&
-                        !string.IsNullOrEmpty(startTimeMaskedTextBox.Text) &&
-                        !string.IsNullOrEmpty(durationMaskedTextBox.Text) &&
-                        !string.IsNullOrEmpty(TitleTextBox.Text) &&
-                        !string.IsNullOrEmpty(SubjTextBox.Text) &&
-                        !string.IsNullOrEmpty(DescriptionTextBox.Text))
-                    {
-                        if (DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay <= DateTime.Now)
-                        {
-                            MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
-                            return;
-                        }
+                        //Добавление
                         Data.AddElement(new Meeting
                         {
                             MeetingName = TitleTextBox.Text,
@@ -201,11 +183,11 @@ namespace SoBesedkaApp
                         });
                         MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
                     }
-                    else
-                    {
-                        MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return;
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
                 }
             }
             catch (Exception ex)
