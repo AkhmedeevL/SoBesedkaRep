@@ -147,6 +147,10 @@ namespace SoBesedkaApp
                         });
                         MessageBox.Show("Изменено", "Успех", MessageBoxButton.OK);
                     }
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
                 else
                 {
@@ -176,8 +180,12 @@ namespace SoBesedkaApp
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
                         });
+                        MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
                     }
-                    MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
+                    else
+                    {
+                        MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
             }
             catch (Exception ex)

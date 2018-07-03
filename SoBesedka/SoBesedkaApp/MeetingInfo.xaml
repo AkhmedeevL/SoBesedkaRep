@@ -8,7 +8,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         x:Class="SoBesedkaApp.MeetingInfo"
         mc:Ignorable="d"
-        Title="Просмотр" Height="386.2" Width="596.765" WindowStyle="ThreeDBorderWindow" ResizeMode="CanMinimize">
+        Title="Просмотр" Height="386.2" Width="596.765" WindowStyle="SingleBorderWindow" ResizeMode="CanMinimize">
     <Grid Name="ElementsGrid">
         <TextBox x:Name="TitleTextBox" Margin="10,10,0,0" TextWrapping="Wrap" Text="" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Width="351" Height="47" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
         <TextBox x:Name="SubjTextBox" Margin="10,84,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="351" Height="41" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
@@ -23,14 +23,14 @@
         <Label Content="Участники:" HorizontalAlignment="Left" Height="27" Margin="439,9,0,0" VerticalAlignment="Top" Width="137"/>
         <ListBox Name="InvitedUsersListBox" HorizontalAlignment="Left" Height="296" Margin="366,41,0,0" VerticalAlignment="Top" Width="210" />
 
-        <Grid Name="CheckBoxContainer" Margin="10,307,290,27">
-            <CheckBox Name="cb7" Content="вс" HorizontalAlignment="Left" Margin="235,0,0,0" VerticalAlignment="Top" Focusable="False"/>
-            <CheckBox Name="cb1" Content="пн" HorizontalAlignment="Left" Margin="1,0,0,0" VerticalAlignment="Top" Focusable="False"/>
-            <CheckBox Name="cb2" Content="вт" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Focusable="False"/>
-            <CheckBox Name="cb3" Content="ср" HorizontalAlignment="Left" Margin="79,0,0,0" VerticalAlignment="Top" Focusable="False"/>
-            <CheckBox Name="cb4" Content="чт" HorizontalAlignment="Left" Margin="118,0,0,0" VerticalAlignment="Top" Focusable="False"/>
-            <CheckBox Name="cb5" Content="пт" HorizontalAlignment="Left" Margin="157,0,0,0" VerticalAlignment="Top" Focusable="False"/>
-            <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="196,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+        <Grid Name="CheckBoxContainer" Margin="10,307,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="291">
+            <CheckBox Name="cb7" Content="вс" HorizontalAlignment="Left" Margin="235,0,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox Name="cb1" Content="пн" HorizontalAlignment="Left" Margin="1,0,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox Name="cb2" Content="вт" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox Name="cb3" Content="ср" HorizontalAlignment="Left" Margin="79,0,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox Name="cb4" Content="чт" HorizontalAlignment="Left" Margin="118,0,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox Name="cb5" Content="пт" HorizontalAlignment="Left" Margin="157,0,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+            <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="196,0,0,0" VerticalAlignment="Top" IsEnabled="False"/>
         </Grid>
         <Label Content="Повтор:" HorizontalAlignment="Left" Height="27" Margin="10,276,0,0" VerticalAlignment="Top" Width="56"/>
     </Grid>
