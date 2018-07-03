@@ -115,6 +115,10 @@ namespace SoBesedkaApp
                         !string.IsNullOrEmpty(SubjTextBox.Text) &&
                         !string.IsNullOrEmpty(DescriptionTextBox.Text))
                     {
+                        if (DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay <= DateTime.Now) {
+                            MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
+                            return;
+                        }
                         var response = APIClient.PostRequest("api/Meeting/UpdElement", new Meeting
                         {
                             Id = Meeting.Id,
@@ -142,6 +146,11 @@ namespace SoBesedkaApp
                         !string.IsNullOrEmpty(SubjTextBox.Text) &&
                         !string.IsNullOrEmpty(DescriptionTextBox.Text))
                     {
+                        if (DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay <= DateTime.Now)
+                        {
+                            MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
+                            return;
+                        }
                         Data.AddElement(new Meeting
                         {
                             MeetingName = TitleTextBox.Text,

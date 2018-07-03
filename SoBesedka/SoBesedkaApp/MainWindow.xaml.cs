@@ -53,10 +53,20 @@ namespace SoBesedkaApp
             var btn = (Button) sender;
             if (((MeetingViewModel) btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin == true || ((MeetingViewModel)btn.Tag).Id == 0)
             {
-                var meetingwnd = new MeetingWindow(Data, (MeetingViewModel) btn.Tag);
-                if (meetingwnd.ShowDialog() == true)
-                     Data.UpdateMeetings();
-                return;
+                if (((MeetingViewModel)btn.Tag).Id <= 0 && ((MeetingViewModel)btn.Tag).EndTime  < DateTime.Now)
+                {
+                    MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
+                    return;
+                }
+                else {
+                    if (((MeetingViewModel)btn.Tag).EndTime >= DateTime.Now) {
+                        var meetingwnd = new MeetingWindow(Data, (MeetingViewModel)btn.Tag);
+                        if (meetingwnd.ShowDialog() == true)
+                            Data.UpdateMeetings();
+                        return;
+                    }
+                }
+                
             }
             var meetingInfo = new MeetingInfo((MeetingViewModel)((Button)sender).Tag);
             meetingInfo.Show();
