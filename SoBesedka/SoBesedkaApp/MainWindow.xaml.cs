@@ -83,9 +83,8 @@ namespace SoBesedkaApp
             }
             else
             {
-                Environment.Exit(0);
+                Application.Current.Shutdown();
             }
-
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -117,9 +116,9 @@ namespace SoBesedkaApp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Data.CurrentUser = null;
+            Closing -= Window_Closing;
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
-
         }
     }
 }
