@@ -217,7 +217,8 @@ namespace SoBesedkaDB.Implementations
 
         public List<MeetingViewModel> GetListOfDay(int roomId, DateTime day)
         {
-            var dayEnd = day.Date + TimeSpan.FromDays(1);
+            var dayStart = day.Date + TimeSpan.FromHours(8);
+            var dayEnd = day.Date + TimeSpan.FromHours(17);
             List<MeetingViewModel> result = context.Meetings.Select(element => new MeetingViewModel
             {
                 Id = element.Id,
@@ -238,7 +239,7 @@ namespace SoBesedkaDB.Implementations
                 .Where(um => um.MeetingId == element.Id)
                 .ToList()
             })
-            .Where(m => m.RoomId == roomId && m.StartTime >= day.Date && m.EndTime < dayEnd && m.RepeatingDays == "0000000")
+            .Where(m => m.RoomId == roomId && m.StartTime >= dayStart && m.EndTime <= dayEnd && m.RepeatingDays == "0000000")
             .ToList();
 
             int c = result.Count;
@@ -290,11 +291,11 @@ namespace SoBesedkaDB.Implementations
             if (c > 0)
             {
                 result.Sort((a, b) => a.StartTime.CompareTo(b.StartTime));
-                if (result[c - 1].EndTime < day.Date.AddHours(24))
+                if (result[c - 1].EndTime < dayEnd)
                     result.Add(new MeetingViewModel
                     {
                         StartTime = result[c - 1].EndTime,
-                        EndTime = day.Date.AddHours(24)
+                        EndTime = dayEnd
                     });
 
                 for (int i = 1; i < c; i++)
@@ -309,10 +310,10 @@ namespace SoBesedkaDB.Implementations
                         });
                     }
                 }
-                if (result[0].StartTime > day.Date.AddHours(0))
+                if (result[0].StartTime > dayStart)
                     result.Add(new MeetingViewModel
                     {
-                        StartTime = day.Date.AddHours(0),
+                        StartTime = dayStart,
                         EndTime = result[0].StartTime
                     });
 
@@ -323,8 +324,8 @@ namespace SoBesedkaDB.Implementations
                 result = new List<MeetingViewModel> {
                     new MeetingViewModel
                     {
-                        StartTime = day.Date.AddHours(0),
-                        EndTime = day.Date.AddHours(24)
+                        StartTime = dayStart,
+                        EndTime = dayEnd
                     }
                 };
             }
