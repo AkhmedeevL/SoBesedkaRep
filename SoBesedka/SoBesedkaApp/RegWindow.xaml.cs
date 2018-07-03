@@ -77,7 +77,7 @@ namespace SoBesedkaApp
                         UserFIO = FIOTextBox.Text,
                         UserMail = EmailTextBox.Text,
                         UserLogin = LoginTextBox.Text,
-                        UserPassword = PasswordTextBox.Password,
+                        UserPassword = Data.GetHashString(PasswordTextBox.Password),
                         isAdmin = false
                     })) throw new Exception("Не удалось зарегистрироваться");
                     Data.UpdateUsers();

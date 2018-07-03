@@ -50,5 +50,21 @@ namespace SoBesedkaApp
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                UserViewModel user = (UserViewModel)listBoxUsers.SelectedItem;
+                if (user == null)
+                    return;
+                Data.DelElement(user);
+                MessageBox.Show($"Пользователь {user.UserFIO} удален", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                Data.UpdateUsers();
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

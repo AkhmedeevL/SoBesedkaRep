@@ -129,11 +129,11 @@ namespace SoBesedkaApp
 
 
 
-                if (PasswordTextBox.Password != null)
+                if (PasswordTextBox.Password != "")
                 {
                     if (PasswordTextBox.Password == PasswordConfirmTextBox.Password)
                     {
-                        user.UserPassword = PasswordTextBox.Password;
+                        user.UserPassword = Data.GetHashString(PasswordTextBox.Password);
                         changed += " Пароль; ";
                     }
                     else
@@ -174,7 +174,7 @@ namespace SoBesedkaApp
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                MessageBox.Show(changed + " были обновлены", "Успешно изменено", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(changed + " были обновлены", "Успешно изменено", MessageBoxButton.OK);
 
                 ChangeProfileButton.Content = "Редактировать";
                 FIOTextBox.Focusable = false;

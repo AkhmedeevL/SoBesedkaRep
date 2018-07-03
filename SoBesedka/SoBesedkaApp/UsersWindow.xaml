@@ -28,6 +28,7 @@
             </ListBox.ItemContainerStyle>
         </ListBox>
         <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="65" Margin="238,14,0,0" VerticalAlignment="Top" Width="165" Click="AdminButton_Click"/>
+        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="238,84,0,0" VerticalAlignment="Top" Width="165" Height="65" Click="DeleteButton_Click"/>
 
     </Grid>
 </Window>
