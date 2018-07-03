@@ -89,6 +89,24 @@ namespace SoBesedkaApp
         {
             try
             {
+                if (TimeSpan.Parse(startTimeMaskedTextBox.Text) > TimeSpan.FromHours(17) ||
+                    TimeSpan.Parse(startTimeMaskedTextBox.Text) + TimeSpan.Parse(durationMaskedTextBox.Text) >
+                    TimeSpan.FromHours(17) ||
+                    TimeSpan.Parse(startTimeMaskedTextBox.Text) < TimeSpan.FromHours(8))
+                {
+                    MessageBox.Show("Мероприятия проводятся с 8:00 до 17:00", "Внимание", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Неверный формат времени", "Внимание", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+            try
+            {
                 var repDays = "";
                 foreach (CheckBox cb in CheckBoxContainer.Children)
                 {
@@ -150,6 +168,7 @@ namespace SoBesedkaApp
                     else
                     {
                         MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
                     }
                 }
                 else
@@ -185,6 +204,7 @@ namespace SoBesedkaApp
                     else
                     {
                         MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
                     }
                 }
             }

@@ -28,7 +28,8 @@ namespace SoBesedkaDB.Implementations
             if (model.RepeatingDays == "0000000")
             {
                 var intersect = context.Meetings
-                    .Where(m => m.StartTime.Year == model.StartTime.Year &&
+                    .Where(m => m.RoomId == model.RoomId &&
+                                m.StartTime.Year == model.StartTime.Year &&
                                 m.StartTime.Month == model.StartTime.Month &&
                                 m.StartTime.Day == model.StartTime.Day &&
                                 m.RepeatingDays == "0000000");
