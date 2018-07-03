@@ -63,9 +63,11 @@ namespace SoBesedkaDB.Implementations
 
             List<string> emails = new List<string>();
             emails.Add(context.Users.FirstOrDefault(u => u.Id == model.CreatorId).UserMail);
-            for (int i = 0; i < model.UserMeetings.Count; i++) {
-                emails.Add(context.Users.FirstOrDefault(r => r.Id == model.UserMeetings[i].UserId).UserMail);
+            foreach (var um in model.UserMeetings)
+            {
+                emails.Add(context.Users.FirstOrDefault(user => user.Id == um.UserId).UserMail);
             }
+
             //emails = new List<string>(emails.Distinct());
             DateTime when = model.StartTime - TimeSpan.FromMinutes(15);
             String meetingName = model.MeetingName;
