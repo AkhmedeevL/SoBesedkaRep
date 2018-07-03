@@ -15,10 +15,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Name="SelectedUsersListBox" HorizontalAlignment="Left" Height="348" Margin="471,48,0,0" VerticalAlignment="Top" Width="240" DataContext="{Binding ElementName=UsersWindow}" ItemsSource="{Binding Path=SelectedUsers}"/>
+        <ListBox Name="SelectedUsersListBox" HorizontalAlignment="Left" Height="386" Margin="471,10,0,0" VerticalAlignment="Top" Width="240" DataContext="{Binding ElementName=UsersWindow}" ItemsSource="{Binding Path=SelectedUsers}"/>
         <Button Content="Добавить &gt;&gt;" FontSize="14" HorizontalAlignment="Left" Margin="255,48,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Add_Click"/>
         <Button Content="&lt;&lt; Убрать" FontSize="14" HorizontalAlignment="Left" Margin="255,107,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Remove_Click"/>
         <Button Content="Закрыть" IsCancel="True" FontSize="14" HorizontalAlignment="Left" Margin="255,342,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Close_Click"/>
+        <TextBox Name="FilterTextBox" HorizontalAlignment="Left" Height="33" FontSize="16" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" TextChanged="TextBox_TextChanged"/>
 
     </Grid>
 </Window>
