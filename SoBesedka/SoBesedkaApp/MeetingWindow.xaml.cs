@@ -72,9 +72,9 @@ namespace SoBesedkaApp
                         InvitedUsersListBox.Items.Add(user);
                 }
 
-            startTimeMaskedTextBox.Text = meeting.StartTime.ToString("hh\\:mm");
+            startTimeMaskedTextBox.Text = meeting.StartTime.ToString("HH\\:mm");
 
-            var t = (meeting.EndTime - meeting.StartTime).ToString("hh\\:mm");
+            var t = (meeting.EndTime - meeting.StartTime).ToString("c");
             durationMaskedTextBox.Text = t;
             if (Meeting.Id == 0)
             {
