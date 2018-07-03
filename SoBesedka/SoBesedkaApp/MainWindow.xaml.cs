@@ -67,7 +67,7 @@ namespace SoBesedkaApp
                 }
 
             }
-            var meetingInfo = new MeetingInfo((MeetingViewModel)((Button)sender).Tag);
+            var meetingInfo = new MeetingInfo(Data, (MeetingViewModel)((Button)sender).Tag);
             meetingInfo.Show();
         }
 

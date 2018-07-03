@@ -1,48 +1,37 @@
-﻿<Window x:Class="SoBesedkaApp.MeetingInfo"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        x:Class="SoBesedkaApp.MeetingInfo"
         mc:Ignorable="d"
-        Title="{Binding MeetingName}" Height="304.311" Width="409.345" WindowStyle="ToolWindow" Margin="0" Padding="0">
-    <Window.Resources>
-        <local:CreatorConverter x:Key="UserIdToFIO" />
-    </Window.Resources>
-    <Grid Margin="0,-6,0,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="97*"/>
-            <RowDefinition Height="154*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="193*"/>
-            <ColumnDefinition Width="24*"/>
-            <ColumnDefinition Width="9*"/>
-            <ColumnDefinition Width="14*"/>
-            <ColumnDefinition Width="161*"/>
-        </Grid.ColumnDefinitions>
-        <TextBox Text="{Binding MeetingName}" Margin="10,30,10,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Height="24" Grid.ColumnSpan="4"/>
-        <TextBox Text="{Binding StartTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top" Height="24" Width="65"/>
-        <TextBox Text="{Binding EndTime, StringFormat=hh\\:mm}" HorizontalAlignment="Left" Margin="166,65,0,0" VerticalAlignment="Top" Height="24" Width="64" Grid.ColumnSpan="4"/>
-        <TextBox Text="{Binding MeetingTheme}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="24" Width="220" Grid.ColumnSpan="4" Grid.Row="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,59,0,0" TextWrapping="Wrap" Text="{Binding Path=MeetingDescription}" VerticalAlignment="Top" Height="102" Width="220" Grid.ColumnSpan="4" Grid.Row="1"/>
+        Title="Просмотр" Height="386.2" Width="596.765">
+    <Grid Name="ElementsGrid">
+        <TextBox x:Name="TitleTextBox" Margin="10,10,0,0" TextWrapping="Wrap" Text="" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Width="351" Height="47" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
+        <TextBox x:Name="SubjTextBox" Margin="10,89,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="351" Height="41" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
+        <Label Content="Тема:" HorizontalAlignment="Left" Height="27" Margin="10,57,0,0" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="DescriptionTextBox" Margin="10,167,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="351" Height="83" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
+        <Label Content="Описание:" HorizontalAlignment="Left" Height="27" Margin="10,135,0,0" VerticalAlignment="Top" Width="244"/>
+        <Label Content="Дата:" HorizontalAlignment="Left" Height="27" Margin="10,255,0,0" VerticalAlignment="Top" Width="40"/>
 
+        <TextBox x:Name="DatePicker" FontSize="16" HorizontalAlignment="Left" Margin="50,256,0,0" VerticalAlignment="Top" Width="128" BorderThickness="0" Height="27" Focusable="False"/>
+        <Label Content="Время:" HorizontalAlignment="Left" Height="27" Margin="183,255,0,0" VerticalAlignment="Top" Width="55"/>
+        <TextBox x:Name="TimeStartTextBox" Margin="238,256,0,0" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Left" Width="123" Height="26" VerticalAlignment="Top" BorderThickness="0" Focusable="False"/>
+        <Label Content="Участники:" HorizontalAlignment="Left" Height="27" Margin="439,9,0,0" VerticalAlignment="Top" Width="137"/>
+        <ListBox Name="InvitedUsersListBox" HorizontalAlignment="Left" Height="296" Margin="366,41,0,0" VerticalAlignment="Top" Width="210" />
 
-        <ListBox x:Name="ListBoxMembers" Grid.Column="4" HorizontalAlignment="Left" Height="241" Margin="0,30,0,0" VerticalAlignment="Top" Width="151" ItemsSource="{Binding UserMeetings}" Grid.RowSpan="2" BorderThickness="1" BorderBrush="#FFA1C0DE" >
-            <ListBox.Background>
-                <ImageBrush/>
-            </ListBox.Background>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=UserId, Converter={StaticResource UserIdToFIO}}"></TextBlock>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Label Content="-" HorizontalAlignment="Left" Margin="151,59,0,0" VerticalAlignment="Top" Height="24" Width="15"/>
-        <Label Content="Название" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="135"/>
-        <Label Content="Время" HorizontalAlignment="Left" Margin="11,65,0,0" VerticalAlignment="Top" Width="135"/>
-        <Label Content="Тема" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="135" Grid.RowSpan="2"/>
-        <Label Content="Описание" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Width="135" Grid.Row="1"/>
-        <Label Content="Участники" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="135" Grid.ColumnSpan="2" Grid.Column="3"/>
+        <Grid Name="CheckBoxContainer" Margin="10,319,374,15">
+            <CheckBox Name="cb7" Content="вс" HorizontalAlignment="Left" Margin="235,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+            <CheckBox Name="cb1" Content="пн" HorizontalAlignment="Left" Margin="1,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+            <CheckBox Name="cb2" Content="вт" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+            <CheckBox Name="cb3" Content="ср" HorizontalAlignment="Left" Margin="79,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+            <CheckBox Name="cb4" Content="чт" HorizontalAlignment="Left" Margin="118,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+            <CheckBox Name="cb5" Content="пт" HorizontalAlignment="Left" Margin="157,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+            <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="196,0,0,0" VerticalAlignment="Top" Focusable="False"/>
+        </Grid>
+        <Label Content="Повтор:" HorizontalAlignment="Left" Height="27" Margin="10,287,0,0" VerticalAlignment="Top" Width="56"/>
     </Grid>
 </Window>

@@ -6,10 +6,10 @@ using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using CheckBox = System.Windows.Controls.CheckBox;
-using MessageBox = System.Windows.MessageBox;
+using System.Windows.Controls;
+using MaskedTextBox = System.Windows.Forms.MaskedTextBox;
+using DockStyle = System.Windows.Forms.DockStyle;
+using BorderStyle = System.Windows.Forms.BorderStyle;
 
 namespace SoBesedkaApp
 {
@@ -30,7 +30,7 @@ namespace SoBesedkaApp
             InitializeComponent();
             startTimeMaskedTextBox = new MaskedTextBox("00:00")
             {
-                Dock = DockStyle.Fill,
+                Dock = System.Windows.Forms.DockStyle.Fill,
                 Width = (int)host1.Width,
                 Height = (int)host1.Height,
                 Font = new System.Drawing.Font("Segoe UI", 12),
