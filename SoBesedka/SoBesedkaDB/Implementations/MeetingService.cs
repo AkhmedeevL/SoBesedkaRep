@@ -25,6 +25,20 @@ namespace SoBesedkaDB.Implementations
 
         public void AddElement(Meeting model)
         {
+            if (model.RepeatingDays == "0000000")
+            {
+                var intersect = context.Meetings
+                    .Where(m => m.StartTime.Year == model.StartTime.Year &&
+                                m.StartTime.Month == model.StartTime.Month &&
+                                m.StartTime.Day == model.StartTime.Day &&
+                                m.RepeatingDays == "0000000");
+                foreach (var m in intersect)
+                {
+                    if (MeetingIntersect(m.StartTime, m.EndTime, model.StartTime, model.EndTime))
+                        throw new Exception("Мероприятие пересекается с уже созданным");
+                }
+            }
+                
             context.Meetings.Add(new Meeting
             {
                 MeetingName = model.MeetingName,

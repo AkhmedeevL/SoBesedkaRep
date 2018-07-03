@@ -76,7 +76,13 @@ namespace SoBesedkaApp
 
             var t = (meeting.EndTime - meeting.StartTime).ToString("hh\\:mm");
             durationMaskedTextBox.Text = t;
-            Title = Meeting.Id == 0 ? "Добавление" : "Изменение";
+            if (Meeting.Id == 0)
+            {
+                DelButton.Visibility = Visibility.Hidden;
+                Title = "Добавление";
+            }
+            else
+                Title = "Изменение";
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -205,6 +211,21 @@ namespace SoBesedkaApp
                     InvitedUsersListBox.Items.Add(user);
                 }
             }
+        }
+
+        private void DelButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Data.DelElement(Meeting);
+                MessageBox.Show("Удалено", "Успех", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OKCancel);
+            }
+            DialogResult = true;
+            Close();
         }
     }
 }
