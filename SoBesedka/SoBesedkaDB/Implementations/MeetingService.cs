@@ -61,23 +61,15 @@ namespace SoBesedkaDB.Implementations
             }
             context.SaveChanges();
 
-
-            List<string> emails = new List<string>();
-            emails.Add(context.Users.FirstOrDefault(u => u.Id == model.CreatorId).UserMail);
+            var creator = context.Users.FirstOrDefault(u => u.Id == model.CreatorId);
+            var room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId);
             foreach (var um in model.UserMeetings)
             {
-                emails.Add(context.Users.FirstOrDefault(user => user.Id == um.UserId).UserMail);
-            }
-
-            //emails = new List<string>(emails.Distinct());
-            DateTime when = model.StartTime - TimeSpan.FromMinutes(15);
-            String meetingName = model.MeetingName;
-            var room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId);
-            DateTime now = DateTime.Now;
-            for (int i = 0; i < emails.Count; i++)
-            {
-                MailService.SendEmail(emails[i], "Приглашение на мероприятие",
-                    $"Мероприятие: {meetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
+                var user = context.Users.FirstOrDefault(u => u.Id == um.UserId);
+                if (user != null && room != null && creator != null)
+                    MailService.SendEmail(user.UserMail,
+                        user.Id == creator.Id ? "Создание мероприятия" : "Приглашение на мероприятие",
+                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
             }
         }
 
