@@ -1,5 +1,6 @@
 ﻿using SoBesedkaModels;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,36 +25,42 @@ namespace SoBesedkaApp
         {
             if (string.IsNullOrEmpty(FIOTextBox.Text))
             {
-                //MessageBox.Show("Введите ФИО", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите ФИО";
+                FIOTextBox.Focus();
+                return;
+            }
+            if (FIOTextBox.Text.Any(c => !char.IsLetter(c)))
+            {
+                ErrorText.Text = "Неверный формат ФИО";
                 FIOTextBox.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(LoginTextBox.Text))
             {
-                //MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите логин";
                 LoginTextBox.Focus();
                 return;
             }
+            if (LoginTextBox.Text.Any(c => char.IsWhiteSpace(c)))
+            {
+                ErrorText.Text = "Неверный формат логина";
+                FIOTextBox.Focus();
+                return;
+            }
             if (string.IsNullOrEmpty(EmailTextBox.Text))
             {
-                //MessageBox.Show("Введите E-mail", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите E-mail";
                 EmailTextBox.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(PasswordTextBox.Password))
             {
-                //MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введите пароль";
                 PasswordTextBox.Focus();
                 return;
             }
-
             if (PasswordTextBox.Password != SecondPasswordTextBox.Password)
             {
-                //MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorText.Text = "Введённые пароли не совпадают";
                 SecondPasswordTextBox.Focus();
                 return;
@@ -64,7 +71,6 @@ namespace SoBesedkaApp
                 if (!Regex.IsMatch(mail, @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                 @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$"))
                 {
-                    //MessageBox.Show("Неверный формат электронной почты", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     ErrorText.Text = "Неверный формат электронной почты";
                     return;
                 }
