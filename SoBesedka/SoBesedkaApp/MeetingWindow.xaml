@@ -10,6 +10,8 @@
         mc:Ignorable="d"
         Title="Управление " Height="600" Width="452.8">
     <Grid>
+        <TextBox x:Name="TitleTextBox" Margin="10,47,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="200" Height="26" VerticalAlignment="Top" />
+        <Label Content="Название:" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="200"/>
         <TextBox x:Name="SubjTextBox" Margin="233,47,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="200" Height="26" VerticalAlignment="Top" />
         <Label Content="Тема:" HorizontalAlignment="Left" Height="27" Margin="233,15,0,0" VerticalAlignment="Top" Width="200"/>
         <TextBox x:Name="DescriptionTextBox" Margin="10,105,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="423" Height="62" VerticalAlignment="Top" />
@@ -18,16 +20,15 @@
 
         <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Width="200" SelectedDate="{x:Static System:DateTime.Now}"/>
         <Label Content="Время начала:" HorizontalAlignment="Left" Height="27" Margin="10,237,0,0" VerticalAlignment="Top" Width="93"/>
-        <TextBox x:Name="TimeStartTextBox" Margin="108,238,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="102" Height="26" VerticalAlignment="Top" />
+        <!--<TextBox x:Name="TimeStartTextBox" Margin="108,238,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="102" Height="26" VerticalAlignment="Top" />-->
         <Label Content="Длительность:" HorizontalAlignment="Left" Height="27" Margin="233,237,0,0" VerticalAlignment="Top" Width="93"/>
-        <TextBox x:Name="DlitTextBox" Margin="331,238,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="102" Height="26" VerticalAlignment="Top" />
+        <!--<TextBox x:Name="DlitTextBox" Margin="331,238,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="102" Height="26" VerticalAlignment="Top" />-->
         <Label Content="Участники:" HorizontalAlignment="Left" Height="27" Margin="13,302,0,0" VerticalAlignment="Top" Width="244"/>
         <ListBox Name="InvitedUsersListBox" HorizontalAlignment="Left" Height="225" Margin="10,334,0,0" VerticalAlignment="Top" Width="278" />
         <Button x:Name="AddButton" Content="Изменить" HorizontalAlignment="Left" Height="46" Margin="295,334,0,0" VerticalAlignment="Top" Width="140" Click="AddButton_Click"/>
         <Button x:Name="SaveButton" IsDefault="True" Content="Сохранить" HorizontalAlignment="Left" Height="46" Margin="293,453,0,0" VerticalAlignment="Top" Width="142" Click="SaveButton_Click"/>
         <Button x:Name="CancelButton" IsCancel="True" Content="Отмена" HorizontalAlignment="Left" Height="46" Margin="293,514,0,0" VerticalAlignment="Top" Width="140" Click="CancelButton_Click" />
-        <TextBox x:Name="TitleTextBox" Margin="10,47,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="200" Height="26" VerticalAlignment="Top" />
-        <Label Content="Название:" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="200"/>
+        
         <Grid Name="CheckBoxContainer">
             <CheckBox Name="cb7" Content="вс" HorizontalAlignment="Left" Margin="342,276,0,0" VerticalAlignment="Top"/>
             <CheckBox Name="cb1" Content="пн" HorizontalAlignment="Left" Margin="108,276,0,0" VerticalAlignment="Top"/>
@@ -38,6 +39,7 @@
             <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="303,276,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Label Content="Повтор:" HorizontalAlignment="Left" Height="27" Margin="10,270,0,0" VerticalAlignment="Top" Width="93"/>
-        <WindowsFormsHost Name="host" Margin="108,238,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"></WindowsFormsHost>
+        <WindowsFormsHost Name="host1" Margin="108,238,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"></WindowsFormsHost>
+        <WindowsFormsHost Name="host2" Margin="331,238,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"></WindowsFormsHost>
     </Grid>
 </Window>

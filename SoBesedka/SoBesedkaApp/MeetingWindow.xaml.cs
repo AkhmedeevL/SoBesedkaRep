@@ -21,22 +21,34 @@ namespace SoBesedkaApp
         DataSamples Data;
         MeetingViewModel Meeting;
         List<UserViewModel> InvitedUsers;
-        int? id;
+
+        private MaskedTextBox startTimeMaskedTextBox;
+        private MaskedTextBox durationMaskedTextBox;
+
         public MeetingWindow(DataSamples data, MeetingViewModel meeting)
         {
             InitializeComponent();
-            //MaskedTextBox startTimeMaskedTextBox = new MaskedTextBox("00:00")
-            //{
-            //    Dock = DockStyle.Fill,
-            //    Width = (int)host.Width,
-            //    Height = (int)host.Height,
-            //    Font = new System.Drawing.Font("Segoe UI", 12),
-            //    BorderStyle = BorderStyle.FixedSingle 
-            //};
-            //host.Child = startTimeMaskedTextBox;
+            startTimeMaskedTextBox = new MaskedTextBox("00:00")
+            {
+                Dock = DockStyle.Fill,
+                Width = (int)host1.Width,
+                Height = (int)host1.Height,
+                Font = new System.Drawing.Font("Segoe UI", 12),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+            host1.Child = startTimeMaskedTextBox;
+
+            durationMaskedTextBox = new MaskedTextBox("00:00")
+            {
+                Dock = DockStyle.Fill,
+                Width = (int)host2.Width,
+                Height = (int)host2.Height,
+                Font = new System.Drawing.Font("Segoe UI", 12),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+            host2.Child = durationMaskedTextBox;
 
             Meeting = meeting;
-            id = Meeting.Id;
             Data = data;
             DataContext = data;
             TitleTextBox.Text = Meeting.MeetingName;
@@ -60,17 +72,11 @@ namespace SoBesedkaApp
                         InvitedUsersListBox.Items.Add(user);
                 }
 
-            //startTimeMaskedTextBox.Text = meeting.StartTime.ToShortTimeString();
+            startTimeMaskedTextBox.Text = meeting.StartTime.ToString("hh\\:mm");
 
-            TimeStartTextBox.Text = meeting.StartTime.ToShortTimeString();
-            var t = meeting.EndTime - meeting.StartTime;
-            DlitTextBox.Text = t.ToString("hh\\:mm");
-            if (Meeting.Id == 0)
-                Title = "Добавление";
-            else
-            {
-                Title = "Изменение";
-            }
+            var t = (meeting.EndTime - meeting.StartTime).ToString("hh\\:mm");
+            durationMaskedTextBox.Text = t;
+            Title = Meeting.Id == 0 ? "Добавление" : "Изменение";
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -80,15 +86,15 @@ namespace SoBesedkaApp
                 var repDays = "";
                 foreach (CheckBox cb in CheckBoxContainer.Children)
                 {
-                    if (cb.IsChecked != null)
-                        if (cb.IsChecked.Value)
-                        {
-                            repDays += "1";
-                        }
-                        else
-                        {
-                            repDays += "0";
-                        }
+                    if (cb.IsChecked == null) continue;
+                    if (cb.IsChecked.Value)
+                    {
+                        repDays += "1";
+                    }
+                    else
+                    {
+                        repDays += "0";
+                    }
                 }
                 var userMeetings = new List<UserMeeting>();
                 foreach (UserViewModel user in InvitedUsersListBox.Items)
@@ -109,13 +115,13 @@ namespace SoBesedkaApp
                 {
                     //Изменение
                     if (DatePicker.SelectedDate != null &&
-                        !string.IsNullOrEmpty(TimeStartTextBox.Text) &&
-                        !string.IsNullOrEmpty(DlitTextBox.Text) &&
+                        !string.IsNullOrEmpty(startTimeMaskedTextBox.Text) &&
+                        !string.IsNullOrEmpty(durationMaskedTextBox.Text) &&
                         !string.IsNullOrEmpty(TitleTextBox.Text) &&
                         !string.IsNullOrEmpty(SubjTextBox.Text) &&
                         !string.IsNullOrEmpty(DescriptionTextBox.Text))
                     {
-                        if (DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay <= DateTime.Now) {
+                        if (DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay <= DateTime.Now) {
                             MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                             return;
                         }
@@ -125,9 +131,9 @@ namespace SoBesedkaApp
                             MeetingName = TitleTextBox.Text,
                             MeetingTheme = SubjTextBox.Text,
                             MeetingDescription = DescriptionTextBox.Text,
-                            StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay +
-                                      DateTime.Parse(DlitTextBox.Text).TimeOfDay,
+                            StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
+                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
+                                      DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
                             UserMeetings = userMeetings,
                             RoomId = Data.CurrentRoom.Id,
                             CreatorId = Data.CurrentUser.Id,
@@ -140,13 +146,13 @@ namespace SoBesedkaApp
                 {
                     //Добавление
                     if (DatePicker.SelectedDate != null &&
-                        !string.IsNullOrEmpty(TimeStartTextBox.Text) &&
-                        !string.IsNullOrEmpty(DlitTextBox.Text) &&
+                        !string.IsNullOrEmpty(startTimeMaskedTextBox.Text) &&
+                        !string.IsNullOrEmpty(durationMaskedTextBox.Text) &&
                         !string.IsNullOrEmpty(TitleTextBox.Text) &&
                         !string.IsNullOrEmpty(SubjTextBox.Text) &&
                         !string.IsNullOrEmpty(DescriptionTextBox.Text))
                     {
-                        if (DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay <= DateTime.Now)
+                        if (DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay <= DateTime.Now)
                         {
                             MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                             return;
@@ -156,9 +162,9 @@ namespace SoBesedkaApp
                             MeetingName = TitleTextBox.Text,
                             MeetingTheme = SubjTextBox.Text,
                             MeetingDescription = DescriptionTextBox.Text,
-                            StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(TimeStartTextBox.Text).TimeOfDay +
-                                      DateTime.Parse(DlitTextBox.Text).TimeOfDay,
+                            StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
+                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
+                                      DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
                             UserMeetings = userMeetings,
                             RoomId = Data.CurrentRoom.Id,
                             CreatorId = Data.CurrentUser.Id,
