@@ -71,24 +71,12 @@ namespace SoBesedkaDB.Implementations
             //emails = new List<string>(emails.Distinct());
             DateTime when = model.StartTime - TimeSpan.FromMinutes(15);
             String meetingName = model.MeetingName;
-            String room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId).RoomName;
+            var room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId);
             DateTime now = DateTime.Now;
             for (int i = 0; i < emails.Count; i++)
             {
-                MailService.SendEmail(emails[i], "Приглашение на мероприятие", "Мероприятие: " + meetingName + "\n Комната для переговоров: " + room + "\nВремя начала: " + model.StartTime);
-                if (when <= now)
-                {
-                    MailService.SendEmail(emails[i], "Уведомление о начале мероприятия", "Мероприятие " + meetingName + " начнется через " + (model.StartTime - now).Minutes + " минут. \nКомната для переговоров: " + room);
-                }
-                else
-                {
-                    ThreadPool.QueueUserWorkItem(o =>
-                    {
-                        if (when > now)
-                            Thread.Sleep(when - now);
-                        MailService.SendEmail(emails[i], "Уведомление о начале мероприятия", "Мероприятие " + meetingName + " начнется через 15 минут. \nКомната для переговоров: " + room);
-                    });
-                }
+                MailService.SendEmail(emails[i], "Приглашение на мероприятие",
+                    $"Мероприятие: {meetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
             }
         }
 
@@ -366,6 +354,64 @@ namespace SoBesedkaDB.Implementations
                     RoomId = rec.RoomId
                 })
                 .ToList();
+            return result;
+        }
+
+        public List<MeetingViewModel> GetListOfRange(DateTime from, DateTime to)
+        {
+            var currentDay = from.Date;
+            var result = context.Meetings
+                .Select(element => new MeetingViewModel
+                {
+                    Id = element.Id,
+                    MeetingName = element.MeetingName,
+                    MeetingDescription = element.MeetingDescription,
+                    MeetingTheme = element.MeetingTheme,
+                    CreatorId = element.CreatorId,
+                    StartTime = element.StartTime,
+                    EndTime = element.EndTime,
+                    RoomId = element.RoomId,
+                    RepeatingDays = element.RepeatingDays,
+                    UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
+                        {
+                            Id = um.Id,
+                            UserId = um.UserId,
+                            MeetingId = um.MeetingId
+                        })
+                        .Where(um => um.MeetingId == element.Id)
+                        .ToList()
+                })
+                .Where(m => m.StartTime >= from && m.StartTime < to && m.RepeatingDays == "0000000")
+                .ToList();
+            var rep = context.Meetings
+                .ToList();
+            foreach (var meeting in rep)
+            {
+                if (meeting.RepeatingDays[(int) currentDay.DayOfWeek] == '1' && meeting.StartTime.TimeOfDay >= from.TimeOfDay && meeting.StartTime.TimeOfDay < to.TimeOfDay)
+                {
+                    result.Add(new MeetingViewModel
+                    {
+                        Id = meeting.Id,
+                        MeetingName = meeting.MeetingName,
+                        MeetingDescription = meeting.MeetingDescription,
+                        MeetingTheme = meeting.MeetingTheme,
+                        CreatorId = meeting.CreatorId,
+                        StartTime = currentDay.Date + meeting.StartTime.TimeOfDay,
+                        EndTime = currentDay.Date + meeting.EndTime.TimeOfDay,
+                        RoomId = meeting.RoomId,
+                        RepeatingDays = meeting.RepeatingDays,
+                        UserMeetings = context.UserMeetings.Select(um => new UserMeetingViewModel
+                            {
+                                Id = um.Id,
+                                UserId = um.UserId,
+                                MeetingId = um.MeetingId
+                            })
+                            .Where(um => um.MeetingId == meeting.Id)
+                            .ToList()
+                    });
+                }
+            }
+
             return result;
         }
     }
