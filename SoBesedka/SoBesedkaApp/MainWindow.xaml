@@ -32,7 +32,7 @@
             <RowDefinition Height="67*"/>
             <RowDefinition Height="87*"/>
         </Grid.RowDefinitions>
-        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="535" Margin="15,28,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Path=Rooms}" SelectedIndex="0" SelectionChanged="ListBox1_SelectionChanged" Grid.RowSpan="2" >
+        <ListBox Name="ListBox1" HorizontalAlignment="Left" Height="582" Margin="15,28,0,0" VerticalAlignment="Top" Width="134" ItemsSource="{Binding Path=Rooms}" SelectedIndex="0" SelectionChanged="ListBox1_SelectionChanged" Grid.RowSpan="2" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="3">
@@ -53,6 +53,7 @@
             <MenuItem x:Name="UsersMenuItem" Height="24" Header="Участники" Click="MenuItem_Click" />
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
             <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" Click="ProgramMenuItem_Click" />
+            <MenuItem x:Name="ExitAccountItem" Height="24" Header="Выйти из аккаунта" Click="Button_Click" />
         </Menu>
 
         <Grid Name="DaysOfWeek" Margin="154,29,28,198">
@@ -221,7 +222,5 @@
                 </ItemsControl>
             </Grid>
         </ScrollViewer>
-        <Border HorizontalAlignment="Left" Height="32" Margin="53,291,0,0" Grid.Row="1" VerticalAlignment="Top" Width="54" />
-        <Button x:Name="ExitButton" HorizontalAlignment="Left" Margin="15,303,0,0" Grid.Row="1" VerticalAlignment="Top" Width="134" Height="36" Click="Button_Click" Content="Выйти из аккаунта"/>
     </Grid>
 </Window>
