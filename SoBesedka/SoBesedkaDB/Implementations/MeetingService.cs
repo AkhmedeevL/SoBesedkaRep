@@ -149,6 +149,38 @@ namespace SoBesedkaDB.Implementations
             {
                 throw new Exception("Событие не найдено");
             }
+            List<UserMeeting> oldUMlist = new List<UserMeeting>(element.UserMeetings);
+            var creator = context.Users.FirstOrDefault(u => u.Id == model.CreatorId);
+            var room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId);
+            foreach (var newUM in model.UserMeetings)
+            {
+                if (!oldUMlist.Any(um => um.UserId == newUM.UserId))
+                {
+                    var user = context.Users.FirstOrDefault(u => u.Id == newUM.UserId);
+                    MailService.SendEmail(user.UserMail,
+                        user.Id == creator.Id ? "Изменение мероприятия" : "Новое приглашение",
+                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
+                    continue;
+                }
+                else
+                {
+                    var user = context.Users.FirstOrDefault(u => u.Id == newUM.UserId);
+                    MailService.SendEmail(user.UserMail,
+                        user.Id == creator.Id ? "Изменение мероприятия" : "Обновление мероприятия",
+                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
+                    continue;
+                }
+            }
+            foreach (var oldUM in element.UserMeetings)
+            {
+                if (!model.UserMeetings.Any(um => um.UserId == oldUM.UserId))
+                {
+                    var user = context.Users.FirstOrDefault(u => u.Id == oldUM.UserId);
+                    MailService.SendEmail(user.UserMail, "Вас удалили из списка участников мероприятия",
+                        $"Вы больше не приглашены на мероприятие \"{model.MeetingName}\"\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
+                    continue;
+                }
+            }
             element.Id = model.Id;
             element.MeetingName = model.MeetingName;
             element.MeetingDescription = model.MeetingDescription;
