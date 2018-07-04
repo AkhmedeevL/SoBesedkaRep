@@ -10,7 +10,8 @@ namespace SoBesedkaApp
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((DateTime)value).ToString("dd.MM");
+            var day = (DateTime)value;
+            return day.ToString("dd.MM") + "\n" + CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(day.DayOfWeek);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

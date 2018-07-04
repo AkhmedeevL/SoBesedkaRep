@@ -3,7 +3,9 @@ using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -133,17 +135,46 @@ namespace SoBesedkaDB.Implementations
             };
         }
 
-        public bool SignIn(string login, string password, out UserViewModel outUser)
+        public UserViewModel GetByLoginOrEmail(string login)
         {
-            List<UserViewModel> list = GetList();
-            foreach (var user in list) {
-                if (user.UserLogin == login && user.UserPassword == password) {
-                    outUser = user;
-                    return true;
-                }
+            User element = context.Users.FirstOrDefault(rec => rec.UserLogin == login || rec.UserMail == login);
+            if (element != null)
+            {
+                return new UserViewModel
+                {
+                    Id = element.Id,
+                    UserFIO = element.UserFIO,
+                    UserMail = element.UserMail,
+                    UserLogin = element.UserLogin,
+                    UserPassword = element.UserPassword,
+                    isAdmin = element.isAdmin
+                };
             }
-            outUser = null;
-            return false;
+            return null;
+        }
+
+        public User RestoringPassword(string email)
+        {
+            User element = context.Users.FirstOrDefault(rec => rec.UserMail == email);
+            if (element != null)
+            {
+                Random r = new Random();
+                String newPass = "";
+                for (int i = 0; i < 5; i++) {
+                    newPass += (Char)r.Next(97, 122);
+                }
+                byte[] bytes = Encoding.UTF8.GetBytes(newPass);
+                MD5CryptoServiceProvider CSP = new MD5CryptoServiceProvider();
+                byte[] byteHash = CSP.ComputeHash(bytes);
+                string hash = string.Empty;
+                foreach (byte b in byteHash)
+                    hash += string.Format("{0:x2}", b);
+                element.UserPassword = hash;
+                UpdElement(element);
+                MailService.SendEmail(email,"Восстановление пароля", "Ваш логин: " + element.UserLogin + "\nВаш новый пароль: " + newPass);
+                return element;
+            }
+            return null;
         }
     }
 }

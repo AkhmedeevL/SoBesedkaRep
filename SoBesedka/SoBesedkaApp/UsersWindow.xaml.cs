@@ -3,18 +3,7 @@ using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SoBesedkaApp
 {
@@ -23,11 +12,9 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class UsersWindow : Window
     {
-        public IUserService Uservice;
         DataSamples Data;
         public UsersWindow(DataSamples data)
         {
-            Uservice = new UserService(new SoBesedkaDBContext());
             Data = data;
             DataContext = Data;
             InitializeComponent();
@@ -41,8 +28,48 @@ namespace SoBesedkaApp
         private void AdminButton_Click(object sender, RoutedEventArgs e)
         {
             UserViewModel user = (UserViewModel)listBoxUsers.SelectedItem;
+            if (user == null)
+                return;
             user.isAdmin = true;
-            Uservice.UpdElement(Uservice.ConvertViewToUser(user));
+
+            try
+            {
+                var response = APIClient.PostRequest("api/User/UpdElement", user);
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    MessageBox.Show($"Пользователь {user.UserFIO} - администратор", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Data.UpdateUsers();
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                UserViewModel user = (UserViewModel)listBoxUsers.SelectedItem;
+                if (user == null)
+                    return;
+                if (user.Id == Data.CurrentUser.Id)
+                {
+                    MessageBox.Show("Нельзя удалить текущего пользователя", "Внимание", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+                Data.DelElement(user);
+                MessageBox.Show($"Пользователь {user.UserFIO} удален", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                Data.UpdateUsers();
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

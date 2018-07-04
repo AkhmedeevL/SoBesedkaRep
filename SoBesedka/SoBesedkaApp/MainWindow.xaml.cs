@@ -1,19 +1,7 @@
 ﻿using SoBesedkaDB.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-
-using System.Windows.Shapes;
 
 namespace SoBesedkaApp
 {
@@ -27,17 +15,20 @@ namespace SoBesedkaApp
         public MainWindow(DataSamples data)
         {
             InitializeComponent();
+            ((TextBlock) DaysOfWeek.Children[(int) DateTime.Now.DayOfWeek]).FontWeight = FontWeights.Bold;
             Data = data;
             DataContext = Data;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
-            //Data.UpdateMeetings();
             if (!Data.CurrentUser.isAdmin) {
                 UsersMenuItem.Visibility = Visibility.Hidden;
                 RoomsMenuItem.Visibility = Visibility.Hidden;
             }
+
+            // Raise the routed event "selected"
+            RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NextWeek_Click(object sender, RoutedEventArgs e)
         {
             for(int i = 0; i < 7; i++)
             {
@@ -47,7 +38,7 @@ namespace SoBesedkaApp
             Data.UpdateMeetings();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void PrevWeek_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < 7; i++)
             {
@@ -57,14 +48,29 @@ namespace SoBesedkaApp
             Data.UpdateMeetings();
         }
 
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Event_Click(object sender, RoutedEventArgs e)
         {
-            MeetingWindow meetingwindow = new MeetingWindow(Data);
-            meetingwindow.Show();
+            var btn = (Button) sender;
+            if (((MeetingViewModel) btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin == true || ((MeetingViewModel)btn.Tag).Id == 0)
+            {
+                if (((MeetingViewModel)btn.Tag).Id <= 0 && ((MeetingViewModel)btn.Tag).EndTime  < DateTime.Now)
+                {
+                    MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
+                    return;
+                }
 
+                if (((MeetingViewModel)btn.Tag).EndTime >= DateTime.Now) {
+                    var meetingwnd = new MeetingWindow(Data, (MeetingViewModel)btn.Tag);
+                    if (meetingwnd.ShowDialog() == true)
+                        Data.UpdateMeetings();
+                    return;
+                }
+
+            }
+            var meetingInfo = new MeetingInfo(Data, (MeetingViewModel)((Button)sender).Tag);
+            meetingInfo.Show();
         }
-      
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите выйти?",
@@ -75,7 +81,10 @@ namespace SoBesedkaApp
             {
                     e.Cancel = true;
             }
-
+            else
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -86,12 +95,14 @@ namespace SoBesedkaApp
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            var wnd = new RoomsWindow();
+            var wnd = new RoomsWindow(Data);
             wnd.Show();
         }
 
         private void ListBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ListBox1.SelectedItem == null)
+                return;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
             Data.UpdateMeetings();
         }
@@ -100,6 +111,20 @@ namespace SoBesedkaApp
         {
             var wnd = new ProfileWindow(Data);
             wnd.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Data.CurrentUser = null;
+            Closing -= Window_Closing;
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
+        private void ProgramMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var about = new About();
+            about.Show();
         }
     }
 }

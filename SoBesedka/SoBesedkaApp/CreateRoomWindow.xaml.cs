@@ -2,19 +2,7 @@
 using SoBesedkaModels;
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SoBesedkaApp
 {
@@ -23,25 +11,37 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class CreateRoomWindow : Window
     {
-        public IRoomService Rservice;
         DataSamples Data;
-        public CreateRoomWindow()
+        public CreateRoomWindow(DataSamples data)
         {
-            Rservice = new RoomService(new SoBesedkaDBContext());
             InitializeComponent();
-            Data = new DataSamples();
+            Data = data;
             DataContext = Data;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            Rservice.AddElement(new Room {
-                RoomName = NameTextBox.Text,
-                RoomAdress = AdressTextBox.Text,
-                Description = DescriptionTextBox.Text
-            });
-            var wnd = new RoomsWindow();
-            wnd.Show();
+            if (!string.IsNullOrEmpty(AdressTextBox.Text) &&
+                !string.IsNullOrEmpty(DescriptionTextBox.Text) &&
+                !string.IsNullOrEmpty(NameTextBox.Text))
+            {
+                Data.AddElement(new Room
+                {
+                    RoomName = NameTextBox.Text,
+                    RoomAdress = AdressTextBox.Text,
+                    Description = DescriptionTextBox.Text
+                });
+                Data.UpdateRooms();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
             Close();
         }
     }

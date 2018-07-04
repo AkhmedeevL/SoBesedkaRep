@@ -2,6 +2,7 @@
 using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -28,6 +29,40 @@ namespace SoBesedkaRestAPI.Controllers
             }
             return Ok(list);
         }
+
+        [HttpGet]
+        public IHttpActionResult GetListOfDay(int roomId, string day)
+        {
+            var list = _service.GetListOfDay(roomId, DateTime.Parse(day, CultureInfo.InvariantCulture));
+            if (list == null)
+            {
+                InternalServerError(new Exception("Нет данных"));
+            }
+            return Ok(list);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetListUserCreatedMeetings(int id)
+        {
+            var list = _service.GetListUserCreatedMeetings(id);
+            if (list == null)
+            {
+                InternalServerError(new Exception("Нет данных"));
+            }
+            return Ok(list);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetListUserInvites(int id)
+        {
+            var list = _service.GetListUserInvites(id);
+            if (list == null)
+            {
+                InternalServerError(new Exception("Нет данных"));
+            }
+            return Ok(list);
+        }
+
 
         [HttpGet]
         public IHttpActionResult Get(int id)

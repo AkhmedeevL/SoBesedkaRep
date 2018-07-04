@@ -58,5 +58,23 @@ namespace SoBesedkaRestAPI.Controllers
         {
             _service.DelElement(model.Id);
         }
+
+        [HttpGet]
+        public IHttpActionResult SignIn(string login, string password)
+        {
+            var element = _service.GetByLoginOrEmail(login);
+            if (element != null && element.UserPassword != password)
+            {
+                element = null;
+            }
+            return Ok(element);
+        }
+
+        [HttpGet]
+        public IHttpActionResult RestoringPassword(string email)
+        {
+            var element = _service.RestoringPassword(email);
+            return Ok(element);
+        }
     }
 }

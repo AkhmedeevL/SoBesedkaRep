@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -55,10 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\MailService.cs" />
     <Compile Include="Implementations\MeetingService.cs" />
     <Compile Include="Implementations\RoomService.cs" />
     <Compile Include="Implementations\UserService.cs" />
-    <Compile Include="Interfaces\IMainService.cs" />
     <Compile Include="Interfaces\IMeetingService.cs" />
     <Compile Include="Interfaces\IRoomService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
@@ -73,6 +74,14 @@
     <Compile Include="Migrations\201806282310042_dateTime.cs" />
     <Compile Include="Migrations\201806282310042_dateTime.Designer.cs">
       <DependentUpon>201806282310042_dateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807011527186_repeatingdays_not_virtual.cs" />
+    <Compile Include="Migrations\201807011527186_repeatingdays_not_virtual.Designer.cs">
+      <DependentUpon>201807011527186_repeatingdays_not_virtual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807011758052_RepeatingDaysString.cs" />
+    <Compile Include="Migrations\201807011758052_RepeatingDaysString.Designer.cs">
+      <DependentUpon>201807011758052_RepeatingDaysString.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +110,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806282310042_dateTime.resx">
       <DependentUpon>201806282310042_dateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807011527186_repeatingdays_not_virtual.resx">
+      <DependentUpon>201807011527186_repeatingdays_not_virtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807011758052_RepeatingDaysString.resx">
+      <DependentUpon>201807011758052_RepeatingDaysString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

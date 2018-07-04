@@ -2,6 +2,7 @@
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
+using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,6 @@ namespace SoBesedkaApp
     public partial class ProfileWindow : Window
     {
         DataSamples Data;
-        IUserService Uservice;
-        IMeetingService Mservice;
         string CurrentFIO;
         string CurrentLogin;
         string CurrentEmail;
@@ -34,8 +33,6 @@ namespace SoBesedkaApp
         public ProfileWindow(DataSamples data)
         {
             InitializeComponent();
-            Uservice = new UserService(new SoBesedkaDBContext());
-            Mservice = new MeetingService(new SoBesedkaDBContext());
             Data = data;
             FIOTextBox.Text = Data.CurrentUser.UserFIO;
             CurrentFIO = Data.CurrentUser.UserFIO;
@@ -57,11 +54,51 @@ namespace SoBesedkaApp
             PasswordConfirmTextBox.Focusable = false;
 
 
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserCreatedMeetings(Data.CurrentUser.Id));
+            try
+            {
+                var response = APIClient.GetRequest("api/Meeting/GetListUserCreatedMeetings/" + Data.CurrentUser.Id);
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                    if (list != null)
+                    {
+                        Data.UserMeetings = list;
+                    }
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             MeetingsListBoxCreated.ItemsSource = Data.UserMeetings;
 
 
-            Data.UserMeetings = new List<MeetingViewModel>(Mservice.GetListUserInvites(Data.CurrentUser.Id));
+            try
+            {
+                var response = APIClient.GetRequest("api/Meeting/GetListUserInvites/" + Data.CurrentUser.Id);
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    var list = APIClient.GetElement<List<MeetingViewModel>>(response);
+                    if (list != null)
+                    {
+                        Data.UserMeetings = list;
+                    }
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             MeetingsListBoxInvited.ItemsSource = Data.UserMeetings;
         }
 
@@ -83,58 +120,70 @@ namespace SoBesedkaApp
                 ChangeProfileButton.Content = "Сохранить изменения";
 
             }
-            else {
+            else
+            {
                 string changed = ""; //выведем пользователю те поля, которые были изменены. изменяются только те поля, которые он ввёл в соответствующие текстбоксы
                 var user = Data.CurrentUser;
-                
 
 
-                    if (PasswordTextBox.Password != null)
+
+                if (PasswordTextBox.Password != "")
+                {
+                    if (PasswordTextBox.Password == PasswordConfirmTextBox.Password)
                     {
-                        if (PasswordTextBox.Password == PasswordConfirmTextBox.Password)
-                        {
-                            user.UserPassword = PasswordTextBox.Password;
-                            changed += " Пароль; ";
-                        }
-                        else
-                        {
-                            MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
-                    } else
+                        user.UserPassword = Data.GetHashString(PasswordTextBox.Password);
+                        changed += " Пароль; ";
+                    }
+                    else
                     {
+                        MessageBox.Show("Введённые пароли не совпадают", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+                else
+                {
                     user.UserPassword = Password;
                 }
-                    if (FIOTextBox.Text != CurrentFIO)
-                    {
-                        user.UserFIO = FIOTextBox.Text;
-                        changed += " ФИО; ";
-                    }
-                    if (LoginTextBox.Text != CurrentLogin)
-                    {
-                        user.UserLogin = LoginTextBox.Text;
-                        changed += " Логин; ";
-                    }
-                    if (EmailTextBox.Text != CurrentEmail)
-                    {
-                        user.UserMail = EmailTextBox.Text;
-                        changed += " E-mail; ";
-                    }
-                    Uservice.UpdElement(Uservice.ConvertViewToUser(user));
-                    MessageBox.Show(changed + " были обновлены", "Успешно изменено", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (FIOTextBox.Text != CurrentFIO)
+                {
+                    user.UserFIO = FIOTextBox.Text;
+                    changed += " ФИО; ";
+                }
+                if (LoginTextBox.Text != CurrentLogin)
+                {
+                    user.UserLogin = LoginTextBox.Text;
+                    changed += " Логин; ";
+                }
+                if (EmailTextBox.Text != CurrentEmail)
+                {
+                    user.UserMail = EmailTextBox.Text;
+                    changed += " E-mail; ";
+                }
+                try
+                {
+                    var response = APIClient.PostRequest("api/User/UpdElement", user);
 
-                    ChangeProfileButton.Content = "Редактировать";
-                    FIOTextBox.Focusable = false;
-                    LoginTextBox.Focusable = false;
-                    EmailTextBox.Focusable = false;
-                    PasswordTextBox.Focusable = false;
-                    PasswordConfirmTextBox.Focusable = false;
+                    if (!response.Result.IsSuccessStatusCode)
+                    {
+                        throw new Exception(APIClient.GetError(response));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                MessageBox.Show(changed + " были обновлены", "Успешно изменено", MessageBoxButton.OK);
 
-            
+                ChangeProfileButton.Content = "Редактировать";
+                FIOTextBox.Focusable = false;
+                LoginTextBox.Focusable = false;
+                EmailTextBox.Focusable = false;
+                PasswordTextBox.Focusable = false;
+                PasswordConfirmTextBox.Focusable = false;
+
+
             }
 
         }
-
-
     }
 }

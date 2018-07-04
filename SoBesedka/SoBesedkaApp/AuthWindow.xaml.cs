@@ -1,22 +1,11 @@
-﻿using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
-using SoBesedkaDB.Interfaces;
+﻿using SoBesedkaDB.Interfaces;
 using SoBesedkaDB.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SoBesedkaApp
 {
@@ -25,13 +14,11 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class AuthWindow : Window
     {
-        public IUserService Uservice;
         DataSamples Data;
         public AuthWindow()
         {
-            Uservice = new UserService(new SoBesedkaDBContext());
             InitializeComponent();
-            LoginLabel_MouseDown(LoginLabel, null);
+            
             Data = new DataSamples();
         }
 
@@ -39,7 +26,7 @@ namespace SoBesedkaApp
         {
             if (string.IsNullOrEmpty(LoginTextBox.Text))
             {
-                MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите логин ", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (string.IsNullOrEmpty(PasswordTextBox.Password))
@@ -49,29 +36,28 @@ namespace SoBesedkaApp
             }
             var user = new UserViewModel();
             //открываем главное окно по кнопке входа
-            if (Uservice.SignIn(LoginTextBox.Text, PasswordTextBox.Password, out user))
+            if (Data.SignIn(LoginTextBox.Text, Data.GetHashString(PasswordTextBox.Password)))
             {
-                Data.CurrentUser = user;
                 MainWindow mainwindow = new MainWindow(Data);
                 mainwindow.Show();
                 Closing -= Window_Closing;
                 Close();
             }
             else {
-                MessageBox.Show("Неверный логин или пароль");
+                MessageBox.Show("Неверный логин/E-mail или пароль");
             }
         }
 
         private void RegLabel_Click(object sender, MouseButtonEventArgs e)
         {
             //открываем окно регистрации
-            RegWindow regwindow = new RegWindow();
+            RegWindow regwindow = new RegWindow(Data);
             regwindow.Show();
         }
         private void ForgotPasswordLabel_Click(object sender, MouseButtonEventArgs e)
         {
             //открываем окно восстановления пароля
-            ForgotPasswordWindow fpwindow = new ForgotPasswordWindow();
+            ForgotPasswordWindow fpwindow = new ForgotPasswordWindow(Data);
             fpwindow.Show();
         }
         private void Label_MouseEnter(object sender, MouseEventArgs e)
@@ -87,113 +73,6 @@ namespace SoBesedkaApp
             Cursor = Cursors.Arrow;
         }
 
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            dynamic sndr;
-            dynamic label;
-            if (sender is TextBox)
-            {
-                sndr = (TextBox) sender;
-                if (((TextBox) sndr).Text != String.Empty)
-                    return;
-                label = LoginLabel;
-                var labelAnim = new ThicknessAnimation()
-                {
-                    From = label.Margin,
-                    To = new Thickness(label.Margin.Left, label.Margin.Top - 25, label.Margin.Right, label.Margin.Bottom),
-                    Duration = TimeSpan.FromSeconds(0.2)
-                };
-                label.BeginAnimation(MarginProperty, labelAnim);
-            }
-            else
-            {
-                sndr = (PasswordBox) sender;
-                if (((PasswordBox) sndr).Password != String.Empty)
-                    return;
-                label = PassLabel;
-                var labelAnim = new ThicknessAnimation()
-                {
-                    From = label.Margin,
-                    To = new Thickness(label.Margin.Left, label.Margin.Top - 25, label.Margin.Right, label.Margin.Bottom),
-                    Duration = TimeSpan.FromSeconds(0.2)
-                };
-                label.BeginAnimation(MarginProperty, labelAnim);
-            }
-
-            sndr.Padding = new Thickness(1,10,1,0);
-            var anim = new DoubleAnimation()
-            {
-                From = sndr.Height,
-                To = 40.0,
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(HeightProperty, anim);
-            var anim2 = new ThicknessAnimation()
-            {
-                From = sndr.Margin,
-                To = new Thickness(sndr.Margin.Left, sndr.Margin.Top - 5, sndr.Margin.Right, sndr.Margin.Bottom),
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(MarginProperty, anim2);
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            dynamic sndr;
-            if (sender is TextBox)
-            {
-                sndr = (TextBox) sender;
-                if (((TextBox) sndr).Text != String.Empty)
-                    return;
-                var a = new ThicknessAnimation()
-                {
-                    From = LoginLabel.Margin,
-                    To = new Thickness(LoginLabel.Margin.Left, LoginLabel.Margin.Top + 25, LoginLabel.Margin.Right, LoginLabel.Margin.Bottom),
-                    Duration = TimeSpan.FromSeconds(0.2)
-                };
-                LoginLabel.BeginAnimation(MarginProperty, a);
-            }
-            else
-            {
-                sndr = (PasswordBox) sender;
-                if (((PasswordBox) sndr).Password != String.Empty)
-                    return;
-                var a = new ThicknessAnimation()
-                {
-                    From = PassLabel.Margin,
-                    To = new Thickness(PassLabel.Margin.Left, PassLabel.Margin.Top + 25, PassLabel.Margin.Right, PassLabel.Margin.Bottom),
-                    Duration = TimeSpan.FromSeconds(0.2)
-                };
-                PassLabel.BeginAnimation(MarginProperty, a);
-            }
-
-            sndr.Padding = new Thickness(1,5,1,0);
-            var anim = new DoubleAnimation()
-            {
-                From = sndr.Height,
-                To = 30.0,
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(HeightProperty, anim);
-            var anim2 = new ThicknessAnimation()
-            {
-                From = sndr.Margin,
-                To = new Thickness(sndr.Margin.Left, sndr.Margin.Top + 5, sndr.Margin.Right, sndr.Margin.Bottom),
-                Duration = TimeSpan.FromSeconds(0.2)
-            };
-            sndr.BeginAnimation(MarginProperty, anim2);
-        }
-
-        private void PassLabel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            PasswordTextBox.Focus();
-        }
-
-        private void LoginLabel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            LoginTextBox.Focus();
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите выйти?",
@@ -204,6 +83,11 @@ namespace SoBesedkaApp
             {
                 e.Cancel = true;
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoginTextBox.Focus();
         }
     }
 }
