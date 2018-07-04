@@ -41,7 +41,7 @@ namespace SoBesedkaApp
                 LoginTextBox.Focus();
                 return;
             }
-            if (LoginTextBox.Text.Any(c => char.IsWhiteSpace(c)))
+            if (LoginTextBox.Text.Count(c => char.IsLetterOrDigit(c) || c == '.' || c == '-' || c== '_') != LoginTextBox.Text.Count())
             {
                 ErrorText.Text = "Неверный формат логина";
                 FIOTextBox.Focus();
