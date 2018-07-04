@@ -101,9 +101,20 @@ namespace SoBesedkaApp
             if (PasswordTextBox.Password != SecondPasswordTextBox.Password)
             {
                 ErrorText.Text = "Введённые пароли не совпадают";
-                SecondPasswordTextBox.Focus();
-                return;
             } else { ErrorText.Text = ""; }
+        }
+
+        private void PasswordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PasswordTextBox.Password == SecondPasswordTextBox.Password  && ErrorText.Text== "Введённые пароли не совпадают")
+            {
+                ErrorText.Text = "";
+            }
+            if(SecondPasswordTextBox.Password != ""  && PasswordTextBox.Password != SecondPasswordTextBox.Password)
+            {
+                ErrorText.Text = "Введённые пароли не совпадают";
+            }
+
         }
     }
 }
