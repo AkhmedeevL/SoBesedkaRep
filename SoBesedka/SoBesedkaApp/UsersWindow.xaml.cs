@@ -62,6 +62,7 @@ namespace SoBesedkaApp
                 {
                     MessageBox.Show("Нельзя удалить текущего пользователя", "Внимание", MessageBoxButton.OK,
                         MessageBoxImage.Warning);
+                    return;
                 }
                 Data.DelElement(user);
                 MessageBox.Show($"Пользователь {user.UserFIO} удален", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
