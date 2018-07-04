@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="About" Height="313.853" Width="428.821" ResizeMode="CanMinimize">
+        Title="О программе" Height="300" Width="400" ResizeMode="CanMinimize">
     <Grid>
         <Image  Source="Resources/authlogo220x50.png" Height="29" VerticalAlignment="Top" Margin="0,40,0,0"/>
         <TextBlock HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="403" Height="143" Padding="50,0,0,0" Margin="10,91,10,0"><Run Text="Создатели:"/><LineBreak/><Run Text="Ахмедеев Ленар"/><LineBreak/><Run Text="Гнусарев Олег"/><LineBreak/><Run Text="Кребс Алёна"/><LineBreak/><Run Text="Колесников Дмитрий"/><LineBreak/><Run Text="Яруллов Тимур"/></TextBlock>

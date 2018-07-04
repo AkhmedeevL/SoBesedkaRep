@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="Пользователи" Height="514" Width="424">
+        Title="Пользователи" Height="470.527" Width="500">
     <Grid Margin="0,0,3,0">
-        <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="219" ItemsSource="{Binding Users}">
+        <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="290" ItemsSource="{Binding Users}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Style.Triggers>
@@ -19,8 +19,8 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="65" Margin="238,14,0,0" VerticalAlignment="Top" Width="165" Click="AdminButton_Click"/>
-        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="238,84,0,0" VerticalAlignment="Top" Width="165" Height="65" Click="DeleteButton_Click"/>
+        <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="46" Margin="314,10,0,0" VerticalAlignment="Top" Width="166" Click="AdminButton_Click"/>
+        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="314,70,0,0" VerticalAlignment="Top" Width="164" Height="46" Click="DeleteButton_Click"/>
 
     </Grid>
 </Window>
