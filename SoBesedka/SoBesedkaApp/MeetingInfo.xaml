@@ -8,7 +8,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         x:Class="SoBesedkaApp.MeetingInfo"
         mc:Ignorable="d"
-        Title="Просмотр" Height="386.2" Width="596.765" WindowStyle="SingleBorderWindow" ResizeMode="CanMinimize">
+        Title="Просмотр" Height="378.2" Width="596.765" WindowStyle="SingleBorderWindow" ResizeMode="CanMinimize">
     <Grid Name="ElementsGrid">
         <TextBox x:Name="TitleTextBox" Margin="10,10,0,0" TextWrapping="Wrap" Text="" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Width="351" Height="47" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
         <TextBox x:Name="SubjTextBox" Margin="10,84,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="351" Height="41" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
@@ -20,7 +20,7 @@
         <TextBox x:Name="DatePicker" FontSize="16" HorizontalAlignment="Left" Margin="50,245,0,0" VerticalAlignment="Top" Width="128" BorderThickness="0" Height="27" Focusable="False"/>
         <Label Content="Время:" HorizontalAlignment="Left" Height="27" Margin="183,244,0,0" VerticalAlignment="Top" Width="55"/>
         <TextBox x:Name="TimeStartTextBox" Margin="238,245,0,0" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Left" Width="123" Height="26" VerticalAlignment="Top" BorderThickness="0" Focusable="False"/>
-        <Label Content="Участники:" HorizontalAlignment="Left" Height="27" Margin="439,9,0,0" VerticalAlignment="Top" Width="137"/>
+        <Label Content="Участники:" HorizontalAlignment="Left" Height="27" Margin="366,9,0,0" VerticalAlignment="Top" Width="137"/>
         <ListBox Name="InvitedUsersListBox" HorizontalAlignment="Left" Height="296" Margin="366,41,0,0" VerticalAlignment="Top" Width="210" />
 
         <Grid Name="CheckBoxContainer" Margin="10,307,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="291">
