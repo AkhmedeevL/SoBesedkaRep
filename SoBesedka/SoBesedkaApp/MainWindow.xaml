@@ -50,11 +50,11 @@
         <Button Content="&gt;" Margin="0,29,27,0" VerticalAlignment="Top" Click="NextWeek_Click" Height="36" BorderThickness="1" HorizontalAlignment="Right" Width="20"/>
         <Menu HorizontalAlignment="Stretch" Height="24" VerticalAlignment="Top" >
             <MenuItem x:Name="ProfileMenuItem" Height="24" Header="Профиль" Click="ProfileMenuItem_Click" />
-            <MenuItem x:Name="UsersMenuItem" Height="24" Header="Участники" Click="MenuItem_Click" />
-            <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
             <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" Click="ProgramMenuItem_Click" />
             <MenuItem x:Name="FastMeetingCreateMenuItem" Header="Быстрое бронирование" Height="24" Click="FastMeetingCreate_Click"/>
             <MenuItem x:Name="ExitAccountItem" Height="24" Header="Выйти из аккаунта" Click="Button_Click" />
+            <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" FontWeight="Bold" />
+            <MenuItem x:Name="UsersMenuItem" Height="24" Header="Участники" Click="MenuItem_Click" FontWeight="Bold" />
         </Menu>
 
         <Grid Name="DaysOfWeek" Margin="154,29,28,198">
