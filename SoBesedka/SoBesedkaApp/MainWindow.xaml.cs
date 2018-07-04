@@ -126,5 +126,12 @@ namespace SoBesedkaApp
             var about = new About();
             about.Show();
         }
+
+        private void FastMeetingCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var wnd = new FastMeetingCreateWindow(Data);
+            if (wnd.ShowDialog() == true)
+                Data.UpdateMeetings();
+        }
     }
 }

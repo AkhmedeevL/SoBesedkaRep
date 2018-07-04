@@ -67,6 +67,37 @@ namespace SoBesedkaDB.Implementations
             throw new Exception("Помещение не найдено");
         }
 
+        public List<RoomViewModel> GetAvailableRooms(DateTime start, DateTime end)
+        {
+            List<RoomViewModel> rooms = GetList();
+            List<RoomViewModel> result = new List<RoomViewModel>();
+            foreach (var r in rooms) {
+                var meeting = context.Meetings.Where(res => res.RoomId == r.Id).Select(res => new MeetingViewModel {
+                    StartTime = res.StartTime,
+                    EndTime = res.EndTime,
+                    RepeatingDays = res.RepeatingDays
+                }).ToList();
+                bool f = true;
+                foreach (var m in meeting) {
+                    if (m.RepeatingDays == "0000000")
+                    {
+                        if (MeetingService.MeetingIntersect(start, end, m.StartTime, m.EndTime))
+                            f = false;
+                    }
+                    else
+                    {
+                        if (m.RepeatingDays[(int)start.DayOfWeek] == '1' && MeetingService.MeetingIntersect(start, end, start.Date + m.StartTime.TimeOfDay, start.Date + m.EndTime.TimeOfDay))
+                            f = false;
+                    }
+                }
+                if (f)
+                    result.Add(r);
+            }
+            if (result.Count > 0)
+                return result;
+            throw new Exception("Свободных комнат не найдено");
+        }
+
         public void AddElement(Room model)
         {
             Room element = context.Rooms.FirstOrDefault(rec => rec.RoomName == model.RoomName);
