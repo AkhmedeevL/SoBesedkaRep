@@ -29,7 +29,7 @@ namespace SoBesedkaApp
                 FIOTextBox.Focus();
                 return;
             }
-            if (FIOTextBox.Text.Any(c => !char.IsLetter(c)))
+            if (FIOTextBox.Text.Any(c => !(char.IsLetter(c) || c == ' ')))
             {
                 ErrorText.Text = "Неверный формат ФИО";
                 FIOTextBox.Focus();
