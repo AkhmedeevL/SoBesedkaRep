@@ -53,6 +53,7 @@
             <MenuItem x:Name="UsersMenuItem" Height="24" Header="Участники" Click="MenuItem_Click" />
             <MenuItem x:Name="RoomsMenuItem" Height="24" Header="Комнаты" Click="MenuItem_Click_1" />
             <MenuItem x:Name="ProgramMenuItem" Height="24" Header="О программе" Click="ProgramMenuItem_Click" />
+            <MenuItem x:Name="FastMeetingCreateMenuItem" Header="Быстрое бронирование" Height="24" Click="FastMeetingCreate_Click"/>
         </Menu>
 
         <Grid Name="DaysOfWeek" Margin="154,29,28,198">

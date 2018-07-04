@@ -18,5 +18,7 @@ namespace SoBesedkaDB.Interfaces
         void UpdElement(Room model);
 
         void DelElement(int id);
+
+        List<RoomViewModel> GetAvailableRooms(DateTime start, DateTime end);
     }
 }

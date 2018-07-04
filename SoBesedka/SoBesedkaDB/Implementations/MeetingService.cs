@@ -116,6 +116,8 @@ namespace SoBesedkaDB.Implementations
             throw new Exception("Событие не найдено");
         }
 
+        
+
         public List<MeetingViewModel> GetList()
         {
             List<MeetingViewModel> result = context.Meetings.Select(rec => new MeetingViewModel
@@ -172,14 +174,14 @@ namespace SoBesedkaDB.Implementations
             context.SaveChanges();
         }
 
-        void Swap<T>(ref T a, ref T b)
+        static void Swap<T>(ref T a, ref T b)
         {
             var temp = a;
             a = b;
             b = temp;
         }
 
-        bool MeetingIntersect(DateTime a, DateTime b, DateTime c, DateTime d)
+        public static bool MeetingIntersect(DateTime a, DateTime b, DateTime c, DateTime d)
         {
             if (a > b)  Swap(ref a, ref b);
             if (c > d)  Swap(ref c, ref d);
