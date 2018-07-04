@@ -26,6 +26,8 @@ namespace SoBesedkaApp
                 LoginTextBox.Text = System.IO.File.ReadAllText(@"login.txt");
                 PasswordTextBox.Password =Uncoding(System.IO.File.ReadAllText(@"password.txt"));
                 SavePassCheckBox.IsChecked = true;
+                LoginLabel.Margin = new Thickness(72,92,0,0);
+                PassLabel.Margin = new Thickness(72, 162, 0, 0);
                 indicator = true;
             }
         }
@@ -108,21 +110,21 @@ namespace SoBesedkaApp
                 return;
             }
             var user = new UserViewModel();
-            if (SavePassCheckBox.IsChecked == true)
-            {
-                System.IO.File.WriteAllText(@"login.txt", LoginTextBox.Text);
-                System.IO.File.WriteAllText(@"password.txt", Coding(PasswordTextBox.Password));
-            }
-            else
-            {
-                System.IO.File.Delete(@"login.txt");
-                System.IO.File.Delete(@"password.txt");
-            }
             //открываем главное окно по кнопке входа
             if (Data.SignIn(LoginTextBox.Text, Data.GetHashString(PasswordTextBox.Password)))
             {
                 MainWindow mainwindow = new MainWindow(Data);
                 mainwindow.Show();
+                if (SavePassCheckBox.IsChecked == true)
+                {
+                    System.IO.File.WriteAllText(@"login.txt", LoginTextBox.Text);
+                    System.IO.File.WriteAllText(@"password.txt", Coding(PasswordTextBox.Password));
+                }
+                else
+                {
+                    System.IO.File.Delete(@"login.txt");
+                    System.IO.File.Delete(@"password.txt");
+                }
                 Closing -= Window_Closing;
                 Close();
             }
@@ -159,6 +161,14 @@ namespace SoBesedkaApp
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (SavePassCheckBox.IsChecked == false)
+            {
+                if (System.IO.File.Exists(@"login.txt") && System.IO.File.Exists(@"password.txt"))
+                {
+                    System.IO.File.Delete(@"login.txt");
+                    System.IO.File.Delete(@"password.txt");
+                }
+            }
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите выйти?",
                                  "Выход",
                                  MessageBoxButton.YesNo,
