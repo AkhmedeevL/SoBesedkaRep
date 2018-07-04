@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
-        Title="О программе" Height="300" Width="400" ResizeMode="CanMinimize">
+        Title="О программе" Height="328" Width="400" ResizeMode="CanMinimize">
     <Grid>
         <Image  Source="Resources/authlogo220x50.png" Height="29" VerticalAlignment="Top" Margin="0,40,0,0"/>
-        <TextBlock HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="403" Height="143" Padding="50,0,0,0" Margin="10,91,10,0"><Run Text="Создатели:"/><LineBreak/><Run Text="Ахмедеев Ленар"/><LineBreak/><Run Text="Гнусарев Олег"/><LineBreak/><Run Text="Кребс Алёна"/><LineBreak/><Run Text="Колесников Дмитрий"/><LineBreak/><Run Text="Яруллов Тимур"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Height="23" Padding="50,0,0,0" Margin="10,239,0,0" TextWrapping="Wrap" Text="DIMON.5OFT™, 2018" VerticalAlignment="Top" Width="403"/>
+        <TextBlock HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="402" Height="170" Padding="30,0,0,0" Margin="-4,91,-4,0"><Run Text="Создатели:"/><LineBreak/><Run Text="Ахмедеев Ленар - разработчик"/><LineBreak/><Run Text="Гнусарев Олег - разработчик"/><LineBreak/><Run Text="Кребс Алёна - разработчик"/><LineBreak/><Run Text="Колесников Дмитрий - руководитель проекта"/><LineBreak/><Run Text="Яруллов Тимур - разработчик"/><LineBreak/><Run Text="Ягант Евгений - тестирование"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="23" Padding="50,0,0,0" Margin="10,266,0,0" TextWrapping="Wrap" Text="DIMON.5OFT™, 2018" VerticalAlignment="Top" Width="374"/>
 
     </Grid>
 </Window>
