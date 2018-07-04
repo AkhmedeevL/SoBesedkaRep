@@ -66,9 +66,10 @@ namespace SoBesedkaApp
                 return;
             }
             string mail = EmailTextBox.Text;
-            if (!string.IsNullOrEmpty(mail))
+            string checkmail = mail.ToLower();
+            if (!string.IsNullOrEmpty(checkmail))
             {
-                if (!Regex.IsMatch(mail, @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                if (!Regex.IsMatch(checkmail, @"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                 @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$"))
                 {
                     ErrorText.Text = "Неверный формат электронной почты";
@@ -94,6 +95,27 @@ namespace SoBesedkaApp
                 {
                     MessageBox.Show(ex.Message, "Ошибка");
                 }
+        }
+
+        private void SecondPasswordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PasswordTextBox.Password != SecondPasswordTextBox.Password)
+            {
+                ErrorText.Text = "Введённые пароли не совпадают";
+            } else { ErrorText.Text = ""; }
+        }
+
+        private void PasswordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (PasswordTextBox.Password == SecondPasswordTextBox.Password  && ErrorText.Text== "Введённые пароли не совпадают")
+            {
+                ErrorText.Text = "";
+            }
+            if(SecondPasswordTextBox.Password != ""  && PasswordTextBox.Password != SecondPasswordTextBox.Password)
+            {
+                ErrorText.Text = "Введённые пароли не совпадают";
+            }
+
         }
     }
 }

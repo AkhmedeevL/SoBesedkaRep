@@ -25,6 +25,7 @@ namespace SoBesedkaApp
     {
         private DataSamples Data;
         public List<UserViewModel> SelectedUsers { get; set; }
+        
 
         public AddUsers(DataSamples data)
         {
@@ -35,28 +36,44 @@ namespace SoBesedkaApp
             AllUsersListBox.DataContext = Data;
             SelectedUsersListBox.DataContext = this;
             SelectedUsersListBox.Items.Refresh();
+            AllUsersListBox.SelectionMode = SelectionMode.Multiple;
+            SelectedUsersListBox.SelectionMode = SelectionMode.Multiple;
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            UserViewModel user = (UserViewModel) AllUsersListBox.SelectedItem;
-            if (user == null)
-                return;
-            if (SelectedUsers.Any(u => u.Id == user.Id))
-                return;
-            SelectedUsers.Add(user);
-            OnPropertyChanged("SelectedUsers");
-            SelectedUsersListBox.Items.Refresh();
+            foreach(UserViewModel SelectedUserToAdd in AllUsersListBox.SelectedItems)
+            {
+                UserViewModel user = (UserViewModel) SelectedUserToAdd;
+                if (user == null)
+                {
+                    AllUsersListBox.SelectedItems.Clear();
+                    return;
+                }
+                if (SelectedUsers.Any(u => u.Id == user.Id))
+                {
+                    AllUsersListBox.SelectedItems.Clear();
+                    return;
+                }
+                SelectedUsers.Add(user);
+                OnPropertyChanged("SelectedUsers");
+                SelectedUsersListBox.Items.Refresh();
+            }
+            AllUsersListBox.SelectedItems.Clear();
+            
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            UserViewModel user = (UserViewModel) SelectedUsersListBox.SelectedItem;
-            if (user == null)
-                return;
-            SelectedUsers.Remove(user);
-            OnPropertyChanged("SelectedUsers");
-            SelectedUsersListBox.Items.Refresh();
+            for (int i = 0; i< SelectedUsersListBox.SelectedItems.Count;)
+            {
+                UserViewModel user = (UserViewModel)SelectedUsersListBox.SelectedItems[0];
+                if (user == null)
+                    return;
+                SelectedUsers.Remove(user);
+                OnPropertyChanged("SelectedUsers");
+                SelectedUsersListBox.Items.Refresh();
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
