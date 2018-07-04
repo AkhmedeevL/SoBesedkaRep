@@ -21,7 +21,7 @@
         <PasswordBox x:Name="PasswordTextBox"  MaxLength="254" Margin="72,300,0,0" PasswordChar="*" FontSize="16" HorizontalAlignment="Left" Width="250" Height="30" VerticalAlignment="Top" BorderThickness="0,0,0,1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="{Binding ElementName=PasswordLabel}"/>
         <Label x:Name="PasswordLabel" Content="Пароль:" HorizontalAlignment="Left" Height="30" Margin="72,300,0,0" VerticalAlignment="Top" Width="244" FontSize="16" MouseDown="label_MouseDown" Tag="{Binding ElementName=PasswordTextBox}" Cursor="IBeam"/>
 
-        <PasswordBox x:Name="SecondPasswordTextBox"  MaxLength="254" Margin="72,375,0,0" PasswordChar="*" FontSize="16" HorizontalAlignment="Left" Width="250" Height="30" VerticalAlignment="Top" BorderThickness="0,0,0,1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="{Binding ElementName=ConfirmLabel}"/>
+        <PasswordBox x:Name="SecondPasswordTextBox"  MaxLength="254" Margin="72,375,0,0" PasswordChar="*" FontSize="16" HorizontalAlignment="Left" Width="250" Height="30" VerticalAlignment="Top" BorderThickness="0,0,0,1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="{Binding ElementName=ConfirmLabel}" PasswordChanged="SecondPasswordTextBox_PasswordChanged"/>
         <Label x:Name="ConfirmLabel" Content="Подтвердите пароль:" HorizontalAlignment="Left" Height="30" Margin="72,375,0,0" VerticalAlignment="Top" Width="244" FontSize="16" MouseDown="label_MouseDown" Tag="{Binding ElementName=SecondPasswordTextBox}" Cursor="IBeam"/>
 
         <Button x:Name="RegButton" FontSize="16" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="30" Margin="72,468,0,0" VerticalAlignment="Top" Width="250" Click="EnterButton_Click"/>
