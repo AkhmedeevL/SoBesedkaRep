@@ -1,4 +1,6 @@
-﻿using SoBesedkaDB;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SoBesedkaDB;
 using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Views;
 using SoBesedkaModels;
@@ -61,6 +63,8 @@ namespace SoBesedkaApp
 
         private void Time_Changed(object sender, EventArgs e)
         {
+            if (DatePicker.SelectedDate == null)
+                return;
             DateTime currentDay = DatePicker.SelectedDate.Value;
             DateTime start, end;
             List<RoomViewModel> rooms;
@@ -75,22 +79,23 @@ namespace SoBesedkaApp
             }
             try
             {
-                //var response = APIClient.GetRequest($"api/Room/GetAvailableRooms/?start={start.ToShortDateString()}&end={end.ToShortDateString()}");
-                //if (response.Result.IsSuccessStatusCode)
-                //{
-                //    rooms = APIClient.GetElement<List<RoomViewModel>>(response);
-                //}
-                //else
-                //{
-                //    throw new Exception(APIClient.GetError(response));
-                //}
-                rooms = new RoomService(new SoBesedkaDBContext()).GetAvailableRooms(start, end);
+                var response = APIClient.PostRequest($"api/Room/GetAvailableRooms", new Meeting { StartTime = start, EndTime = end});
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    rooms = APIClient.GetElement<List<RoomViewModel>>(response);
+                }
+                else
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                JObject message = (JObject)JsonConvert.DeserializeObject(ex.Message);
+                RoomsFindTextBox.Text = message["ExceptionMessage"].Value<string>();
                 return;
             }
+            RoomsFindTextBox.Text = "";
             RoomsComboBox.ItemsSource = rooms;
             RoomsComboBox.Items.Refresh();
         }
@@ -122,19 +127,7 @@ namespace SoBesedkaApp
                     MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                     return;
                 }
-                var repDays = "";
-                foreach (CheckBox cb in CheckBoxContainer.Children)
-                {
-                    if (cb.IsChecked == null) continue;
-                    if (cb.IsChecked.Value)
-                    {
-                        repDays += "1";
-                    }
-                    else
-                    {
-                        repDays += "0";
-                    }
-                }
+                var repDays = "0000000";
                 var userMeetings = new List<UserMeeting>();
                 foreach (UserViewModel user in InvitedUsersListBox.Items)
                 {

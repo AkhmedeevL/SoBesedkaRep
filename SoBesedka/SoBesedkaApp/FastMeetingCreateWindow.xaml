@@ -15,7 +15,7 @@
         <Label Content="Описание:" HorizontalAlignment="Left" Height="27" Margin="10,73,0,0" VerticalAlignment="Top" Width="244"/>
         <Label Content="Дата:" HorizontalAlignment="Left" Height="27" Margin="10,172,0,0" VerticalAlignment="Top" Width="244"/>
 
-        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Width="200"/>
+        <DatePicker x:Name="DatePicker" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Width="200" SelectedDateChanged="Time_Changed"/>
         <Label Content="Время начала:" HorizontalAlignment="Left" Height="27" Margin="10,237,0,0" VerticalAlignment="Top" Width="93"/>
         <!--<TextBox x:Name="TimeStartTextBox" Margin="108,238,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="102" Height="26" VerticalAlignment="Top" />-->
         <Label Content="Длительность:" HorizontalAlignment="Left" Height="27" Margin="233,237,0,0" VerticalAlignment="Top" Width="93"/>
@@ -25,21 +25,11 @@
         <Button x:Name="AddButton" Content="Добавить участников" HorizontalAlignment="Left" Height="46" Margin="293,366,0,0" VerticalAlignment="Top" Width="140" Click="AddButton_Click"/>
         <Button x:Name="SaveButton" IsDefault="True" Content="Сохранить" HorizontalAlignment="Left" Height="46" Margin="293,453,0,0" VerticalAlignment="Top" Width="142" Click="SaveButton_Click"/>
         <Button x:Name="CancelButton" IsCancel="True" Content="Отмена" HorizontalAlignment="Left" Height="46" Margin="293,514,0,0" VerticalAlignment="Top" Width="140" Click="CancelButton_Click" />
-
-        <Grid Name="CheckBoxContainer">
-            <CheckBox Name="cb7" Content="вс" HorizontalAlignment="Left" Margin="342,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb1" Content="пн" HorizontalAlignment="Left" Margin="108,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb2" Content="вт" HorizontalAlignment="Left" Margin="147,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb3" Content="ср" HorizontalAlignment="Left" Margin="186,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb4" Content="чт" HorizontalAlignment="Left" Margin="225,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb5" Content="пт" HorizontalAlignment="Left" Margin="264,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="303,276,0,0" VerticalAlignment="Top"/>
-            <ComboBox Name="RoomsComboBox"  HorizontalAlignment="Left" Margin="108,306,0,0" VerticalAlignment="Top" Width="208"/>
-        </Grid>
-        <Label Content="Повтор:" HorizontalAlignment="Left" Height="27" Margin="10,270,0,0" VerticalAlignment="Top" Width="93"/>
+        <ComboBox Name="RoomsComboBox"  HorizontalAlignment="Left" Margin="108,306,0,0" VerticalAlignment="Top" Width="325"/>
         <WindowsFormsHost Name="host1" Margin="108,238,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"></WindowsFormsHost>
         <WindowsFormsHost Name="host2" Margin="331,238,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"></WindowsFormsHost>
         <Label Content="Комната:" HorizontalAlignment="Left" Height="27" Margin="10,302,0,0" VerticalAlignment="Top" Width="93"/>
+        <TextBlock Name="RoomsFindTextBox" Foreground="Red" HorizontalAlignment="Left" Margin="14,275,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="28" Width="419"/>
 
     </Grid>
 </Window>
