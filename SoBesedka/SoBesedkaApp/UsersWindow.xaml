@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Пользователи" Height="400" Width="500">
     <Grid Margin="0,0,3,0">
-        <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="290" ItemsSource="{Binding Users}">
+        <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="290" ItemsSource="{Binding Users}" SelectionChanged="listBoxUsers_SelectionChanged">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Style.Triggers>
@@ -19,8 +19,9 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="40" Margin="314,10,0,0" VerticalAlignment="Top" Width="160" Click="AdminButton_Click"/>
-        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="314,70,0,0" VerticalAlignment="Top" Width="160" Height="40" Click="DeleteButton_Click"/>
+        <Button x:Name="AdminButton" Content="Сделать администратором" HorizontalAlignment="Left" Height="40" Margin="314,10,0,0" VerticalAlignment="Top" Width="160" Click="AdminButton_Click" IsEnabled="False"/>
+        <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Left" Margin="314,70,0,0" VerticalAlignment="Top" Width="160" Height="40" Click="DeleteButton_Click" IsEnabled="False"/>
+        <Button x:Name="RemoveAdminButton" Content="Разжаловать" HorizontalAlignment="Left" Margin="314,130,0,0" VerticalAlignment="Top" Width="160" Height="40" Click="RemoveAdminButton_Click" IsEnabled="False"/>
 
     </Grid>
 </Window>
