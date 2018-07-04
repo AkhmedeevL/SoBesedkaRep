@@ -44,6 +44,7 @@ namespace SoBesedkaDB.Implementations
                 UserMeetings = null,
             });
             context.SaveChanges();
+            MailService.SendEmail(model.UserMail, "Регистрация", "Вы успешно зарегистрированны в приложении СоБеседка.");
         }
 
         public void DelElement(int id)
