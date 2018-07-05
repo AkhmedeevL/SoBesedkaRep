@@ -15,18 +15,20 @@ namespace SoBesedkaApp
     public partial class AuthWindow : Window
     {
         public bool indicator=false;
+        public string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
         DataSamples Data;
         public AuthWindow()
         {
             InitializeComponent();
             
             Data = new DataSamples();
-            if (System.IO.File.Exists(@"login.txt") && System.IO.File.Exists(@"password.txt"))
+            string directiv = System.IO.Path.GetDirectoryName(path);
+            if (System.IO.File.Exists(System.IO.Path.Combine(directiv, "login.txt")) && System.IO.File.Exists(System.IO.Path.Combine(directiv, "password.txt")))
             {
-                LoginTextBox.Text = System.IO.File.ReadAllText(@"login.txt");
-                PasswordTextBox.Password =Uncoding(System.IO.File.ReadAllText(@"password.txt"));
+                LoginTextBox.Text = System.IO.File.ReadAllText(System.IO.Path.Combine(directiv, "login.txt"));
+                PasswordTextBox.Password = Uncoding(System.IO.File.ReadAllText(System.IO.Path.Combine(directiv, "password.txt")));
                 SavePassCheckBox.IsChecked = true;
-                LoginLabel.Margin = new Thickness(72,92,0,0);
+                LoginLabel.Margin = new Thickness(72, 92, 0, 0);
                 PassLabel.Margin = new Thickness(72, 162, 0, 0);
                 indicator = true;
             }
@@ -115,15 +117,16 @@ namespace SoBesedkaApp
             {
                 MainWindow mainwindow = new MainWindow(Data);
                 mainwindow.Show();
+                string directiv = System.IO.Path.GetDirectoryName(path);
                 if (SavePassCheckBox.IsChecked == true)
                 {
-                    System.IO.File.WriteAllText(@"login.txt", LoginTextBox.Text);
-                    System.IO.File.WriteAllText(@"password.txt", Coding(PasswordTextBox.Password));
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(directiv,"login.txt"), LoginTextBox.Text);
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(directiv,"password.txt"), Coding(PasswordTextBox.Password));
                 }
                 else
                 {
-                    System.IO.File.Delete(@"login.txt");
-                    System.IO.File.Delete(@"password.txt");
+                    System.IO.File.Delete(System.IO.Path.Combine(directiv, "login.txt"));
+                    System.IO.File.Delete(System.IO.Path.Combine(directiv, "password.txt"));
                 }
                 Closing -= Window_Closing;
                 Close();
@@ -163,10 +166,11 @@ namespace SoBesedkaApp
         {
             if (SavePassCheckBox.IsChecked == false)
             {
-                if (System.IO.File.Exists(@"login.txt") && System.IO.File.Exists(@"password.txt"))
+                string directiv = System.IO.Path.GetDirectoryName(path);
+                if (System.IO.File.Exists(System.IO.Path.Combine(directiv, "login.txt")) && System.IO.File.Exists(System.IO.Path.Combine(directiv, "password.txt")))
                 {
-                    System.IO.File.Delete(@"login.txt");
-                    System.IO.File.Delete(@"password.txt");
+                    System.IO.File.Delete(System.IO.Path.Combine(directiv, "login.txt"));
+                    System.IO.File.Delete(System.IO.Path.Combine(directiv, "password.txt"));
                 }
             }
             MessageBoxResult res = MessageBox.Show("Вы действительно хотите выйти?",
