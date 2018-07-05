@@ -9,7 +9,7 @@
         x:Class="SoBesedkaApp.MeetingInfo"
         mc:Ignorable="d"
      WindowStartupLocation="CenterScreen"
-        Title="Просмотр" Height="378.2" Width="596.765" WindowStyle="SingleBorderWindow" ResizeMode="CanMinimize">
+        Title="Просмотр" Height="378.2" Width="596.765" WindowStyle="SingleBorderWindow" ResizeMode="NoResize">
     <Grid Name="ElementsGrid">
         <TextBox x:Name="TitleTextBox" Margin="10,10,0,0" TextWrapping="Wrap" Text="" FontSize="16" FontWeight="Bold" HorizontalAlignment="Left" Width="351" Height="47" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />
         <TextBox x:Name="SubjTextBox" Margin="10,84,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="351" Height="41" VerticalAlignment="Top" BorderThickness="0" Focusable="False" />

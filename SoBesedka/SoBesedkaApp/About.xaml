@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="О программе" Height="328" Width="400" ResizeMode="CanMinimize">
+        Title="О программе" Height="328" Width="400" ResizeMode="NoResize">
     <Grid>
         <Image  Source="Resources/authlogo220x50.png" Height="29" VerticalAlignment="Top" Margin="0,40,0,0"/>
         <TextBlock HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Top" Width="402" Height="170" Padding="30,0,0,0" Margin="-4,91,-4,0"><Run Text="Создатели:"/><LineBreak/><Run Text="Ахмедеев Ленар - разработчик"/><LineBreak/><Run Text="Гнусарев Олег - разработчик"/><LineBreak/><Run Text="Кребс Алёна - разработчик"/><LineBreak/><Run Text="Колесников Дмитрий - руководитель проекта"/><LineBreak/><Run Text="Яруллов Тимур - разработчик"/><LineBreak/><Run Text="Ягант Евгений - тестирование"/></TextBlock>

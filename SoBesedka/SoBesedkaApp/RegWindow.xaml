@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="Регистрация" Height="554.4" Width="400" ResizeMode="CanMinimize">
+        Title="Регистрация" Height="554.4" Width="400" ResizeMode="NoResize">
     <Grid x:Name="RegGrid">
         <Image Margin="72,30,74.6,0" Source="Resources/authlogo220x50.png" Height="29" VerticalAlignment="Top"/>
 

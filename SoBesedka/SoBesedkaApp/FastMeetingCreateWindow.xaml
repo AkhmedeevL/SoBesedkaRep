@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="Быстрое бронирование" Height="572.8" Width="453" ResizeMode="CanMinimize">
+        Title="Быстрое бронирование" Height="572.8" Width="453" ResizeMode="NoResize">
     <Grid Name="ElementsGrid">
         <TextBox x:Name="TitleTextBox" Margin="10,47,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="200" Height="26" VerticalAlignment="Top" />
         <Label Content="Название:" HorizontalAlignment="Left" Height="27" Margin="10,15,0,0" VerticalAlignment="Top" Width="200"/>

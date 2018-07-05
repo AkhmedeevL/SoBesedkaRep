@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="Профиль пользователя" Height="456.907" Width="565.561" ResizeMode="CanMinimize">
+        Title="Профиль пользователя" Height="456.907" Width="565.561" ResizeMode="NoResize">
     <Grid Margin="0,0,2,0">
         <TextBox x:Name="FIOTextBox" MaxLength="254" HorizontalAlignment="Left" Height="30" Margin="27,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>
         <TextBox x:Name="LoginTextBox" MaxLength="254" HorizontalAlignment="Left" Height="30" Margin="27,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="207"/>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="Авторизация" Height="450" Width="400" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="CanMinimize">
+        Title="Авторизация" Height="450" Width="400" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid Margin="2,10,1.6,11">
         <Image Margin="72,30,71.6,340" Source="Resources/authlogo220x50.png"/>
         <TextBox x:Name="LoginTextBox"  MaxLength ="254"  Margin="72,126,0,0" TextWrapping="Wrap" Text="" FontSize="16" HorizontalAlignment="Left" Width="250" Height="30" VerticalAlignment="Top" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" BorderThickness="0,0,0,1" ForceCursor="True" Tag="{Binding ElementName=LoginLabel, Mode=OneWay}"  />

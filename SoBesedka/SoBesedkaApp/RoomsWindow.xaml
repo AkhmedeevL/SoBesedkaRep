@@ -7,7 +7,7 @@
         x:Class="SoBesedkaApp.RoomsWindow"
         mc:Ignorable="d"
      WindowStartupLocation="CenterScreen"
-        Title="Управление комнатами" Height="400" Width="500">
+        Title="Управление комнатами" Height="400" Width="500" ResizeMode="NoResize">
     <Grid>
         <ListBox x:Name="RoomsListBox" HorizontalAlignment="Left" Margin="10,10,0,5" VerticalAlignment="Stretch" Width="290" ItemsSource="{Binding Rooms}">
             <ListBox.ItemTemplate>

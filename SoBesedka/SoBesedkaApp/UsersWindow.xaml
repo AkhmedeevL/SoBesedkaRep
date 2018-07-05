@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="Пользователи" Height="400" Width="500">
+        Title="Пользователи" Height="400" Width="500" ResizeMode="NoResize">
     <Grid Margin="0,0,3,0">
         <ListBox Name="listBoxUsers" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="290" ItemsSource="{Binding Users}" SelectionChanged="listBoxUsers_SelectionChanged">
             <ListBox.ItemContainerStyle>
