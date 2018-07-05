@@ -15,7 +15,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SoBesedkaApp
 {
-    public class DataSamples : INotifyPropertyChanged
+    public class DataSource : INotifyPropertyChanged
     {
         public DateTime[] CurrentWeek { get; set; }
         public UserViewModel CurrentUser { get; set; }
@@ -89,24 +89,13 @@ namespace SoBesedkaApp
             }
         }
 
-        //DEBUG
-        //private MeetingService mservice;
-
-        public DataSamples()
+        public DataSource()
         {
             APIClient.Connect();
-
-            //DEBUG
-            //var context = new SoBesedkaDBContext();
-            //mservice = new MeetingService(context);
-
             UpdateRooms();
             UpdateUsers();
-
             UserMeetings = new List<MeetingViewModel>();
-
             CurrentWeek = new DateTime[7];
-
             DateTime currentDay = DateTime.Now.Date;
             int daysToAdd = ((int)System.DayOfWeek.Monday - (int)currentDay.DayOfWeek - 7) % 7;
             CurrentWeek[0] = currentDay.AddDays(daysToAdd);

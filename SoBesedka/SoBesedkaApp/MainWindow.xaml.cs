@@ -10,27 +10,25 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        DataSamples Data;
-        
-        public MainWindow(DataSamples data)
+        DataSource Data;
+
+        public MainWindow(DataSource data)
         {
             InitializeComponent();
-            ((TextBlock) DaysOfWeek.Children[(int) DateTime.Now.DayOfWeek]).FontWeight = FontWeights.Bold;
+            ((TextBlock)DaysOfWeek.Children[(int)DateTime.Now.DayOfWeek]).FontWeight = FontWeights.Bold;
             Data = data;
             DataContext = Data;
             Data.CurrentRoom = (RoomViewModel)ListBox1.SelectedItem;
-            if (!Data.CurrentUser.isAdmin) {
+            if (!Data.CurrentUser.isAdmin)
+            {
                 UsersMenuItem.Visibility = Visibility.Hidden;
                 RoomsMenuItem.Visibility = Visibility.Hidden;
             }
-
-            // Raise the routed event "selected"
-            RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
 
         private void NextWeek_Click(object sender, RoutedEventArgs e)
         {
-            for(int i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 Data.CurrentWeek[i] += TimeSpan.FromDays(7);
             }
@@ -50,16 +48,17 @@ namespace SoBesedkaApp
 
         private void Event_Click(object sender, RoutedEventArgs e)
         {
-            var btn = (Button) sender;
-            if (((MeetingViewModel) btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin == true || ((MeetingViewModel)btn.Tag).Id == 0)
+            var btn = (Button)sender;
+            if (((MeetingViewModel)btn.Tag).CreatorId == Data.CurrentUser.Id || Data.CurrentUser.isAdmin || ((MeetingViewModel)btn.Tag).Id == 0)
             {
-                if (((MeetingViewModel)btn.Tag).Id <= 0 && ((MeetingViewModel)btn.Tag).EndTime  < DateTime.Now)
+                if (((MeetingViewModel)btn.Tag).Id <= 0 && ((MeetingViewModel)btn.Tag).EndTime < DateTime.Now)
                 {
                     MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                     return;
                 }
 
-                if (((MeetingViewModel)btn.Tag).EndTime >= DateTime.Now) {
+                if (((MeetingViewModel)btn.Tag).EndTime >= DateTime.Now)
+                {
                     var meetingwnd = new MeetingWindow(Data, (MeetingViewModel)btn.Tag);
                     if (meetingwnd.ShowDialog() == true)
                         Data.UpdateMeetings();
@@ -79,7 +78,7 @@ namespace SoBesedkaApp
                                              MessageBoxImage.Question);
             if (res != MessageBoxResult.Yes)
             {
-                    e.Cancel = true;
+                e.Cancel = true;
             }
             else
             {

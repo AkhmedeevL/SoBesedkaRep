@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using SoBesedkaDB.Views;
+﻿using SoBesedkaDB.Views;
+using System.Collections.Generic;
 using System.Windows;
 using CheckBox = System.Windows.Controls.CheckBox;
 
@@ -10,11 +10,11 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class MeetingInfo : Window
     {
-        DataSamples Data;
+        DataSource Data;
         MeetingViewModel Meeting;
         List<UserViewModel> InvitedUsers;
 
-        public MeetingInfo(DataSamples data, MeetingViewModel meeting)
+        public MeetingInfo(DataSource data, MeetingViewModel meeting)
         {
             InitializeComponent();
 

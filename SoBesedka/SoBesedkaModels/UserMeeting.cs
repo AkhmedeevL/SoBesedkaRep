@@ -13,5 +13,9 @@ namespace SoBesedkaModels
         public int UserId { get; set; }
 
         public int MeetingId { get; set; }
+
+        public virtual User User { get; set; }
+        
+        public virtual Meeting Meeting { get; set; }
     }
 }

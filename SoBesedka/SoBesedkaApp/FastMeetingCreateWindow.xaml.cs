@@ -1,22 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
 using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MaskedTextBox = System.Windows.Forms.MaskedTextBox;
 
 namespace SoBesedkaApp
@@ -26,15 +15,14 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class FastMeetingCreateWindow : Window
     {
-        DataSamples Data;
-        MeetingViewModel Meeting;
+        DataSource Data;
         List<UserViewModel> InvitedUsers;
 
         private MaskedTextBox startTimeMaskedTextBox;
         private MaskedTextBox durationMaskedTextBox;
-        public FastMeetingCreateWindow(DataSamples data)
+        public FastMeetingCreateWindow(DataSource data)
         {
-            
+
             InitializeComponent();
             Data = data;
             DataContext = Data;
@@ -79,7 +67,7 @@ namespace SoBesedkaApp
             }
             try
             {
-                var response = APIClient.PostRequest($"api/Room/GetAvailableRooms", new Meeting { StartTime = start, EndTime = end});
+                var response = APIClient.PostRequest("api/Room/GetAvailableRooms", new Meeting { StartTime = start, EndTime = end });
                 if (response.Result.IsSuccessStatusCode)
                 {
                     rooms = APIClient.GetElement<List<RoomViewModel>>(response);
@@ -131,17 +119,10 @@ namespace SoBesedkaApp
                 var userMeetings = new List<UserMeeting>();
                 foreach (UserViewModel user in InvitedUsersListBox.Items)
                 {
-                    if (Meeting.Id > 0)
-                        userMeetings.Add(new UserMeeting
-                        {
-                            UserId = user.Id,
-                            MeetingId = Meeting.Id
-                        });
-                    else
-                        userMeetings.Add(new UserMeeting
-                        {
-                            UserId = user.Id
-                        });
+                    userMeetings.Add(new UserMeeting
+                    {
+                        UserId = user.Id
+                    });
                 }
                 if (DatePicker.SelectedDate != null &&
                     !string.IsNullOrEmpty(startTimeMaskedTextBox.Text) &&
@@ -150,43 +131,22 @@ namespace SoBesedkaApp
                     !string.IsNullOrEmpty(SubjTextBox.Text) &&
                     !string.IsNullOrEmpty(DescriptionTextBox.Text))
                 {
-                    if (Meeting.Id > 0)
+                    Data.AddElement(new Meeting
                     {
-                        //Изменение
-                        var response = APIClient.PostRequest("api/Meeting/UpdElement", new Meeting
-                        {
-                            Id = Meeting.Id,
-                            MeetingName = TitleTextBox.Text,
-                            MeetingTheme = SubjTextBox.Text,
-                            MeetingDescription = DescriptionTextBox.Text,
-                            StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
-                                      DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
-                            UserMeetings = userMeetings,
-                            RoomId = Data.CurrentRoom.Id,
-                            CreatorId = Data.CurrentUser.Id,
-                            RepeatingDays = repDays
-                        });
-                        MessageBox.Show("Изменено", "Успех", MessageBoxButton.OK);
-                    }
-                    else
-                    {
-                        //Добавление
-                        Data.AddElement(new Meeting
-                        {
-                            MeetingName = TitleTextBox.Text,
-                            MeetingTheme = SubjTextBox.Text,
-                            MeetingDescription = DescriptionTextBox.Text,
-                            StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
-                                      DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
-                            UserMeetings = userMeetings,
-                            RoomId = Data.CurrentRoom.Id,
-                            CreatorId = Data.CurrentUser.Id,
-                            RepeatingDays = repDays
-                        });
-                        MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
-                    }
+                        MeetingName = TitleTextBox.Text,
+                        MeetingTheme = SubjTextBox.Text,
+                        MeetingDescription = DescriptionTextBox.Text,
+                        StartTime = DatePicker.SelectedDate.Value +
+                                    DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
+                        EndTime = DatePicker.SelectedDate.Value +
+                                  DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
+                                  DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
+                        UserMeetings = userMeetings,
+                        RoomId = Data.CurrentRoom.Id,
+                        CreatorId = Data.CurrentUser.Id,
+                        RepeatingDays = repDays
+                    });
+                    MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
                 }
                 else
                 {
