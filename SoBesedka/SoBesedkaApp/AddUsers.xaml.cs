@@ -1,20 +1,11 @@
-﻿using System;
+﻿using SoBesedkaApp.Annotations;
+using SoBesedkaDB.Views;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SoBesedkaApp.Annotations;
-using SoBesedkaDB.Views;
 
 namespace SoBesedkaApp
 {
@@ -23,11 +14,11 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class AddUsers : Window, INotifyPropertyChanged
     {
-        private DataSamples Data;
+        private DataSource Data;
         public List<UserViewModel> SelectedUsers { get; set; }
-        
 
-        public AddUsers(DataSamples data)
+
+        public AddUsers(DataSource data)
         {
             Data = data;
             InitializeComponent();
@@ -42,9 +33,9 @@ namespace SoBesedkaApp
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            foreach(UserViewModel SelectedUserToAdd in AllUsersListBox.SelectedItems)
+            foreach (UserViewModel SelectedUserToAdd in AllUsersListBox.SelectedItems)
             {
-                UserViewModel user = (UserViewModel) SelectedUserToAdd;
+                UserViewModel user = (UserViewModel)SelectedUserToAdd;
                 if (user == null)
                 {
                     AllUsersListBox.SelectedItems.Clear();
@@ -60,12 +51,12 @@ namespace SoBesedkaApp
                 SelectedUsersListBox.Items.Refresh();
             }
             AllUsersListBox.SelectedItems.Clear();
-            
+
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i< SelectedUsersListBox.SelectedItems.Count;)
+            for (int i = 0; i < SelectedUsersListBox.SelectedItems.Count;)
             {
                 UserViewModel user = (UserViewModel)SelectedUsersListBox.SelectedItems[0];
                 if (user == null)

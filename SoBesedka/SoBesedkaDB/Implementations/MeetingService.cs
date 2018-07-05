@@ -3,15 +3,8 @@ using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using DayOfWeek = System.DayOfWeek;
-using System.Threading;
-
 namespace SoBesedkaDB.Implementations
 {
     public class MeetingService : IMeetingService
@@ -39,26 +32,21 @@ namespace SoBesedkaDB.Implementations
                         throw new Exception("Мероприятие пересекается с уже созданным");
                 }
             }
-                
-            context.Meetings.Add(new Meeting
+            var rep = context.Meetings
+                .Where(m => m.RoomId == model.RoomId)
+                .ToList();
+            foreach (var meeting in rep)
             {
-                MeetingName = model.MeetingName,
-                MeetingDescription = model.MeetingDescription,
-                MeetingTheme = model.MeetingTheme,
-                CreatorId = model.CreatorId,
-                StartTime = model.StartTime,
-                EndTime = model.EndTime,
-                RoomId = model.RoomId,
-                RepeatingDays = model.RepeatingDays
-            });
-            foreach (var um in model.UserMeetings)
-            {
-                context.UserMeetings.Add(new UserMeeting
+                if (meeting.RepeatingDays[(int) model.StartTime.DayOfWeek] == '1')
                 {
-                    MeetingId = model.Id,
-                    UserId = um.UserId
-                });
+                    if (MeetingIntersect(model.StartTime.Date + meeting.StartTime.TimeOfDay,
+                        model.StartTime.Date + meeting.EndTime.TimeOfDay, 
+                            model.StartTime, model.EndTime))
+                        throw new Exception("Мероприятие пересекается с уже созданным");
+                }
             }
+
+            context.Meetings.Add(model);
             context.SaveChanges();
 
             var creator = context.Users.FirstOrDefault(u => u.Id == model.CreatorId);
@@ -69,7 +57,7 @@ namespace SoBesedkaDB.Implementations
                 if (user != null && room != null && creator != null)
                     MailService.SendEmail(user.UserMail,
                         user.Id == creator.Id ? "Создание мероприятия" : "Приглашение на мероприятие",
-                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
+                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime.ToString(CultureInfo.CurrentCulture)}");
             }
         }
 
@@ -143,44 +131,55 @@ namespace SoBesedkaDB.Implementations
 
         public void UpdElement(Meeting model)
         {
-            Meeting element = context.Meetings.FirstOrDefault(rec =>
-                                    rec.MeetingName == model.MeetingName && rec.Id != model.Id);
-
-            element = context.Meetings.FirstOrDefault(rec => rec.Id == model.Id);
+            var element = context.Meetings.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
             {
                 throw new Exception("Событие не найдено");
             }
-            List<UserMeeting> oldUMlist = new List<UserMeeting>(element.UserMeetings);
+            if (model.RepeatingDays == "0000000")
+            {
+                var intersect = context.Meetings
+                    .Where(m => m.Id != model.Id && 
+                                m.RoomId == model.RoomId &&
+                                m.StartTime.Year == model.StartTime.Year &&
+                                m.StartTime.Month == model.StartTime.Month &&
+                                m.StartTime.Day == model.StartTime.Day &&
+                                m.RepeatingDays == "0000000");
+                foreach (var m in intersect)
+                {
+                    if (MeetingIntersect(m.StartTime, m.EndTime, model.StartTime, model.EndTime))
+                        throw new Exception("Мероприятие пересекается с уже созданным");
+                }
+            }
             var creator = context.Users.FirstOrDefault(u => u.Id == model.CreatorId);
             var room = context.Rooms.FirstOrDefault(r => r.Id == model.RoomId);
+            var oldUMlist = context.UserMeetings
+                .Where(um => um.MeetingId == element.Id)
+                .ToList();
             foreach (var newUM in model.UserMeetings)
             {
-                if (!oldUMlist.Any(um => um.UserId == newUM.UserId))
+                if (oldUMlist.All(um => um.UserId != newUM.UserId))
                 {
                     var user = context.Users.FirstOrDefault(u => u.Id == newUM.UserId);
                     MailService.SendEmail(user.UserMail,
                         user.Id == creator.Id ? "Изменение мероприятия" : "Новое приглашение",
-                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
-                    continue;
+                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime.ToString(CultureInfo.CurrentCulture)}");
                 }
                 else
                 {
                     var user = context.Users.FirstOrDefault(u => u.Id == newUM.UserId);
                     MailService.SendEmail(user.UserMail,
                         user.Id == creator.Id ? "Изменение мероприятия" : "Обновление мероприятия",
-                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
-                    continue;
+                        $"{model.MeetingName}\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime.ToString(CultureInfo.CurrentCulture)}");
                 }
             }
-            foreach (var oldUM in element.UserMeetings)
+            foreach (var oldUM in oldUMlist)
             {
-                if (!model.UserMeetings.Any(um => um.UserId == oldUM.UserId))
+                if (model.UserMeetings.All(um => um.UserId != oldUM.UserId))
                 {
                     var user = context.Users.FirstOrDefault(u => u.Id == oldUM.UserId);
                     MailService.SendEmail(user.UserMail, "Вас удалили из списка участников мероприятия",
-                        $"Вы больше не приглашены на мероприятие \"{model.MeetingName}\"\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime}");
-                    continue;
+                        $"Вы больше не приглашены на мероприятие \"{model.MeetingName}\"\nМесто: {room.RoomName}, {room.RoomAdress}\nВремя начала: {model.StartTime.ToString(CultureInfo.CurrentCulture)}");
                 }
             }
             element.Id = model.Id;

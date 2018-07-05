@@ -30,7 +30,7 @@ namespace SoBesedkaRestAPI
             mservice = new MeetingService(ctx);
             rservice = new RoomService(ctx);
             uservice = new UserService(ctx);
-            timer = new Timer(new TimerCallback(SendEmail), null, 0, interval);
+            timer = new Timer(SendEmail, null, 0, interval);
         }
 
         #endregion
@@ -41,7 +41,6 @@ namespace SoBesedkaRestAPI
         static Timer timer;
         long interval = 60000; //1 минута
         static object synclock = new object();
-        static bool sent = false;
 
         private void SendEmail(object obj)
         {
@@ -58,7 +57,8 @@ namespace SoBesedkaRestAPI
                         {
                             var user = uservice.GetElement(um.UserId);
                             MailService.SendEmail(user.UserMail, "Уведомление о начале мероприятия",
-                                $"Мероприятие {ev.MeetingName} начнется через {(ev.StartTime - dd).Minutes} минут. \nМесто: {room.RoomName}, {room.RoomAdress}");
+                                $"Мероприятие {ev.MeetingName} начнется через {(ev.StartTime - dd).Minutes} минут.\n" +
+                                $"Место: {room.RoomName}, {room.RoomAdress}");
                         }
                     }
                 }

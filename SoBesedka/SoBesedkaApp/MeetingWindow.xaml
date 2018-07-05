@@ -30,13 +30,13 @@
         <Button x:Name="CancelButton" IsCancel="True" Content="Отмена" HorizontalAlignment="Left" Height="46" Margin="293,514,0,0" VerticalAlignment="Top" Width="140" Click="CancelButton_Click" />
         
         <Grid Name="CheckBoxContainer">
-            <CheckBox Name="cb7" Content="вс" HorizontalAlignment="Left" Margin="342,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb1" Content="пн" HorizontalAlignment="Left" Margin="108,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb2" Content="вт" HorizontalAlignment="Left" Margin="147,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb3" Content="ср" HorizontalAlignment="Left" Margin="186,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb4" Content="чт" HorizontalAlignment="Left" Margin="225,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb5" Content="пт" HorizontalAlignment="Left" Margin="264,276,0,0" VerticalAlignment="Top"/>
-            <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="303,276,0,0" VerticalAlignment="Top"/>
+            <CheckBox Name="cb7" Content="вс" HorizontalAlignment="Left" Margin="342,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <CheckBox Name="cb1" Content="пн" HorizontalAlignment="Left" Margin="108,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <CheckBox Name="cb2" Content="вт" HorizontalAlignment="Left" Margin="147,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <CheckBox Name="cb3" Content="ср" HorizontalAlignment="Left" Margin="186,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <CheckBox Name="cb4" Content="чт" HorizontalAlignment="Left" Margin="225,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <CheckBox Name="cb5" Content="пт" HorizontalAlignment="Left" Margin="264,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+            <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="303,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
         </Grid>
         <Label Content="Повтор:" HorizontalAlignment="Left" Height="27" Margin="10,270,0,0" VerticalAlignment="Top" Width="93"/>
         <WindowsFormsHost Name="host1" Margin="108,238,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"></WindowsFormsHost>

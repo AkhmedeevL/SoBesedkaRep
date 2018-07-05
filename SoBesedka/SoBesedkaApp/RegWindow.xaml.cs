@@ -3,8 +3,6 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace SoBesedkaApp
 {
@@ -13,8 +11,8 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class RegWindow : Window
     {
-        DataSamples Data;
-        public RegWindow(DataSamples data)
+        DataSource Data;
+        public RegWindow(DataSource data)
         {
             Data = data;
             DataContext = Data;
@@ -41,7 +39,7 @@ namespace SoBesedkaApp
                 LoginTextBox.Focus();
                 return;
             }
-            if (LoginTextBox.Text.Count(c => char.IsLetterOrDigit(c) || c == '.' || c == '-' || c== '_') != LoginTextBox.Text.Count())
+            if (LoginTextBox.Text.Count(c => char.IsLetterOrDigit(c) || c == '.' || c == '-' || c == '_') != LoginTextBox.Text.Count())
             {
                 ErrorText.Text = "Неверный формат логина";
                 FIOTextBox.Focus();
@@ -86,7 +84,7 @@ namespace SoBesedkaApp
                         UserLogin = LoginTextBox.Text,
                         UserPassword = Data.GetHashString(PasswordTextBox.Password),
                         isAdmin = false
-                    })) throw new Exception("Не удалось зарегистрироваться");
+                    })) throw new Exception("Пользователь с таким логином уже зарегистрирован");
                     Data.UpdateUsers();
                     MessageBox.Show("Вы успешно зарегистрировались, используйте введённые данные для входа", "Успешно", MessageBoxButton.OK, MessageBoxImage.None);
                     Close();
@@ -102,16 +100,17 @@ namespace SoBesedkaApp
             if (PasswordTextBox.Password != SecondPasswordTextBox.Password)
             {
                 ErrorText.Text = "Введённые пароли не совпадают";
-            } else { ErrorText.Text = ""; }
+            }
+            else { ErrorText.Text = ""; }
         }
 
         private void PasswordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (PasswordTextBox.Password == SecondPasswordTextBox.Password  && ErrorText.Text== "Введённые пароли не совпадают")
+            if (PasswordTextBox.Password == SecondPasswordTextBox.Password && ErrorText.Text == "Введённые пароли не совпадают")
             {
                 ErrorText.Text = "";
             }
-            if(SecondPasswordTextBox.Password != ""  && PasswordTextBox.Password != SecondPasswordTextBox.Password)
+            if (SecondPasswordTextBox.Password != "" && PasswordTextBox.Password != SecondPasswordTextBox.Password)
             {
                 ErrorText.Text = "Введённые пароли не совпадают";
             }

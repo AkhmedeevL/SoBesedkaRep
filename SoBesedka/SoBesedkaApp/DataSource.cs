@@ -1,13 +1,8 @@
 ﻿using SoBesedkaDB.Views;
-using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Net.Http;
-using System.Windows;
-using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
@@ -15,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SoBesedkaApp
 {
-    public class DataSamples : INotifyPropertyChanged
+    public class DataSource : INotifyPropertyChanged
     {
         public DateTime[] CurrentWeek { get; set; }
         public UserViewModel CurrentUser { get; set; }
@@ -48,14 +43,34 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
-                throw new Exception(message["ExceptionMessage"].Value<string>());
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
+            }
+        }
+
+        public bool UpdElement(object element)
+        {
+            var controller = element.GetType().Name;
+            try
+            {
+                var response = APIClient.PostRequest($"api/{controller}/UpdElement", element);
+                if (!response.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
             }
         }
 
         public bool AddElement(object element)
         {
-            string error;
             var controller = element.GetType().Name;
             try
             {
@@ -68,8 +83,9 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
-                throw new Exception(message["ExceptionMessage"].Value<string>());
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
             }
         }
 
@@ -84,36 +100,33 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
-                throw new Exception(message["ExceptionMessage"].Value<string>());
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
             }
         }
 
-        //DEBUG
-        //private MeetingService mservice;
-
-        public DataSamples()
+        public DataSource()
         {
             APIClient.Connect();
-
-            //DEBUG
-            //var context = new SoBesedkaDBContext();
-            //mservice = new MeetingService(context);
-
-            UpdateRooms();
-            UpdateUsers();
-
-            UserMeetings = new List<MeetingViewModel>();
-
-            CurrentWeek = new DateTime[7];
-
-            DateTime currentDay = DateTime.Now.Date;
-            int daysToAdd = ((int)System.DayOfWeek.Monday - (int)currentDay.DayOfWeek - 7) % 7;
-            CurrentWeek[0] = currentDay.AddDays(daysToAdd);
-
-            for (int i = 1; i < 7; i++)
+            try
             {
-                CurrentWeek[i] = CurrentWeek[i - 1] + TimeSpan.FromDays(1);
+                UpdateRooms();
+                UpdateUsers();
+                UserMeetings = new List<MeetingViewModel>();
+                CurrentWeek = new DateTime[7];
+                DateTime currentDay = DateTime.Now.Date;
+                int daysToAdd = ((int) System.DayOfWeek.Monday - (int) currentDay.DayOfWeek - 7) % 7;
+                CurrentWeek[0] = currentDay.AddDays(daysToAdd);
+
+                for (int i = 1; i < 7; i++)
+                {
+                    CurrentWeek[i] = CurrentWeek[i - 1] + TimeSpan.FromDays(1);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("");
             }
 
         }
@@ -134,7 +147,8 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                throw new Exception(message["ExceptionMessage"].Value<string>());
             }
             RaisePropertyChanged("Users");
         }
@@ -155,7 +169,8 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                throw new Exception(message["ExceptionMessage"].Value<string>());
             }
             RaisePropertyChanged("Rooms");
         }
@@ -172,7 +187,6 @@ namespace SoBesedkaApp
                     if (response.Result.IsSuccessStatusCode)
                     {
                         var list = APIClient.GetElement<List<MeetingViewModel>>(response);
-                        //var list = mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i].Date);
                         CurrentWeekMeetings.Add(list);
                     }
                     else
@@ -182,7 +196,8 @@ namespace SoBesedkaApp
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                    throw new Exception(message["ExceptionMessage"].Value<string>());
                 }
             }
             RaisePropertyChanged("CurrentWeekMeetings");

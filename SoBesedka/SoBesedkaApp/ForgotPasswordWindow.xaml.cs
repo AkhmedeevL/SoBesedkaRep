@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace SoBesedkaApp
 {
@@ -13,9 +9,9 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class ForgotPasswordWindow : Window
     {
-        DataSamples Data;
+        DataSource Data;
 
-        public ForgotPasswordWindow(DataSamples data)
+        public ForgotPasswordWindow(DataSource data)
         {
             InitializeComponent();
             Data = data;
@@ -46,7 +42,8 @@ namespace SoBesedkaApp
                     MessageBox.Show("Временный пароль выслан на указанный E-mail адрес", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
                 }
-                else {
+                else
+                {
                     MessageBox.Show("Пользовтеля с указанной почтой не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }

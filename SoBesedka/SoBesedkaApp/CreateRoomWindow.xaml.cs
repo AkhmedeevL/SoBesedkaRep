@@ -1,7 +1,4 @@
-﻿using SoBesedkaDB;
-using SoBesedkaModels;
-using SoBesedkaDB.Implementations;
-using SoBesedkaDB.Interfaces;
+﻿using SoBesedkaModels;
 using System.Windows;
 
 namespace SoBesedkaApp
@@ -11,8 +8,8 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class CreateRoomWindow : Window
     {
-        DataSamples Data;
-        public CreateRoomWindow(DataSamples data)
+        DataSource Data;
+        public CreateRoomWindow(DataSource data)
         {
             InitializeComponent();
             Data = data;

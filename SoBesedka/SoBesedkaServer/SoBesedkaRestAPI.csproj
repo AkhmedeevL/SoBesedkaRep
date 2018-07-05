@@ -147,10 +147,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoBesedkaApp\SoBesedkaApp.csproj">
-      <Project>{b238f772-e0b8-41cd-bd5e-03d4caafc57f}</Project>
-      <Name>SoBesedkaApp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SoBesedkaDB\SoBesedkaDB.csproj">
       <Project>{523C8B1C-87DC-4EB2-A73C-9E0A8BDA6D71}</Project>
       <Name>SoBesedkaDB</Name>

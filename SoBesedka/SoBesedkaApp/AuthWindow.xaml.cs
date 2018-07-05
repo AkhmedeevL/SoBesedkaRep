@@ -1,11 +1,9 @@
-﻿using SoBesedkaDB.Interfaces;
-using SoBesedkaDB.Views;
+﻿using SoBesedkaDB.Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace SoBesedkaApp
 {
@@ -14,19 +12,30 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class AuthWindow : Window
     {
-        public bool indicator=false;
-        DataSamples Data;
+        public bool indicator = false;
+        DataSource Data;
         public AuthWindow()
         {
             InitializeComponent();
-            
-            Data = new DataSamples();
+            try
+            {
+                Data = new DataSource();
+            }
+            catch (Exception e)
+            {
+                if (MessageBox.Show("Ошибка подключения", "", MessageBoxButton.OK,
+                        MessageBoxImage.Error) == MessageBoxResult.OK)
+                {
+                    Closing -= Window_Closing;
+                    Application.Current.Shutdown();
+                }
+            }
             if (System.IO.File.Exists(@"login.txt") && System.IO.File.Exists(@"password.txt"))
             {
                 LoginTextBox.Text = System.IO.File.ReadAllText(@"login.txt");
-                PasswordTextBox.Password =Uncoding(System.IO.File.ReadAllText(@"password.txt"));
+                PasswordTextBox.Password = Uncoding(System.IO.File.ReadAllText(@"password.txt"));
                 SavePassCheckBox.IsChecked = true;
-                LoginLabel.Margin = new Thickness(72,92,0,0);
+                LoginLabel.Margin = new Thickness(72, 92, 0, 0);
                 PassLabel.Margin = new Thickness(72, 162, 0, 0);
                 indicator = true;
             }
@@ -95,9 +104,9 @@ namespace SoBesedkaApp
             }
             return cPass; //возвращаем расшифрованный пароль.
         }
-    
 
-    private void EnterButton_Click(object sender, RoutedEventArgs e)
+
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(LoginTextBox.Text))
             {
@@ -128,7 +137,8 @@ namespace SoBesedkaApp
                 Closing -= Window_Closing;
                 Close();
             }
-            else {
+            else
+            {
                 MessageBox.Show("Неверный логин/E-mail или пароль");
             }
         }
@@ -147,16 +157,16 @@ namespace SoBesedkaApp
         }
         private void Label_MouseEnter(object sender, MouseEventArgs e)
         {
-                ((Label)sender).BorderBrush = new SolidColorBrush(Colors.Black);
-                ((Label)sender).BorderThickness = new Thickness(0, 0, 0, 1.0);
-                Cursor = Cursors.Hand;
+            ((Label)sender).BorderBrush = new SolidColorBrush(Colors.Black);
+            ((Label)sender).BorderThickness = new Thickness(0, 0, 0, 1.0);
+            Cursor = Cursors.Hand;
         }
 
         private void Label_MouseLeave(object sender, MouseEventArgs e)
         {
 
-                ((Label)sender).BorderThickness = new Thickness(0);
-                Cursor = Cursors.Arrow;
+            ((Label)sender).BorderThickness = new Thickness(0);
+            Cursor = Cursors.Arrow;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

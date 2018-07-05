@@ -1,7 +1,4 @@
-﻿using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
-using SoBesedkaDB.Interfaces;
-using SoBesedkaDB.Views;
+﻿using SoBesedkaDB.Views;
 using System;
 using System.Windows;
 
@@ -12,17 +9,12 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class UsersWindow : Window
     {
-        DataSamples Data;
-        public UsersWindow(DataSamples data)
+        DataSource Data;
+        public UsersWindow(DataSource data)
         {
             Data = data;
             DataContext = Data;
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void AdminButton_Click(object sender, RoutedEventArgs e)
@@ -53,7 +45,7 @@ namespace SoBesedkaApp
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-           try
+            try
             {
                 UserViewModel user = (UserViewModel)listBoxUsers.SelectedItem;
                 if (user == null)
@@ -67,7 +59,8 @@ namespace SoBesedkaApp
                 Data.DelElement(user);
                 MessageBox.Show($"Пользователь {user.UserFIO} удален", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                 Data.UpdateUsers();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -110,7 +103,7 @@ namespace SoBesedkaApp
                 DeleteButton.IsEnabled = false;
                 AdminButton.IsEnabled = false;
                 RemoveAdminButton.IsEnabled = false;
-            } 
+            }
 
             if (user.Id != Data.CurrentUser.Id && user.isAdmin)
             {
@@ -125,8 +118,6 @@ namespace SoBesedkaApp
                 DeleteButton.IsEnabled = true;
                 RemoveAdminButton.IsEnabled = false;
             }
-
-
 
         }
     }

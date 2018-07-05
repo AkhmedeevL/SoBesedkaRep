@@ -1,21 +1,7 @@
-﻿using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
-using SoBesedkaDB.Interfaces;
-using SoBesedkaDB.Views;
-using SoBesedkaModels;
+﻿using SoBesedkaDB.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SoBesedkaApp
 {
@@ -24,13 +10,13 @@ namespace SoBesedkaApp
     /// </summary>
     public partial class ProfileWindow : Window
     {
-        DataSamples Data;
+        DataSource Data;
         string CurrentFIO;
         string CurrentLogin;
         string CurrentEmail;
         string Password;
 
-        public ProfileWindow(DataSamples data)
+        public ProfileWindow(DataSource data)
         {
             InitializeComponent();
             Data = data;
@@ -156,16 +142,19 @@ namespace SoBesedkaApp
                 }
                 try
                 {
-                    var response = APIClient.PostRequest("api/User/UpdElement", user);
+                    //var response = APIClient.PostRequest("api/User/UpdElement", user);
 
-                    if (!response.Result.IsSuccessStatusCode)
-                    {
-                        throw new Exception(APIClient.GetError(response));
-                    }
+                    //if (!response.Result.IsSuccessStatusCode)
+                    //{
+                    //    throw new Exception(APIClient.GetError(response));
+                    //}
+                    if (!Data.UpdElement(user))
+                        throw new Exception("Пользователь с таким логином или email уже существует");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
                 MessageBox.Show("Данные были обновлены", "Успешно изменено", MessageBoxButton.OK);
 
