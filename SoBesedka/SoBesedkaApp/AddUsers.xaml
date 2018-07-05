@@ -8,14 +8,14 @@
         mc:Ignorable="d"
         Title="Добавить участников" Height="450" Width="737.539">
     <Grid>
-        <ListBox Name="AllUsersListBox" HorizontalAlignment="Left" Height="348" Margin="10,48,0,0" VerticalAlignment="Top" Width="240" ItemsSource="{Binding Path=Users}">
+        <ListBox Name="AllUsersListBox" HorizontalAlignment="Left" Height="348" Margin="10,48,0,0" VerticalAlignment="Top" Width="240" ItemsSource="{Binding Path=Users}" MouseDoubleClick="AllUsersListBox_MouseDoubleClick">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="views:UserViewModel">
                     <TextBlock Text="{Binding Path=UserFIO}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Name="SelectedUsersListBox" HorizontalAlignment="Left" Height="386" Margin="471,10,0,0" VerticalAlignment="Top" Width="240" DataContext="{Binding ElementName=UsersWindow}" ItemsSource="{Binding Path=SelectedUsers}"/>
+        <ListBox Name="SelectedUsersListBox" HorizontalAlignment="Left" Height="386" Margin="471,10,0,0" VerticalAlignment="Top" Width="240" DataContext="{Binding ElementName=UsersWindow}" ItemsSource="{Binding Path=SelectedUsers}" MouseDoubleClick="SelectedUsersListBox_MouseDoubleClick"/>
         <Button Content="Добавить &gt;&gt;" FontSize="14" HorizontalAlignment="Left" Margin="255,48,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Add_Click"/>
         <Button Content="&lt;&lt; Убрать" FontSize="14" HorizontalAlignment="Left" Margin="255,107,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Remove_Click"/>
         <Button Content="Закрыть" IsCancel="True" FontSize="14" HorizontalAlignment="Left" Margin="255,342,0,0" VerticalAlignment="Top" Width="211" Height="54" Click="Close_Click"/>

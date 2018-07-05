@@ -98,5 +98,33 @@ namespace SoBesedkaApp
             AllUsersListBox.ItemsSource = filteredUsers;
             AllUsersListBox.Items.Refresh();
         }
+
+        private void AllUsersListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            UserViewModel user = (UserViewModel)AllUsersListBox.SelectedItem;
+            if (user == null)
+            {
+                AllUsersListBox.SelectedItems.Clear();
+                return;
+            }
+            if (SelectedUsers.Any(u => u.Id == user.Id))
+            {
+                AllUsersListBox.SelectedItems.Clear();
+                return;
+            }
+            SelectedUsers.Add(user);
+            OnPropertyChanged("SelectedUsers");
+            SelectedUsersListBox.Items.Refresh();
+        }
+
+        private void SelectedUsersListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            UserViewModel user = (UserViewModel)SelectedUsersListBox.SelectedItem;
+            if (user == null)
+                return;
+            SelectedUsers.Remove(user);
+            OnPropertyChanged("SelectedUsers");
+            SelectedUsersListBox.Items.Refresh();
+        }
     }
 }
