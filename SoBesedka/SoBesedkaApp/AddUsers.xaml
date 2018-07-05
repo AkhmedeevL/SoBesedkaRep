@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:SoBesedkaDB.Views;assembly=SoBesedkaDB"
         mc:Ignorable="d"
          WindowStartupLocation="CenterScreen"
-        Title="Добавить участников" Height="435.448" Width="653.584">
+        Title="Добавить участников" Height="438.806" Width="653.584">
     <Grid>
         <ListBox Name="AllUsersListBox" HorizontalAlignment="Left" Height="348" Margin="10,48,0,0" VerticalAlignment="Top" Width="240" ItemsSource="{Binding Path=Users}" MouseDoubleClick="AllUsersListBox_MouseDoubleClick">
             <ListBox.ItemTemplate>
@@ -16,10 +16,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Name="SelectedUsersListBox" HorizontalAlignment="Left" Height="386" Margin="400,12,0,0" VerticalAlignment="Top" Width="240" DataContext="{Binding ElementName=UsersWindow}" ItemsSource="{Binding Path=SelectedUsers}" MouseDoubleClick="SelectedUsersListBox_MouseDoubleClick"/>
+        <ListBox Name="SelectedUsersListBox" HorizontalAlignment="Left" Height="384" Margin="400,12,0,0" VerticalAlignment="Top" Width="240" DataContext="{Binding ElementName=UsersWindow}" ItemsSource="{Binding Path=SelectedUsers}" MouseDoubleClick="SelectedUsersListBox_MouseDoubleClick"/>
         <Button Content="Добавить &gt;&gt;" FontSize="14" HorizontalAlignment="Left" Margin="255,48,0,0" VerticalAlignment="Top"  Width="140" Height="40" Click="Add_Click"/>
         <Button Content="&lt;&lt; Убрать" FontSize="14" HorizontalAlignment="Left" Margin="255,107,0,0" VerticalAlignment="Top" Width="140" Height="40" Click="Remove_Click"/>
-        <Button Content="Сохранить" IsCancel="True" FontSize="14" HorizontalAlignment="Left" Margin="255,356,0,0" VerticalAlignment="Top" Width="140" Height="40" Click="Close_Click"/>
+        <Button Content="Сохранить" IsCancel="True" FontSize="14" HorizontalAlignment="Left" Margin="255,340,0,0" VerticalAlignment="Top" Width="140" Height="40" Click="Close_Click"/>
         <TextBox Name="FilterTextBox" Padding="30,5,0,0" HorizontalAlignment="Left" Height="33" FontSize="16" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" TextChanged="TextBox_TextChanged"/>
         <Image HorizontalAlignment="Left" Height="31" Margin="12,12,0,0" VerticalAlignment="Top" Width="31" Source="Resources/search22x19.jpg"/>
 
