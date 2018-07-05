@@ -78,8 +78,9 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                JObject message = (JObject)JsonConvert.DeserializeObject(ex.Message);
-                RoomsFindTextBox.Text = message["ExceptionMessage"].Value<string>();
+                //JObject message = (JObject)JsonConvert.DeserializeObject(ex.Message);
+                //RoomsFindTextBox.Text = message["ExceptionMessage"].Value<string>();
+                RoomsFindTextBox.Text = "Свободных комнат нет";
                 return;
             }
             RoomsFindTextBox.Text = "";
@@ -142,7 +143,7 @@ namespace SoBesedkaApp
                             StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
                             EndTime = DatePicker.SelectedDate.Value +  DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
                             UserMeetings = userMeetings,
-                            RoomId = Data.CurrentRoom.Id,
+                            RoomId = ((RoomViewModel)RoomsComboBox.SelectedItem).Id,
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
                         }))
