@@ -150,7 +150,7 @@ namespace SoBesedkaApp
                     if (Meeting.Id > 0)
                     {
                         //Изменение
-                        new MeetingService(new SoBesedkaDBContext()).UpdElement(new Meeting
+                        var response = APIClient.PostRequest("api/Meeting/UpdElement", new Meeting
                         {
                             Id = Meeting.Id,
                             MeetingName = TitleTextBox.Text,
@@ -164,27 +164,12 @@ namespace SoBesedkaApp
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
                         });
-                        //var response = APIClient.PostRequest("api/Meeting/UpdElement", new Meeting
-                        //{
-                        //    Id = Meeting.Id,
-                        //    MeetingName = TitleTextBox.Text,
-                        //    MeetingTheme = SubjTextBox.Text,
-                        //    MeetingDescription = DescriptionTextBox.Text,
-                        //    StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                        //    EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
-                        //              DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
-                        //    UserMeetings = userMeetings,
-                        //    RoomId = Data.CurrentRoom.Id,
-                        //    CreatorId = Data.CurrentUser.Id,
-                        //    RepeatingDays = repDays
-                        //});
                         MessageBox.Show("Изменено", "Успех", MessageBoxButton.OK);
                     }
                     else
                     {
                         //Добавление
-                        //Data.AddElement(new Meeting
-                        new MeetingService(new SoBesedkaDBContext()).AddElement(new Meeting
+                        Data.AddElement(new Meeting
                         {
                             MeetingName = TitleTextBox.Text,
                             MeetingTheme = SubjTextBox.Text,
