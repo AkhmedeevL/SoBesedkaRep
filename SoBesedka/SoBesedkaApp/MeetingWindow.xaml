@@ -38,6 +38,7 @@
             <CheckBox Name="cb4" Content="чт" HorizontalAlignment="Left" Margin="225,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
             <CheckBox Name="cb5" Content="пт" HorizontalAlignment="Left" Margin="264,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
             <CheckBox Name="cb6" Content="сб" HorizontalAlignment="Left" Margin="303,276,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+
         </Grid>
         <Label Content="Повтор:" HorizontalAlignment="Left" Height="27" Margin="10,270,0,0" VerticalAlignment="Top" Width="93"/>
         <WindowsFormsHost Name="host1" Margin="108,238,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102"></WindowsFormsHost>

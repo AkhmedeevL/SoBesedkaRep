@@ -85,6 +85,13 @@ namespace SoBesedkaApp
             else
                 Title = "Изменение";
         }
+        private void ChangeButtons(Boolean change)
+        {
+            AddButton.IsEnabled = change;
+            DelButton.IsEnabled = change;
+            SaveButton.IsEnabled = change;
+            CancelButton.IsEnabled = change;
+        }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -107,13 +114,17 @@ namespace SoBesedkaApp
             }
             try
             {
+
+                ChangeButtons(false);
                 if (DatePicker.SelectedDate != null && DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay <= DateTime.Now)
                 {
                     MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
+                    ChangeButtons(true);
                     return;
                 }
                 if (TimeSpan.Parse(durationMaskedTextBox.Text) - TimeSpan.Parse(startTimeMaskedTextBox.Text) < TimeSpan.FromMinutes(5))
                 {
+                    ChangeButtons(true);
                     throw new Exception("Мероприятие должно длиться больше 5 минут");
                 }
                 var repDays = "";
@@ -168,10 +179,15 @@ namespace SoBesedkaApp
                             RoomId = Data.CurrentRoom.Id,
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
-                        }))
+                        })
+                        )
+                        {
+                            ChangeButtons(true);
                             MessageBox.Show("Изменено", "Успех", MessageBoxButton.OK);
+                        }
                         else
                         {
+                            ChangeButtons(true);
                             throw new Exception("Мероприятие пересекается с уже созданным");
                         }
                     }
@@ -185,28 +201,34 @@ namespace SoBesedkaApp
                             MeetingTheme = SubjTextBox.Text,
                             MeetingDescription = DescriptionTextBox.Text,
                             StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + 
+                            EndTime = DatePicker.SelectedDate.Value +
                                       DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
                             UserMeetings = userMeetings,
                             RoomId = Data.CurrentRoom.Id,
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
                         }))
+                        {
+                            ChangeButtons(true);
                             MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
+                        }
                         else
                         {
+                            ChangeButtons(true);
                             throw new Exception("Мероприятие пересекается с уже созданным");
                         }
                     }
                 }
                 else
                 {
+                    ChangeButtons(true);
                     MessageBox.Show("Заполните все поля", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
             }
             catch (Exception ex)
             {
+                
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OKCancel);
                 return;
             }
