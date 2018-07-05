@@ -434,19 +434,30 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_5A197273A45743C38F43D2279E3A7C1B"
             {
             "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_7AB02F72DEC24EA6AB86324E3B56CB11"
+                    {
+                    "Name" = "8:DIMON.5OFT"
+                    "AlwaysCreate" = "11:TRUE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_7C992BEAF4BA4327AC7E964E6797850D"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_C3E0F4813F5D4227A001DDD70F200CE4"
             {
             "Name" = "8:#1916"
             "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
+            "Condition" = "8:CHECKBOXA1.IsChecked"
             "Transitive" = "11:FALSE"
             "Property" = "8:DesktopFolder"
                 "Folders"
@@ -482,7 +493,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SoBesedka"
         "ProductCode" = "8:{540676C7-E34B-4A5F-8C3D-F033D4C283A4}"
-        "PackageCode" = "8:{2951D34E-B01C-4DB8-9EBE-5E3B0AD3E46B}"
+        "PackageCode" = "8:{C7FAD79F-54C0-43D9-ACF8-05F079E329F3}"
         "UpgradeCode" = "8:{3E14F558-BAC5-4EF9-A798-75A17441A1E3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -602,6 +613,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E0762B2B0653415A89A3C1F9E7FFC0FD"
+            {
+            "Name" = "8:СоБеседка"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_D12B863AA81842EA8734A4740CC1C961"
+            "Folder" = "8:_7AB02F72DEC24EA6AB86324E3B56CB11"
+            "WorkingFolder" = "8:_D0D9F9087C9C42779F2A772157ADFE08"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -810,7 +835,7 @@
                     }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_C687D94118854E3DB05CD182E3E12C2A"
                     {
-                    "Sequence" = "3:300"
+                    "Sequence" = "3:310"
                     "DisplayName" = "8:Подтверждение установки"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"

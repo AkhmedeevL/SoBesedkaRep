@@ -43,14 +43,34 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
-                throw new Exception(message["ExceptionMessage"].Value<string>());
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
+            }
+        }
+
+        public bool UpdElement(object element)
+        {
+            var controller = element.GetType().Name;
+            try
+            {
+                var response = APIClient.PostRequest($"api/{controller}/UpdElement", element);
+                if (!response.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(APIClient.GetError(response));
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
             }
         }
 
         public bool AddElement(object element)
         {
-            string error;
             var controller = element.GetType().Name;
             try
             {
@@ -63,8 +83,9 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
-                throw new Exception(message["ExceptionMessage"].Value<string>());
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
             }
         }
 
@@ -79,8 +100,9 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
-                throw new Exception(message["ExceptionMessage"].Value<string>());
+                //JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                //throw new Exception(message["ExceptionMessage"].Value<string>());
+                return false;
             }
         }
 

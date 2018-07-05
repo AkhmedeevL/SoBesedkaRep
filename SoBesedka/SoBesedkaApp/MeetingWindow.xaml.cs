@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using SoBesedkaDB;
+using SoBesedkaDB.Implementations;
 using BorderStyle = System.Windows.Forms.BorderStyle;
 using DockStyle = System.Windows.Forms.DockStyle;
 using MaskedTextBox = System.Windows.Forms.MaskedTextBox;
@@ -110,6 +112,11 @@ namespace SoBesedkaApp
                     MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                     return;
                 }
+                if (TimeSpan.Parse(durationMaskedTextBox.Text) <
+                    TimeSpan.FromMinutes(5))
+                {
+                    throw new Exception("Мероприятие должно длиться больше 5 минут");
+                }
                 var repDays = "";
                 foreach (CheckBox cb in CheckBoxContainer.Children)
                 {
@@ -148,7 +155,8 @@ namespace SoBesedkaApp
                     if (Meeting.Id > 0)
                     {
                         //Изменение
-                        var response = APIClient.PostRequest("api/Meeting/UpdElement", new Meeting
+                        //var response = APIClient.PostRequest("api/Meeting/UpdElement", new Meeting
+                        if (Data.UpdElement(new Meeting
                         {
                             Id = Meeting.Id,
                             MeetingName = TitleTextBox.Text,
@@ -161,13 +169,18 @@ namespace SoBesedkaApp
                             RoomId = Data.CurrentRoom.Id,
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
-                        });
-                        MessageBox.Show("Изменено", "Успех", MessageBoxButton.OK);
+                        }))
+                            MessageBox.Show("Изменено", "Успех", MessageBoxButton.OK);
+                        else
+                        {
+                            throw new Exception("Мероприятие пересекается с уже созданным");
+                        }
                     }
                     else
                     {
                         //Добавление
-                        Data.AddElement(new Meeting
+                        if (Data.AddElement(new Meeting
+                        //new MeetingService(new SoBesedkaDBContext()).AddElement(new Meeting
                         {
                             MeetingName = TitleTextBox.Text,
                             MeetingTheme = SubjTextBox.Text,
@@ -179,8 +192,12 @@ namespace SoBesedkaApp
                             RoomId = Data.CurrentRoom.Id,
                             CreatorId = Data.CurrentUser.Id,
                             RepeatingDays = repDays
-                        });
-                        MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
+                        }))
+                            MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
+                        else
+                        {
+                            throw new Exception("Мероприятие пересекается с уже созданным");
+                        }
                     }
                 }
                 else

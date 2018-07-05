@@ -114,6 +114,11 @@ namespace SoBesedkaApp
                     MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                     return;
                 }
+                if (TimeSpan.Parse(durationMaskedTextBox.Text) <
+                    TimeSpan.FromMinutes(5))
+                {
+                    throw new Exception("Мероприятие должно длиться больше 5 минут");
+                }
                 var repDays = "0000000";
                 var userMeetings = new List<UserMeeting>();
                 foreach (UserViewModel user in InvitedUsersListBox.Items)
@@ -130,21 +135,24 @@ namespace SoBesedkaApp
                     !string.IsNullOrEmpty(SubjTextBox.Text) &&
                     !string.IsNullOrEmpty(DescriptionTextBox.Text))
                 {
-                    Data.AddElement(new Meeting
+                    if (Data.AddElement(new Meeting
+                        {
+                            MeetingName = TitleTextBox.Text,
+                            MeetingTheme = SubjTextBox.Text,
+                            MeetingDescription = DescriptionTextBox.Text,
+                            StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
+                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
+                                      DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
+                            UserMeetings = userMeetings,
+                            RoomId = Data.CurrentRoom.Id,
+                            CreatorId = Data.CurrentUser.Id,
+                            RepeatingDays = repDays
+                        }))
+                        MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
+                    else
                     {
-                        MeetingName = TitleTextBox.Text,
-                        MeetingTheme = SubjTextBox.Text,
-                        MeetingDescription = DescriptionTextBox.Text,
-                        StartTime = DatePicker.SelectedDate.Value +
-                                    DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                        EndTime = DatePicker.SelectedDate.Value +
-                                  DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
-                                  DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
-                        UserMeetings = userMeetings,
-                        RoomId = Data.CurrentRoom.Id,
-                        CreatorId = Data.CurrentUser.Id,
-                        RepeatingDays = repDays
-                    });
+                        throw new Exception("Мероприятие пересекается с уже созданным");
+                    }
                     MessageBox.Show("Добавлено", "Успех", MessageBoxButton.OK);
                 }
                 else

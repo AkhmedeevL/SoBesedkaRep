@@ -57,7 +57,8 @@ namespace SoBesedkaRestAPI
                         {
                             var user = uservice.GetElement(um.UserId);
                             MailService.SendEmail(user.UserMail, "Уведомление о начале мероприятия",
-                                $"Мероприятие {ev.MeetingName} начнется через {(ev.StartTime - dd).Minutes} минут. \nМесто: {room.RoomName}, {room.RoomAdress}");
+                                $"Мероприятие {ev.MeetingName} начнется через {(ev.StartTime - dd).Minutes} минут.\n" +
+                                $"Место: {room.RoomName}, {room.RoomAdress}");
                         }
                     }
                 }

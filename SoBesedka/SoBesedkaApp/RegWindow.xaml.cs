@@ -84,7 +84,7 @@ namespace SoBesedkaApp
                         UserLogin = LoginTextBox.Text,
                         UserPassword = Data.GetHashString(PasswordTextBox.Password),
                         isAdmin = false
-                    })) throw new Exception("Не удалось зарегистрироваться");
+                    })) throw new Exception("Пользователь с таким логином уже зарегистрирован");
                     Data.UpdateUsers();
                     MessageBox.Show("Вы успешно зарегистрировались, используйте введённые данные для входа", "Успешно", MessageBoxButton.OK, MessageBoxImage.None);
                     Close();
