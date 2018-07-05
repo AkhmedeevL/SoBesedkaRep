@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
+         WindowStartupLocation="CenterScreen"
         Title="О программе" Height="328" Width="400" ResizeMode="CanMinimize">
     <Grid>
         <Image  Source="Resources/authlogo220x50.png" Height="29" VerticalAlignment="Top" Margin="0,40,0,0"/>

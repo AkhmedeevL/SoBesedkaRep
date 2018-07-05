@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:SoBesedkaApp"
         x:Class="SoBesedkaApp.RoomsWindow"
         mc:Ignorable="d"
+     WindowStartupLocation="CenterScreen"
         Title="Управление комнатами" Height="400" Width="500">
     <Grid>
         <ListBox x:Name="RoomsListBox" HorizontalAlignment="Left" Margin="10,10,0,5" VerticalAlignment="Stretch" Width="290" ItemsSource="{Binding Rooms}">
@@ -22,8 +23,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="AddButton" FontSize="12" Content="Добавить комнату" HorizontalAlignment="Left" Height="40" Margin="305,10,0,0" VerticalAlignment="Top" Width="170" Click="AddButton_Click"/>
-        <Button x:Name="DeleteButton" FontSize="12" Content="Удалить комнату" HorizontalAlignment="Left" Height="40" Margin="305,70,0,0" VerticalAlignment="Top" Width="170" Click="DeleteButton_Click"/>
+        <Button x:Name="AddButton" FontSize="12" Content="Добавить комнату" HorizontalAlignment="Left" Height="40" Margin="314,10,0,0" VerticalAlignment="Top" Width="170" Click="AddButton_Click"/>
+        <Button x:Name="DeleteButton" FontSize="12" Content="Удалить комнату" HorizontalAlignment="Left" Height="40" Margin="314,72,0,0" VerticalAlignment="Top" Width="170" Click="DeleteButton_Click"/>
 
     </Grid>
 </Window>

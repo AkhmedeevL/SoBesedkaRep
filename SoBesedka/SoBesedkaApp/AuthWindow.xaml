@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SoBesedkaApp"
         mc:Ignorable="d"
+         WindowStartupLocation="CenterScreen"
         Title="Авторизация" Height="450" Width="400" Closing="Window_Closing" Loaded="Window_Loaded" ResizeMode="CanMinimize">
     <Grid Margin="2,10,1.6,11">
         <Image Margin="72,30,71.6,340" Source="Resources/authlogo220x50.png"/>

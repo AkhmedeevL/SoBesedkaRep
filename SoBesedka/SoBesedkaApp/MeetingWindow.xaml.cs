@@ -74,8 +74,9 @@ namespace SoBesedkaApp
 
             startTimeMaskedTextBox.Text = meeting.StartTime.ToString("HH\\:mm");
 
-            var t = (meeting.EndTime - meeting.StartTime).ToString("c");
-            durationMaskedTextBox.Text = t;
+            // var t = (meeting.EndTime - meeting.StartTime).ToString("c");
+            durationMaskedTextBox.Text = meeting.EndTime.ToString("HH\\:mm");
+            //durationMaskedTextBox.Text = t;
             if (Meeting.Id == 0)
             {
                 DelButton.Visibility = Visibility.Hidden;
@@ -90,8 +91,7 @@ namespace SoBesedkaApp
             try
             {
                 if (TimeSpan.Parse(startTimeMaskedTextBox.Text) > TimeSpan.FromHours(17) ||
-                    TimeSpan.Parse(startTimeMaskedTextBox.Text) + TimeSpan.Parse(durationMaskedTextBox.Text) >
-                    TimeSpan.FromHours(17) ||
+                   TimeSpan.Parse(durationMaskedTextBox.Text) > TimeSpan.FromHours(17) ||
                     TimeSpan.Parse(startTimeMaskedTextBox.Text) < TimeSpan.FromHours(8))
                 {
                     MessageBox.Show("Мероприятия проводятся с 8:00 до 17:00", "Внимание", MessageBoxButton.OK,
@@ -112,8 +112,7 @@ namespace SoBesedkaApp
                     MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                     return;
                 }
-                if (TimeSpan.Parse(durationMaskedTextBox.Text) <
-                    TimeSpan.FromMinutes(5))
+                if (TimeSpan.Parse(durationMaskedTextBox.Text) - TimeSpan.Parse(startTimeMaskedTextBox.Text) < TimeSpan.FromMinutes(5))
                 {
                     throw new Exception("Мероприятие должно длиться больше 5 минут");
                 }
@@ -163,7 +162,7 @@ namespace SoBesedkaApp
                             MeetingTheme = SubjTextBox.Text,
                             MeetingDescription = DescriptionTextBox.Text,
                             StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
+                            EndTime = DatePicker.SelectedDate.Value +
                                       DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
                             UserMeetings = userMeetings,
                             RoomId = Data.CurrentRoom.Id,
@@ -186,7 +185,7 @@ namespace SoBesedkaApp
                             MeetingTheme = SubjTextBox.Text,
                             MeetingDescription = DescriptionTextBox.Text,
                             StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
+                            EndTime = DatePicker.SelectedDate.Value + 
                                       DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
                             UserMeetings = userMeetings,
                             RoomId = Data.CurrentRoom.Id,

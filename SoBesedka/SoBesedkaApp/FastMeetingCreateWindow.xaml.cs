@@ -58,7 +58,7 @@ namespace SoBesedkaApp
             try
             {
                 start = currentDay + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay;
-                end = currentDay + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay + DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay;
+                end = currentDay +  DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay;
             }
             catch (Exception)
             {
@@ -92,8 +92,7 @@ namespace SoBesedkaApp
             try
             {
                 if (TimeSpan.Parse(startTimeMaskedTextBox.Text) > TimeSpan.FromHours(17) ||
-                    TimeSpan.Parse(startTimeMaskedTextBox.Text) + TimeSpan.Parse(durationMaskedTextBox.Text) >
-                    TimeSpan.FromHours(17) ||
+                    TimeSpan.Parse(durationMaskedTextBox.Text) > TimeSpan.FromHours(17) ||
                     TimeSpan.Parse(startTimeMaskedTextBox.Text) < TimeSpan.FromHours(8))
                 {
                     MessageBox.Show("Мероприятия проводятся с 8:00 до 17:00", "Внимание", MessageBoxButton.OK,
@@ -114,7 +113,7 @@ namespace SoBesedkaApp
                     MessageBox.Show("Время, на которое Вы хотите назвачить мероприятие, уже прошло", "Ошибка", MessageBoxButton.OK);
                     return;
                 }
-                if (TimeSpan.Parse(durationMaskedTextBox.Text) <
+                if (TimeSpan.Parse(durationMaskedTextBox.Text) - TimeSpan.Parse(startTimeMaskedTextBox.Text) <
                     TimeSpan.FromMinutes(5))
                 {
                     throw new Exception("Мероприятие должно длиться больше 5 минут");
@@ -141,8 +140,7 @@ namespace SoBesedkaApp
                             MeetingTheme = SubjTextBox.Text,
                             MeetingDescription = DescriptionTextBox.Text,
                             StartTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay,
-                            EndTime = DatePicker.SelectedDate.Value + DateTime.Parse(startTimeMaskedTextBox.Text).TimeOfDay +
-                                      DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
+                            EndTime = DatePicker.SelectedDate.Value +  DateTime.Parse(durationMaskedTextBox.Text).TimeOfDay,
                             UserMeetings = userMeetings,
                             RoomId = Data.CurrentRoom.Id,
                             CreatorId = Data.CurrentUser.Id,
