@@ -1,13 +1,8 @@
 ﻿using SoBesedkaDB.Views;
-using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Net.Http;
-using System.Windows;
-using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
@@ -92,17 +87,24 @@ namespace SoBesedkaApp
         public DataSource()
         {
             APIClient.Connect();
-            UpdateRooms();
-            UpdateUsers();
-            UserMeetings = new List<MeetingViewModel>();
-            CurrentWeek = new DateTime[7];
-            DateTime currentDay = DateTime.Now.Date;
-            int daysToAdd = ((int)System.DayOfWeek.Monday - (int)currentDay.DayOfWeek - 7) % 7;
-            CurrentWeek[0] = currentDay.AddDays(daysToAdd);
-
-            for (int i = 1; i < 7; i++)
+            try
             {
-                CurrentWeek[i] = CurrentWeek[i - 1] + TimeSpan.FromDays(1);
+                UpdateRooms();
+                UpdateUsers();
+                UserMeetings = new List<MeetingViewModel>();
+                CurrentWeek = new DateTime[7];
+                DateTime currentDay = DateTime.Now.Date;
+                int daysToAdd = ((int) System.DayOfWeek.Monday - (int) currentDay.DayOfWeek - 7) % 7;
+                CurrentWeek[0] = currentDay.AddDays(daysToAdd);
+
+                for (int i = 1; i < 7; i++)
+                {
+                    CurrentWeek[i] = CurrentWeek[i - 1] + TimeSpan.FromDays(1);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("");
             }
 
         }
@@ -123,7 +125,8 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                throw new Exception(message["ExceptionMessage"].Value<string>());
             }
             RaisePropertyChanged("Users");
         }
@@ -144,7 +147,8 @@ namespace SoBesedkaApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                throw new Exception(message["ExceptionMessage"].Value<string>());
             }
             RaisePropertyChanged("Rooms");
         }
@@ -161,7 +165,6 @@ namespace SoBesedkaApp
                     if (response.Result.IsSuccessStatusCode)
                     {
                         var list = APIClient.GetElement<List<MeetingViewModel>>(response);
-                        //var list = mservice.GetListOfDay(CurrentRoom.Id, CurrentWeek[i].Date);
                         CurrentWeekMeetings.Add(list);
                     }
                     else
@@ -171,7 +174,8 @@ namespace SoBesedkaApp
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    JObject message = (JObject) JsonConvert.DeserializeObject(ex.Message);
+                    throw new Exception(message["ExceptionMessage"].Value<string>());
                 }
             }
             RaisePropertyChanged("CurrentWeekMeetings");

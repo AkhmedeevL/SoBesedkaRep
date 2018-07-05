@@ -1,6 +1,4 @@
-﻿using SoBesedkaDB;
-using SoBesedkaDB.Implementations;
-using SoBesedkaDB.Views;
+﻿using SoBesedkaDB.Views;
 using SoBesedkaModels;
 using System;
 using System.Collections.Generic;

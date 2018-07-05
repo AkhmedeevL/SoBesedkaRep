@@ -5,7 +5,6 @@ using SoBesedkaModels;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using MaskedTextBox = System.Windows.Forms.MaskedTextBox;
 
 namespace SoBesedkaApp
