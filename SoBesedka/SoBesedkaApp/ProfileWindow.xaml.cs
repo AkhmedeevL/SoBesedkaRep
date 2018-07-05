@@ -109,7 +109,6 @@ namespace SoBesedkaApp
             }
             else
             {
-                string changed = ""; //выведем пользователю те поля, которые были изменены. изменяются только те поля, которые он ввёл в соответствующие текстбоксы
                 var user = Data.CurrentUser;
 
 
@@ -119,7 +118,6 @@ namespace SoBesedkaApp
                     if (PasswordTextBox.Password == PasswordConfirmTextBox.Password)
                     {
                         user.UserPassword = Data.GetHashString(PasswordTextBox.Password);
-                        changed += " Пароль; ";
                     }
                     else
                     {
@@ -134,17 +132,14 @@ namespace SoBesedkaApp
                 if (FIOTextBox.Text != CurrentFIO)
                 {
                     user.UserFIO = FIOTextBox.Text;
-                    changed += " ФИО; ";
                 }
                 if (LoginTextBox.Text != CurrentLogin)
                 {
                     user.UserLogin = LoginTextBox.Text;
-                    changed += " Логин; ";
                 }
                 if (EmailTextBox.Text != CurrentEmail)
                 {
                     user.UserMail = EmailTextBox.Text;
-                    changed += " E-mail; ";
                 }
                 try
                 {
@@ -170,7 +165,7 @@ namespace SoBesedkaApp
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                MessageBox.Show(changed + " были обновлены", "Успешно изменено", MessageBoxButton.OK);
+                MessageBox.Show("Данные были обновлены", "Успешно изменено", MessageBoxButton.OK);
 
                 ChangeProfileButton.Content = "Редактировать";
                 FIOTextBox.Focusable = false;
