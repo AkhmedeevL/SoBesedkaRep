@@ -30,6 +30,17 @@ namespace SoBesedkaRestAPI.Controllers
             return Ok(list);
         }
 
+        [HttpPost]
+        public IHttpActionResult GetAvailableRooms(Meeting model)
+        {
+            var list = _service.GetAvailableRooms(model.StartTime, model.EndTime);
+            if (list == null)
+            {
+                InternalServerError(new Exception("Нет данных"));
+            }
+            return Ok(list);
+        }
+
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
