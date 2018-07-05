@@ -493,7 +493,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SoBesedka"
         "ProductCode" = "8:{540676C7-E34B-4A5F-8C3D-F033D4C283A4}"
-        "PackageCode" = "8:{C7FAD79F-54C0-43D9-ACF8-05F079E329F3}"
+        "PackageCode" = "8:{18EDF3E5-124C-4EB8-9984-6AFDCDBCCB87}"
         "UpgradeCode" = "8:{3E14F558-BAC5-4EF9-A798-75A17441A1E3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -619,12 +619,12 @@
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
+            "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
             "Target" = "8:_D12B863AA81842EA8734A4740CC1C961"
             "Folder" = "8:_7AB02F72DEC24EA6AB86324E3B56CB11"
             "WorkingFolder" = "8:_D0D9F9087C9C42779F2A772157ADFE08"
-            "Icon" = "8:"
+            "Icon" = "8:_D12B863AA81842EA8734A4740CC1C961"
             "Feature" = "8:"
             }
         }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using SoBesedkaModels;
 
 namespace SoBesedkaApp
 {
@@ -153,7 +154,15 @@ namespace SoBesedkaApp
                     //{
                     //    throw new Exception(APIClient.GetError(response));
                     //}
-                    if (!Data.UpdElement(user))
+                    if (!Data.UpdElement(new User
+                    {
+                        Id = user.Id,
+                        UserFIO = user.UserFIO,
+                        UserLogin = user.UserLogin,
+                        UserMail = user.UserMail,
+                        UserPassword = user.UserPassword,
+                        isAdmin = user.isAdmin
+                    }))
                         throw new Exception("Пользователь с таким логином или email уже существует");
                 }
                 catch (Exception ex)
