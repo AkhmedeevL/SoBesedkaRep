@@ -89,6 +89,7 @@ namespace SoBesedkaApp
                     MessageBox.Show("Вы успешно зарегистрировались, используйте введённые данные для входа", "Успешно", MessageBoxButton.OK, MessageBoxImage.None);
 
                     AuthWindow authwindow = new AuthWindow();
+                    authwindow.Data = this.Data;
                     authwindow.Show();
                     Close();
                 }

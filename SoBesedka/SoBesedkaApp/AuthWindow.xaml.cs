@@ -13,23 +13,10 @@ namespace SoBesedkaApp
     public partial class AuthWindow : Window
     {
         public bool indicator = false;
-        DataSource Data;
+        public DataSource Data;
         public AuthWindow()
         {
             InitializeComponent();
-            try
-            {
-                Data = new DataSource();
-            }
-            catch (Exception e)
-            {
-                if (MessageBox.Show("Ошибка подключения", "", MessageBoxButton.OK,
-                        MessageBoxImage.Error) == MessageBoxResult.OK)
-                {
-                    Closing -= Window_Closing;
-                    Application.Current.Shutdown();
-                }
-            }
             if (System.IO.File.Exists(@"login.txt") && System.IO.File.Exists(@"password.txt"))
             {
                 LoginTextBox.Text = System.IO.File.ReadAllText(@"login.txt");
@@ -194,6 +181,20 @@ namespace SoBesedkaApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Data == null)
+                try
+                {
+                    Data = new DataSource();
+                }
+                catch (Exception)
+                {
+                    if (MessageBox.Show("Ошибка подключения", "", MessageBoxButton.OK,
+                            MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        Closing -= Window_Closing;
+                        Application.Current.Shutdown();
+                    }
+                }
             LoginTextBox.Focus();
         }
     }
