@@ -87,6 +87,9 @@ namespace SoBesedkaApp
                     })) throw new Exception("Пользователь с таким логином уже зарегистрирован");
                     Data.UpdateUsers();
                     MessageBox.Show("Вы успешно зарегистрировались, используйте введённые данные для входа", "Успешно", MessageBoxButton.OK, MessageBoxImage.None);
+
+                    AuthWindow authwindow = new AuthWindow();
+                    authwindow.Show();
                     Close();
                 }
                 catch (Exception ex)
